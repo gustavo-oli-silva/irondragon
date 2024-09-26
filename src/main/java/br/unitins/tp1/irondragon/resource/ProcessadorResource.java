@@ -1,0 +1,53 @@
+package br.unitins.tp1.irondragon.resource;
+
+import jakarta.inject.Inject;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
+import br.unitins.tp1.irondragon.dto.ProcessadorRequestDTO;
+import br.unitins.tp1.irondragon.service.ProcessadorService;
+
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+@Path("/processadores")
+public class ProcessadorResource {
+    @Inject
+    public ProcessadorService processadorService;
+
+    @GET
+    @Path("/search/{nome}")
+    public Response findByNome(@PathParam("nome") String nome) {
+        return Response.ok(processadorService.findByNome(nome)).build();
+    }
+
+    @GET
+    @Path("/{id}")
+    public Response findById(@PathParam("id") Long id) {
+        return Response.ok(processadorService.findById(id)).build();
+    }
+
+    @POST
+    public Response create(ProcessadorRequestDTO processador) {
+        return Response.status(Status.CREATED).entity(processadorService.create(processador)).build();
+    }
+
+    @PUT
+    @Path("/{id}")
+    public Response update(@PathParam("id") Long id, ProcessadorRequestDTO processador) {
+        return Response.ok(processadorService.update(id, processador)).build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public void delete(@PathParam("id") Long id) {
+        processadorService.delete(id);
+    }
+}
