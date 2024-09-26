@@ -20,6 +20,6 @@ public record ProcessadorResponseDTO(
             processador.getNucleos(),
             processador.getDesbloqueado(), 
             processador.getPreco()
-            );
+        );
     }
 }
