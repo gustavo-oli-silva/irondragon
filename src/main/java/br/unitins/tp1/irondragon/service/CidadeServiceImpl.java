@@ -21,8 +21,8 @@ public class CidadeServiceImpl implements CidadeService {
     public EstadoRepository estadoRepository;
 
     @Override
-    public Cidade findById(Long id) {
-        return cidadeRepository.findById(id);
+    public CidadeResponseDTO findById(Long id) {
+        return CidadeResponseDTO.valueOf(cidadeRepository.findById(id));
     }
 
     @Override
@@ -30,7 +30,7 @@ public class CidadeServiceImpl implements CidadeService {
         return cidadeRepository
                 .findByNome(nome)
                 .stream()
-                .map(a -> CidadeResponseDTO.valueOf(a))
+                .map(CidadeResponseDTO::valueOf)
                 .toList();
     }
 
@@ -39,7 +39,7 @@ public class CidadeServiceImpl implements CidadeService {
         return cidadeRepository
                 .findByEstado(estado)
                 .stream()
-                .map(a -> CidadeResponseDTO.valueOf(a))
+                .map(CidadeResponseDTO::valueOf)
                 .toList();
     }
 
@@ -49,7 +49,7 @@ public class CidadeServiceImpl implements CidadeService {
                 .findAll()
                 .list()
                 .stream()
-                .map(a -> CidadeResponseDTO.valueOf(a))
+                .map(CidadeResponseDTO::valueOf)
                 .toList();
     }
 
@@ -65,17 +65,15 @@ public class CidadeServiceImpl implements CidadeService {
 
     @Transactional
     @Override
-    public CidadeResponseDTO update(Long id, CidadeRequestDTO cidade) {
+    public void update(Long id, CidadeRequestDTO cidade) {
         Cidade c = cidadeRepository.findById(id);
         c.setNome(cidade.nome());
         c.setEstado(estadoRepository.findById(cidade.estado()));
-
-        return CidadeResponseDTO.valueOf(c);
     }
 
     @Override
     public void delete(Long id) {
-        
+        cidadeRepository.deleteById(id);
     }
     
 }

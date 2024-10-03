@@ -8,3 +8,8 @@
 insert into Processador (nome, socket, threads, nucleos, desbloqueado, preco) values
 ('I5 12700', 'LGA1155', 4, 4, true, 45.00),
 ('I7 7700K', 'LGA777', 4, 4, true, 70.00);
+
+insert into Estado (nome, sigla) values
+('Tocantins', 'TO'),
+('São Paulo', 'sp');
+

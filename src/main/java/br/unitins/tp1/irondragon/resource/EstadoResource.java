@@ -3,6 +3,7 @@ package br.unitins.tp1.irondragon.resource;
 import br.unitins.tp1.irondragon.dto.EstadoRequestDTO;
 import br.unitins.tp1.irondragon.service.EstadoService;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -41,19 +42,21 @@ public class EstadoResource {
     }
 
     @POST
-    public Response create(EstadoRequestDTO estado) {
+    public Response create(@Valid EstadoRequestDTO estado) {
         return Response.status(Status.CREATED).entity(estadoService.create(estado)).build();
     }
 
     @PUT
     @Path("/{id}")
-    public Response update(@PathParam("id") Long id, EstadoRequestDTO estado) {
-        return Response.ok(estadoService.update(id, estado)).build();
+    public Response update(@PathParam("id") Long id, @Valid EstadoRequestDTO estado) {
+        estadoService.update(id, estado);
+        return Response.noContent().build();
     }
 
     @DELETE
     @Path("/{id}")
-    public void delete(Long id) {
+    public Response delete(Long id) {
         estadoService.delete(id);
+        return Response.noContent().build();
     }
 }

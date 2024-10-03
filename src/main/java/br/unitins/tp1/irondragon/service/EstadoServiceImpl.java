@@ -26,7 +26,7 @@ public class EstadoServiceImpl implements EstadoService {
         return estadoRepository
                 .findByNome(nome)
                 .stream()
-                .map(a -> EstadoResponseDTO.valueOf(a))
+                .map(EstadoResponseDTO::valueOf)
                 .toList();
     }
 
@@ -44,12 +44,10 @@ public class EstadoServiceImpl implements EstadoService {
 
     @Transactional
     @Override
-    public EstadoResponseDTO update(Long id, EstadoRequestDTO estado) {
+    public void update(Long id, EstadoRequestDTO estado) {
         Estado e = estadoRepository.findById(id);
         e.setNome(estado.nome());
         e.setSigla(estado.sigla());
-
-        return EstadoResponseDTO.valueOf(e);
     }
 
     @Transactional
@@ -64,7 +62,7 @@ public class EstadoServiceImpl implements EstadoService {
                 .findAll()
                 .list()
                 .stream()
-                .map(a -> EstadoResponseDTO.valueOf(a))
+                .map(EstadoResponseDTO::valueOf)
                 .toList();
     }
 

@@ -25,7 +25,7 @@ public class ProcessadorServiceImpl implements ProcessadorService {
         return processadorRepository
             .findByNome(nome)
             .stream()
-            .map(a -> ProcessadorResponseDTO.valueOf(a))
+            .map(ProcessadorResponseDTO::valueOf)
             .toList();
     }
 
@@ -47,7 +47,7 @@ public class ProcessadorServiceImpl implements ProcessadorService {
 
     @Transactional
     @Override
-    public ProcessadorResponseDTO update(Long id, ProcessadorRequestDTO processador) {
+    public void update(Long id, ProcessadorRequestDTO processador) {
         Processador p = processadorRepository.findById(id);
         p.setNome(processador.nome());
         p.setNucleos(processador.nucleos());
@@ -55,13 +55,12 @@ public class ProcessadorServiceImpl implements ProcessadorService {
         p.setThreads(processador.threads());
         p.setDesbloqueado(processador.desbloqueado());
         p.setSocket(processador.socket());
-
-        return ProcessadorResponseDTO.valueOf(p);
     }
 
     @Transactional
     @Override
     public void delete(Long id) {
+        Processador p = processadorRepository.findById(id);
         processadorRepository.deleteById(id);
     }
     

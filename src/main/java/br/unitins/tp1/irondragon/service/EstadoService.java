@@ -15,7 +15,7 @@ public interface EstadoService {
 
     public Estado create(EstadoRequestDTO estado);
 
-    public EstadoResponseDTO update(Long id, EstadoRequestDTO estado);
+    public void update(Long id, EstadoRequestDTO estado);
 
     public void delete(Long id);
 }

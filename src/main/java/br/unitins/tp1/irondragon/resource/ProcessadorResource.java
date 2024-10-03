@@ -1,6 +1,7 @@
 package br.unitins.tp1.irondragon.resource;
 
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -36,18 +37,22 @@ public class ProcessadorResource {
 
     @POST
     public Response create(ProcessadorRequestDTO processador) {
-        return Response.status(Status.CREATED).entity(processadorService.create(processador)).build();
+        return Response.status(Status.CREATED)
+                .entity(processadorService.create(processador))
+                .build();
     }
 
     @PUT
     @Path("/{id}")
-    public Response update(@PathParam("id") Long id, ProcessadorRequestDTO processador) {
-        return Response.ok(processadorService.update(id, processador)).build();
+    public Response update(@PathParam("id") Long id, @Valid ProcessadorRequestDTO processador) {
+        processadorService.update(id, processador);
+        return Response.noContent().build();
     }
 
     @DELETE
     @Path("/{id}")
-    public void delete(@PathParam("id") Long id) {
+    public Response delete(@PathParam("id") Long id) {
         processadorService.delete(id);
+        return Response.noContent().build();
     }
 }

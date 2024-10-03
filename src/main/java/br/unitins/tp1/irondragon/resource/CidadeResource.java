@@ -4,6 +4,7 @@ import br.unitins.tp1.irondragon.dto.CidadeRequestDTO;
 import br.unitins.tp1.irondragon.model.Cidade;
 import br.unitins.tp1.irondragon.service.CidadeService;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -41,19 +42,24 @@ public class CidadeResource {
     }
 
     @POST
-    public Response create(CidadeRequestDTO cidade) {
-        return Response.status(Status.CREATED).entity(cidadeService.create(cidade)).build();
+    public Response create(@Valid CidadeRequestDTO cidade) {
+        return Response
+                .status(Status.CREATED)
+                .entity(cidadeService.create(cidade))
+                .build();
     }
 
     @PUT
     @Path("/{id}")
-    public Response update(@PathParam("id") Long id, CidadeRequestDTO cidade) {
-        return Response.ok(cidadeService.update(id, cidade)).build();
+    public Response update(@PathParam("id") Long id, @Valid CidadeRequestDTO cidade) {
+        cidadeService.update(id, cidade);
+        return Response.noContent().build();
     }
 
     @DELETE
     @Path("/{id}")
-    public void delete(Long id) {
+    public Response delete(Long id) {
         cidadeService.delete(id);
+        return Response.noContent().build();
     }
 }

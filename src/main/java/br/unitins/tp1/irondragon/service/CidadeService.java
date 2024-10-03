@@ -8,7 +8,7 @@ import br.unitins.tp1.irondragon.model.Cidade;
 import br.unitins.tp1.irondragon.model.Estado;
 
 public interface CidadeService {
-    public Cidade findById(Long id);
+    public CidadeResponseDTO findById(Long id);
 
     public List<CidadeResponseDTO> findByNome(String nome);
 
@@ -18,7 +18,7 @@ public interface CidadeService {
 
     public CidadeResponseDTO create(CidadeRequestDTO cidade);
 
-    public CidadeResponseDTO update(Long id, CidadeRequestDTO cidade);
+    public void update(Long id, CidadeRequestDTO cidade);
 
     public void delete(Long id);
 }

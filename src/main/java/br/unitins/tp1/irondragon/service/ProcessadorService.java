@@ -10,6 +10,6 @@ public interface ProcessadorService {
     public Processador findById(Long id);
     public List<ProcessadorResponseDTO> findByNome(String nome);
     public ProcessadorResponseDTO create(ProcessadorRequestDTO processador);
-    public ProcessadorResponseDTO update(Long id, ProcessadorRequestDTO processador);
+    public void update(Long id, ProcessadorRequestDTO processador);
     public void delete(Long id);
 }
