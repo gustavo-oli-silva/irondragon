@@ -55,7 +55,7 @@ public class EstadoResource {
 
     @DELETE
     @Path("/{id}")
-    public Response delete(Long id) {
+    public Response delete(@PathParam("id") Long id) {
         estadoService.delete(id);
         return Response.noContent().build();
     }

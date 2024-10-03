@@ -24,6 +24,11 @@ public class ProcessadorResource {
     public ProcessadorService processadorService;
 
     @GET
+    public Response findAll() {
+        return Response.ok(processadorService.findAll()).build();
+    }
+
+    @GET
     @Path("/search/{nome}")
     public Response findByNome(@PathParam("nome") String nome) {
         return Response.ok(processadorService.findByNome(nome)).build();

@@ -5,6 +5,7 @@ import java.util.List;
 import br.unitins.tp1.irondragon.dto.ProcessadorRequestDTO;
 import br.unitins.tp1.irondragon.dto.ProcessadorResponseDTO;
 import br.unitins.tp1.irondragon.model.Processador;
+import br.unitins.tp1.irondragon.repository.FabricanteRepository;
 import br.unitins.tp1.irondragon.repository.ProcessadorRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -15,9 +16,21 @@ public class ProcessadorServiceImpl implements ProcessadorService {
     @Inject
     public ProcessadorRepository processadorRepository;
 
+    @Inject
+    public FabricanteRepository fabricanteRepository;
+
     @Override
-    public Processador findById(Long id) {
-        return processadorRepository.findById(id);
+    public ProcessadorResponseDTO findById(Long id) {
+        return ProcessadorResponseDTO.valueOf(processadorRepository.findById(id));
+    }
+
+    @Override
+    public List<ProcessadorResponseDTO> findAll() {
+        return processadorRepository
+                .findAll()
+                .stream()
+                .map(ProcessadorResponseDTO::valueOf)
+                .toList();
     }
 
     @Override
@@ -31,30 +44,32 @@ public class ProcessadorServiceImpl implements ProcessadorService {
 
     @Transactional
     @Override
-    public ProcessadorResponseDTO create(ProcessadorRequestDTO processador) {
-        Processador p = new Processador();
-        p.setNome(processador.nome());
-        p.setSocket(processador.socket());
-        p.setThreads(processador.threads());
-        p.setNucleos(processador.nucleos());
-        p.setDesbloqueado(processador.desbloqueado());
-        p.setPreco(processador.preco());
+    public ProcessadorResponseDTO create(ProcessadorRequestDTO dto) {
+        Processador processador = new Processador();
+        processador.setNome(dto.nome());
+        processador.setSocket(dto.socket());
+        processador.setThreads(dto.threads());
+        processador.setNucleos(dto.nucleos());
+        processador.setDesbloqueado(dto.desbloqueado());
+        processador.setPreco(dto.preco());
+        processador.setFabricante(fabricanteRepository.findById(dto.fabricante()));
 
-        processadorRepository.persist(p);
+        processadorRepository.persist(processador);
 
-        return ProcessadorResponseDTO.valueOf(p);
+        return ProcessadorResponseDTO.valueOf(processador);
     }
 
     @Transactional
     @Override
-    public void update(Long id, ProcessadorRequestDTO processador) {
-        Processador p = processadorRepository.findById(id);
-        p.setNome(processador.nome());
-        p.setNucleos(processador.nucleos());
-        p.setPreco(processador.preco());
-        p.setThreads(processador.threads());
-        p.setDesbloqueado(processador.desbloqueado());
-        p.setSocket(processador.socket());
+    public void update(Long id, ProcessadorRequestDTO dto) {
+        Processador processador = processadorRepository.findById(id);
+        processador.setNome(dto.nome());
+        processador.setNucleos(dto.nucleos());
+        processador.setPreco(dto.preco());
+        processador.setThreads(dto.threads());
+        processador.setDesbloqueado(dto.desbloqueado());
+        processador.setSocket(dto.socket());
+        processador.setFabricante(fabricanteRepository.findById(dto.fabricante()));
     }
 
     @Transactional

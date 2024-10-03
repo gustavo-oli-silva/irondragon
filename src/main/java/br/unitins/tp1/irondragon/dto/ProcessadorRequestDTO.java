@@ -6,7 +6,8 @@ public record ProcessadorRequestDTO (
     Integer threads,
     Integer nucleos,
     Boolean desbloqueado,
-    Double preco
+    Double preco,
+    Long fabricante
 ) {
     
 }
