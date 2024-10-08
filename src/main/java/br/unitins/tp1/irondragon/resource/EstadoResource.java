@@ -1,7 +1,7 @@
 package br.unitins.tp1.irondragon.resource;
 
-import br.unitins.tp1.irondragon.dto.EstadoRequestDTO;
-import br.unitins.tp1.irondragon.dto.EstadoResponseDTO;
+import br.unitins.tp1.irondragon.dto.request.EstadoRequestDTO;
+import br.unitins.tp1.irondragon.dto.response.EstadoResponseDTO;
 import br.unitins.tp1.irondragon.service.EstadoService;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;

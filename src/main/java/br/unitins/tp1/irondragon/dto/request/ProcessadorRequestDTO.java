@@ -1,4 +1,4 @@
-package br.unitins.tp1.irondragon.dto;
+package br.unitins.tp1.irondragon.dto.request;
 
 public record ProcessadorRequestDTO (
     String nome,

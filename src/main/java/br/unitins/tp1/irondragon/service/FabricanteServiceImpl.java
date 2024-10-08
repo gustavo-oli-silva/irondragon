@@ -1,6 +1,6 @@
 package br.unitins.tp1.irondragon.service;
 
-import br.unitins.tp1.irondragon.dto.FabricanteRequestDTO;
+import br.unitins.tp1.irondragon.dto.request.FabricanteRequestDTO;
 import br.unitins.tp1.irondragon.model.Fabricante;
 import br.unitins.tp1.irondragon.repository.FabricanteRepository;
 import jakarta.enterprise.context.ApplicationScoped;

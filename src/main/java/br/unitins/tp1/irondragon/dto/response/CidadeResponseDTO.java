@@ -1,4 +1,4 @@
-package br.unitins.tp1.irondragon.dto;
+package br.unitins.tp1.irondragon.dto.response;
 
 import br.unitins.tp1.irondragon.model.Cidade;
 

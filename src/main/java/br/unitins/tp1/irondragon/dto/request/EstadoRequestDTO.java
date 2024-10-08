@@ -1,4 +1,4 @@
-package br.unitins.tp1.irondragon.dto;
+package br.unitins.tp1.irondragon.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

@@ -1,7 +1,7 @@
 package br.unitins.tp1.irondragon.resource;
 
-import br.unitins.tp1.irondragon.dto.FabricanteRequestDTO;
-import br.unitins.tp1.irondragon.dto.FabricanteResponseDTO;
+import br.unitins.tp1.irondragon.dto.request.FabricanteRequestDTO;
+import br.unitins.tp1.irondragon.dto.response.FabricanteResponseDTO;
 import br.unitins.tp1.irondragon.service.FabricanteService;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;

@@ -2,7 +2,7 @@ package br.unitins.tp1.irondragon.service;
 
 import java.util.List;
 
-import br.unitins.tp1.irondragon.dto.CidadeRequestDTO;
+import br.unitins.tp1.irondragon.dto.request.CidadeRequestDTO;
 import br.unitins.tp1.irondragon.model.Cidade;
 import br.unitins.tp1.irondragon.model.Estado;
 

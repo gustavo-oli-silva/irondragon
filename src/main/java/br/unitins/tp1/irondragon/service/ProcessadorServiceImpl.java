@@ -2,7 +2,7 @@ package br.unitins.tp1.irondragon.service;
 
 import java.util.List;
 
-import br.unitins.tp1.irondragon.dto.ProcessadorRequestDTO;
+import br.unitins.tp1.irondragon.dto.request.ProcessadorRequestDTO;
 import br.unitins.tp1.irondragon.model.Processador;
 import br.unitins.tp1.irondragon.repository.ProcessadorRepository;
 import jakarta.enterprise.context.ApplicationScoped;

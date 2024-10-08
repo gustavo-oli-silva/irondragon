@@ -2,8 +2,7 @@ package br.unitins.tp1.irondragon.service;
 
 import java.util.List;
 
-import br.unitins.tp1.irondragon.dto.EstadoRequestDTO;
-import br.unitins.tp1.irondragon.dto.EstadoResponseDTO;
+import br.unitins.tp1.irondragon.dto.request.EstadoRequestDTO;
 import br.unitins.tp1.irondragon.model.Estado;
 import br.unitins.tp1.irondragon.repository.EstadoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
