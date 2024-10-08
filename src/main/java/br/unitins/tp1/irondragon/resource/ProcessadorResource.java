@@ -1,5 +1,6 @@
 package br.unitins.tp1.irondragon.resource;
 
+import br.unitins.tp1.irondragon.dto.ProcessadorResponseDTO;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -25,25 +26,31 @@ public class ProcessadorResource {
 
     @GET
     public Response findAll() {
-        return Response.ok(processadorService.findAll()).build();
+        return Response
+                .ok(processadorService.findAll().stream().map(ProcessadorResponseDTO::valueOf).toList())
+                .build();
     }
 
     @GET
     @Path("/search/{nome}")
     public Response findByNome(@PathParam("nome") String nome) {
-        return Response.ok(processadorService.findByNome(nome)).build();
+        return Response
+                .ok(processadorService.findByNome(nome).stream().map(ProcessadorResponseDTO::valueOf).toList())
+                .build();
     }
 
     @GET
     @Path("/{id}")
     public Response findById(@PathParam("id") Long id) {
-        return Response.ok(processadorService.findById(id)).build();
+        return Response
+                .ok(ProcessadorResponseDTO.valueOf(processadorService.findById(id)))
+                .build();
     }
 
     @POST
     public Response create(ProcessadorRequestDTO processador) {
         return Response.status(Status.CREATED)
-                .entity(processadorService.create(processador))
+                .entity(ProcessadorResponseDTO.valueOf(processadorService.create(processador)))
                 .build();
     }
 

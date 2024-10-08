@@ -3,7 +3,6 @@ package br.unitins.tp1.irondragon.service;
 import java.util.List;
 
 import br.unitins.tp1.irondragon.dto.CidadeRequestDTO;
-import br.unitins.tp1.irondragon.dto.CidadeResponseDTO;
 import br.unitins.tp1.irondragon.model.Cidade;
 import br.unitins.tp1.irondragon.model.Estado;
 import br.unitins.tp1.irondragon.repository.CidadeRepository;
@@ -18,49 +17,40 @@ public class CidadeServiceImpl implements CidadeService {
     public CidadeRepository cidadeRepository;
 
     @Inject
-    public EstadoRepository estadoRepository;
+    public EstadoService estadoService;
 
     @Override
-    public CidadeResponseDTO findById(Long id) {
-        return CidadeResponseDTO.valueOf(cidadeRepository.findById(id));
+    public Cidade findById(Long id) {
+        return cidadeRepository.findById(id);
     }
 
     @Override
-    public List<CidadeResponseDTO> findByNome(String nome) {
+    public List<Cidade> findByNome(String nome) {
         return cidadeRepository
-                .findByNome(nome)
-                .stream()
-                .map(CidadeResponseDTO::valueOf)
-                .toList();
+                .findByNome(nome);
     }
 
     @Override
-    public List<CidadeResponseDTO> findByEstado(Estado estado) {
+    public List<Cidade> findByEstado(Estado estado) {
         return cidadeRepository
-                .findByEstado(estado)
-                .stream()
-                .map(CidadeResponseDTO::valueOf)
-                .toList();
+                .findByEstado(estado);
     }
 
     @Override
-    public List<CidadeResponseDTO> findAll() {
+    public List<Cidade> findAll() {
         return cidadeRepository
                 .findAll()
-                .list()
-                .stream()
-                .map(CidadeResponseDTO::valueOf)
-                .toList();
+                .list();
     }
 
     @Transactional
     @Override
-    public CidadeResponseDTO create(CidadeRequestDTO cidade) {
+    public Cidade create(CidadeRequestDTO cidade) {
         Cidade c = new Cidade();
         c.setNome(cidade.nome());
-        c.setEstado(estadoRepository.findById(cidade.estado()));
+        c.setEstado(estadoService.findById(cidade.estado()));
         cidadeRepository.persist(c);
-        return CidadeResponseDTO.valueOf(c);
+        return c;
     }
 
     @Transactional
@@ -68,7 +58,7 @@ public class CidadeServiceImpl implements CidadeService {
     public void update(Long id, CidadeRequestDTO cidade) {
         Cidade c = cidadeRepository.findById(id);
         c.setNome(cidade.nome());
-        c.setEstado(estadoRepository.findById(cidade.estado()));
+        c.setEstado(estadoService.findById(cidade.estado()));
     }
 
     @Override

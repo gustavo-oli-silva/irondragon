@@ -17,17 +17,14 @@ public class EstadoServiceImpl implements EstadoService {
     public EstadoRepository estadoRepository;
 
     @Override
-    public EstadoResponseDTO findById(Long id) {
-        return EstadoResponseDTO.valueOf(estadoRepository.findById(id));
+    public Estado findById(Long id) {
+        return estadoRepository.findById(id);
     }
 
     @Override
-    public List<EstadoResponseDTO> findByNome(String nome) {
+    public List<Estado> findByNome(String nome) {
         return estadoRepository
-                .findByNome(nome)
-                .stream()
-                .map(EstadoResponseDTO::valueOf)
-                .toList();
+                .findByNome(nome);
     }
 
     @Transactional
@@ -57,13 +54,10 @@ public class EstadoServiceImpl implements EstadoService {
     }
 
     @Override
-    public List<EstadoResponseDTO> findAll() {
+    public List<Estado> findAll() {
         return estadoRepository
                 .findAll()
-                .list()
-                .stream()
-                .map(EstadoResponseDTO::valueOf)
-                .toList();
+                .list();
     }
 
 }

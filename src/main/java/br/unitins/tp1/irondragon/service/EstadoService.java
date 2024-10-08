@@ -7,11 +7,11 @@ import br.unitins.tp1.irondragon.dto.EstadoResponseDTO;
 import br.unitins.tp1.irondragon.model.Estado;
 
 public interface EstadoService {
-    public EstadoResponseDTO findById(Long id);
+    public Estado findById(Long id);
 
-    public List<EstadoResponseDTO> findByNome(String nome);
+    public List<Estado> findByNome(String nome);
 
-    public List<EstadoResponseDTO> findAll();
+    public List<Estado> findAll();
 
     public Estado create(EstadoRequestDTO estado);
 

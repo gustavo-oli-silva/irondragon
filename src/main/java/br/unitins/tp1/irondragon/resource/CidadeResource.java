@@ -1,6 +1,7 @@
 package br.unitins.tp1.irondragon.resource;
 
 import br.unitins.tp1.irondragon.dto.CidadeRequestDTO;
+import br.unitins.tp1.irondragon.dto.CidadeResponseDTO;
 import br.unitins.tp1.irondragon.model.Cidade;
 import br.unitins.tp1.irondragon.service.CidadeService;
 import jakarta.inject.Inject;
@@ -23,17 +24,20 @@ import jakarta.ws.rs.core.Response.Status;
 public class CidadeResource {
     @Inject
     public CidadeService cidadeService;
-    
+
     @GET
     @Path("/{id}")
     public Response findById(@PathParam("id") Long id) {
-        return Response.ok(cidadeService.findById(id)).build();
+        return Response.ok(CidadeResponseDTO.valueOf(cidadeService.findById(id))).build();
     }
 
     @GET
     @Path("/search/{nome}")
     public Response findByNome(@PathParam("nome") String nome) {
-        return Response.ok(cidadeService.findByNome(nome)).build();
+        return Response
+                .ok(
+                cidadeService.findByNome(nome).stream().map(CidadeResponseDTO::valueOf).toList())
+                .build();
     }
 
     @GET
@@ -45,7 +49,7 @@ public class CidadeResource {
     public Response create(@Valid CidadeRequestDTO cidade) {
         return Response
                 .status(Status.CREATED)
-                .entity(cidadeService.create(cidade))
+                .entity(CidadeResponseDTO.valueOf(cidadeService.create(cidade)))
                 .build();
     }
 

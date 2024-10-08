@@ -1,7 +1,6 @@
 package br.unitins.tp1.irondragon.service;
 
 import br.unitins.tp1.irondragon.dto.FabricanteRequestDTO;
-import br.unitins.tp1.irondragon.dto.FabricanteResponseDTO;
 import br.unitins.tp1.irondragon.model.Fabricante;
 import br.unitins.tp1.irondragon.repository.FabricanteRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -16,38 +15,33 @@ public class FabricanteServiceImpl implements FabricanteService {
     public FabricanteRepository fabricanteRepository;
 
     @Override
-    public FabricanteResponseDTO findById(Long id) {
-        return FabricanteResponseDTO.valueOf(fabricanteRepository.findById(id));
+    public Fabricante findById(Long id) {
+        return fabricanteRepository.findById(id);
     }
 
     @Override
-    public List<FabricanteResponseDTO> findByNome(String nome) {
+    public List<Fabricante> findByNome(String nome) {
         return fabricanteRepository
-                .findByNome(nome)
-                .stream()
-                .map(FabricanteResponseDTO::valueOf)
-                .toList();
+                .findByNome(nome);
     }
 
     @Override
-    public List<FabricanteResponseDTO> findAll() {
+    public List<Fabricante> findAll() {
         return fabricanteRepository
                 .findAll()
-                .stream()
-                .map(FabricanteResponseDTO::valueOf)
-                .toList();
+                .list();
     }
 
     @Transactional
     @Override
-    public FabricanteResponseDTO create(FabricanteRequestDTO dto) {
+    public Fabricante create(FabricanteRequestDTO dto) {
         Fabricante fabricante = new Fabricante();
 
         fabricante.setNome(dto.nome());
         fabricante.setEmail(dto.email());
         fabricanteRepository.persist(fabricante);
 
-        return FabricanteResponseDTO.valueOf(fabricante);
+        return fabricante;
     }
 
     @Transactional
