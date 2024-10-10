@@ -1,6 +1,5 @@
 package br.unitins.tp1.irondragon.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 

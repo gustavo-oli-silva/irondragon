@@ -32,7 +32,16 @@ public class PlacaIntegradaServiceImpl implements PlacaIntegradaService {
     @Transactional
     @Override
     public PlacaIntegrada create(PlacaIntegradaRequestDTO dto) {
-        return null;
+        PlacaIntegrada placaIntegrada = new PlacaIntegrada();
+
+        placaIntegrada.setNome(dto.nome());
+        placaIntegrada.setDirectX(dto.directX());
+        placaIntegrada.setOpenGl(dto.openGl());
+        placaIntegrada.setVulkan(dto.vulkan());
+
+        placaIntegradaRepository.persist(placaIntegrada);
+
+        return placaIntegrada;
     }
 
     @Transactional

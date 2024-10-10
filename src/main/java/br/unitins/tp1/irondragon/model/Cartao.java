@@ -9,24 +9,12 @@ import jakarta.persistence.Id;
 import java.time.LocalDate;
 
 @Entity
-public class Cartao extends PanacheEntityBase {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Cartao extends DefaultEntity {
     private String nomeTitular;
     private String numero;
     private String cpf;
     private LocalDate validade;
     private Integer cvc;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNomeTitular() {
         return nomeTitular;

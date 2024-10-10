@@ -14,6 +14,14 @@ public record ProcessadorResponseDTO(
     FabricanteResponseDTO fabricante
 ) {
     public static ProcessadorResponseDTO valueOf(Processador processador) {
+        PlacaIntegradaResponseDTO placaIntegradaDTO;
+
+        if (processador.getPlacaIntegrada() == null) {
+            placaIntegradaDTO = new PlacaIntegradaResponseDTO(null, null, null, null, null);
+        } else {
+            placaIntegradaDTO = PlacaIntegradaResponseDTO.valueOf(processador.getPlacaIntegrada());
+        }
+
         return new ProcessadorResponseDTO (
                 processador.getId(),
                 processador.getNome(),
@@ -22,7 +30,7 @@ public record ProcessadorResponseDTO(
                 processador.getNucleos(),
                 processador.getDesbloqueado(),
                 processador.getPreco(),
-                PlacaIntegradaResponseDTO.valueOf(processador.getPlacaIntegrada()),
+                placaIntegradaDTO,
                 FabricanteResponseDTO.valueOf(processador.getFabricante())
         );
     }

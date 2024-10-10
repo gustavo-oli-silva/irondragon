@@ -4,25 +4,13 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 
 @Entity
-public class Fabricante extends PanacheEntityBase {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Fabricante extends DefaultEntity {
     private String nome;
     private String email;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_telefone")
     private TelefoneFabricante telefone;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNome() {
         return nome;

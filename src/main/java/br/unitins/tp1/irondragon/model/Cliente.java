@@ -6,10 +6,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-public class Cliente extends PanacheEntityBase {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Cliente extends DefaultEntity {
 
     private String nome;
     @Column(unique = true)
@@ -20,14 +17,6 @@ public class Cliente extends PanacheEntityBase {
 
     @OneToMany
     private List<Cartao> cartoes;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNome() {
         return nome;
