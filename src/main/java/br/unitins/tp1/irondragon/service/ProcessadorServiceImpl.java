@@ -17,6 +17,9 @@ public class ProcessadorServiceImpl implements ProcessadorService {
     @Inject
     public FabricanteService fabricanteService;
 
+    @Inject
+    public PlacaIntegradaService placaIntegradaService;
+
     @Override
     public Processador findById(Long id) {
         return processadorRepository.findById(id);
@@ -46,6 +49,7 @@ public class ProcessadorServiceImpl implements ProcessadorService {
         processador.setDesbloqueado(dto.desbloqueado());
         processador.setPreco(dto.preco());
         processador.setFabricante(fabricanteService.findById(dto.fabricante()));
+        processador.setPlacaIntegrada(placaIntegradaService.findById(dto.placaIntegrada()));
 
         processadorRepository.persist(processador);
 
@@ -62,6 +66,7 @@ public class ProcessadorServiceImpl implements ProcessadorService {
         processador.setThreads(dto.threads());
         processador.setDesbloqueado(dto.desbloqueado());
         processador.setSocket(dto.socket());
+        processador.setPlacaIntegrada(placaIntegradaService.findById(dto.placaIntegrada()));
         processador.setFabricante(fabricanteService.findById(dto.fabricante()));
     }
 

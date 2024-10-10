@@ -1,5 +1,6 @@
 package br.unitins.tp1.irondragon.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 
@@ -15,9 +16,14 @@ public class Processador extends PanacheEntityBase {
     private Integer nucleos;
     private Boolean desbloqueado;
     private Double preco;
+
     @ManyToOne
     @JoinColumn(name = "id_fabricante")
     private Fabricante fabricante;
+
+    @ManyToOne
+    @JoinColumn(name = "id_placaintegrada")
+    private PlacaIntegrada placaIntegrada;
 
     public Long getId() {
         return id;
@@ -81,5 +87,13 @@ public class Processador extends PanacheEntityBase {
 
     public void setFabricante(Fabricante fabricante) {
         this.fabricante = fabricante;
+    }
+
+    public PlacaIntegrada getPlacaIntegrada() {
+        return placaIntegrada;
+    }
+
+    public void setPlacaIntegrada(PlacaIntegrada placaIntegrada) {
+        this.placaIntegrada = placaIntegrada;
     }
 }

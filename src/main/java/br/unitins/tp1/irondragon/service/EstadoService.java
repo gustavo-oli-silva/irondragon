@@ -12,9 +12,9 @@ public interface EstadoService {
 
     public List<Estado> findAll();
 
-    public Estado create(EstadoRequestDTO estado);
+    public Estado create(EstadoRequestDTO dto);
 
-    public void update(Long id, EstadoRequestDTO estado);
+    public void update(Long id, EstadoRequestDTO dto);
 
     public void delete(Long id);
 }

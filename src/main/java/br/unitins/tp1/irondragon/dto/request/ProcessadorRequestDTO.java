@@ -7,7 +7,8 @@ public record ProcessadorRequestDTO (
     Integer nucleos,
     Boolean desbloqueado,
     Double preco,
-    Long fabricante
+    Long fabricante,
+    Long placaIntegrada
 ) {
     
 }

@@ -12,9 +12,9 @@ public interface FabricanteService {
 
     public List<Fabricante> findAll();
 
-    public Fabricante create(FabricanteRequestDTO cidade);
+    public Fabricante create(FabricanteRequestDTO fabricante);
 
-    public void update(Long id, FabricanteRequestDTO cidade);
+    public void update(Long id, FabricanteRequestDTO fabricante);
 
     public void delete(Long id);
 }

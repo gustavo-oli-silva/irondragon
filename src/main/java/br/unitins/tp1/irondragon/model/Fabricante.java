@@ -1,10 +1,7 @@
 package br.unitins.tp1.irondragon.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Fabricante extends PanacheEntityBase {
@@ -14,6 +11,10 @@ public class Fabricante extends PanacheEntityBase {
 
     private String nome;
     private String email;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_telefone")
+    private TelefoneFabricante telefone;
 
     public Long getId() {
         return id;
@@ -37,5 +38,13 @@ public class Fabricante extends PanacheEntityBase {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public TelefoneFabricante getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(TelefoneFabricante telefone) {
+        this.telefone = telefone;
     }
 }

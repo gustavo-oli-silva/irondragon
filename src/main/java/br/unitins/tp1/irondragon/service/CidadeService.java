@@ -15,9 +15,9 @@ public interface CidadeService {
 
     public List<Cidade> findAll();
 
-    public Cidade create(CidadeRequestDTO cidade);
+    public Cidade create(CidadeRequestDTO dto);
 
-    public void update(Long id, CidadeRequestDTO cidade);
+    public void update(Long id, CidadeRequestDTO dto);
 
     public void delete(Long id);
 }

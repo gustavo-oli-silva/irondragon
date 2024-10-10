@@ -12,9 +12,9 @@ public interface FornecedorService {
 
     public List<Fornecedor> findAll();
 
-    public Fornecedor create(FornecedorRequestDTO cidade);
+    public Fornecedor create(FornecedorRequestDTO fornecedor);
 
-    public void update(Long id, FornecedorRequestDTO cidade);
+    public void update(Long id, FornecedorRequestDTO fornecedor);
 
     public void delete(Long id);
 }

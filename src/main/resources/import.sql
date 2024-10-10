@@ -9,6 +9,7 @@ insert into Fabricante (nome, email) values
 ('Intel', 'support@intel.com'),
 ('AMD', 'support@amd.com');
 
+
 insert into Processador (nome, socket, threads, nucleos, desbloqueado, preco, id_fabricante) values
 ('I5 12700', 'LGA1155', 4, 4, true, 45.00, 1),
 ('I7 7700K', 'LGA777', 4, 4, true, 70.00, 1);

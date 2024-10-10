@@ -10,6 +10,7 @@ public record ProcessadorResponseDTO(
     Integer nucleos,
     Boolean desbloqueado,
     Double preco,
+    PlacaIntegradaResponseDTO placaIntegrada,
     FabricanteResponseDTO fabricante
 ) {
     public static ProcessadorResponseDTO valueOf(Processador processador) {
@@ -21,6 +22,7 @@ public record ProcessadorResponseDTO(
                 processador.getNucleos(),
                 processador.getDesbloqueado(),
                 processador.getPreco(),
+                PlacaIntegradaResponseDTO.valueOf(processador.getPlacaIntegrada()),
                 FabricanteResponseDTO.valueOf(processador.getFabricante())
         );
     }
