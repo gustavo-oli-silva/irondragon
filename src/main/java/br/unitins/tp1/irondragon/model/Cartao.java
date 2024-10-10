@@ -2,6 +2,8 @@ package br.unitins.tp1.irondragon.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.time.LocalDate;
@@ -9,6 +11,7 @@ import java.time.LocalDate;
 @Entity
 public class Cartao extends PanacheEntityBase {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nomeTitular;

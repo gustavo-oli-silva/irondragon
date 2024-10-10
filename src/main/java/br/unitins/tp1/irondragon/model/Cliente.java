@@ -8,6 +8,7 @@ import java.util.List;
 @Entity
 public class Cliente extends PanacheEntityBase {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nome;
