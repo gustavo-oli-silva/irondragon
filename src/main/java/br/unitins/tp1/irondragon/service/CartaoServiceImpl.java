@@ -5,6 +5,7 @@ import br.unitins.tp1.irondragon.model.Cartao;
 import br.unitins.tp1.irondragon.repository.CartaoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class CartaoServiceImpl implements CartaoService {
         return cartaoRepository.findAll().list();
     }
 
+    @Transactional
     @Override
     public Cartao create(CartaoRequestDTO dto) {
         Cartao cartao = new Cartao();
@@ -42,6 +44,7 @@ public class CartaoServiceImpl implements CartaoService {
         return cartao;
     }
 
+    @Transactional
     @Override
     public void update(Long id, CartaoRequestDTO dto) {
         Cartao cartao = cartaoRepository.findById(id);
@@ -52,6 +55,7 @@ public class CartaoServiceImpl implements CartaoService {
         cartao.setCvc(dto.cvc());
     }
 
+    @Transactional
     @Override
     public void delete(Long id) {
         cartaoRepository.deleteById(id);
