@@ -60,6 +60,7 @@ public class CidadeServiceImpl implements CidadeService {
         c.setEstado(estadoService.findById(cidade.estado()));
     }
 
+    @Transactional
     @Override
     public void delete(Long id) {
         cidadeRepository.deleteById(id);

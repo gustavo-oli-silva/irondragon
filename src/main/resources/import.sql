@@ -18,3 +18,7 @@ insert into Estado (nome, sigla) values
 ('Tocantins', 'TO'),
 ('São Paulo', 'SP');
 
+insert into Cidade (nome, id_estado) values
+('Palmas', 1);
+
+
