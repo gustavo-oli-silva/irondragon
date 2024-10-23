@@ -1,6 +1,7 @@
 package br.unitins.tp1.irondragon.resource;
 
 import br.unitins.tp1.irondragon.dto.request.FabricanteRequestDTO;
+import br.unitins.tp1.irondragon.dto.response.CidadeResponseDTO;
 import br.unitins.tp1.irondragon.dto.response.FabricanteResponseDTO;
 import br.unitins.tp1.irondragon.service.FabricanteService;
 import jakarta.inject.Inject;
@@ -21,6 +22,15 @@ public class FabricanteResource {
     public Response findById(@PathParam("id") Long id) {
         return Response
                 .ok(FabricanteResponseDTO.valueOf(fabricanteService.findById(id)))
+                .build();
+    }
+
+    @GET
+    @Path("/search/{nome}")
+    public Response findByNome(@PathParam("nome") String nome) {
+        return Response
+                .ok(
+                        fabricanteService.findByNome(nome).stream().map(FabricanteResponseDTO::valueOf).toList())
                 .build();
     }
 

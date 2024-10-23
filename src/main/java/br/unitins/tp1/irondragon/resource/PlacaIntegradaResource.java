@@ -1,6 +1,7 @@
 package br.unitins.tp1.irondragon.resource;
 
 import br.unitins.tp1.irondragon.dto.request.PlacaIntegradaRequestDTO;
+import br.unitins.tp1.irondragon.dto.response.CidadeResponseDTO;
 import br.unitins.tp1.irondragon.dto.response.PlacaIntegradaResponseDTO;
 import br.unitins.tp1.irondragon.service.PlacaIntegradaService;
 import jakarta.inject.Inject;
@@ -10,7 +11,7 @@ import jakarta.ws.rs.core.Response;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Path("/placas-integradas")
+@Path("/placasintegradas")
 public class PlacaIntegradaResource {
     @Inject
     public PlacaIntegradaService placaIntegradaService;
@@ -26,8 +27,16 @@ public class PlacaIntegradaResource {
         return Response.ok(PlacaIntegradaResponseDTO.valueOf(placaIntegradaService.findById(id))).build();
     }
 
+    @GET
+    @Path("/search/{nome}")
+    public Response findByNome(@PathParam("nome") String nome) {
+        return Response
+                .ok(
+                        placaIntegradaService.findByNome(nome).stream().map(PlacaIntegradaResponseDTO::valueOf).toList())
+                .build();
+    }
+
     @POST
-    @Path("/{id}")
     public Response create(PlacaIntegradaRequestDTO placaIntegrada) {
         return Response.status(Response.Status.CREATED).entity(PlacaIntegradaResponseDTO.valueOf(placaIntegradaService.create(placaIntegrada))).build();
     }

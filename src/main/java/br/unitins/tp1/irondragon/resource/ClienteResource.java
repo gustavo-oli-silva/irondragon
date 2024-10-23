@@ -1,6 +1,7 @@
 package br.unitins.tp1.irondragon.resource;
 
 import br.unitins.tp1.irondragon.dto.request.ClienteRequestDTO;
+import br.unitins.tp1.irondragon.dto.response.CidadeResponseDTO;
 import br.unitins.tp1.irondragon.dto.response.ClienteResponseDTO;
 import br.unitins.tp1.irondragon.service.ClienteService;
 import jakarta.inject.Inject;
@@ -25,6 +26,15 @@ public class ClienteResource {
     @Path("/{id}")
     public Response findById(@PathParam("id") Long id) {
         return Response.ok(ClienteResponseDTO.valueOf(clienteService.findById(id))).build();
+    }
+
+    @GET
+    @Path("/search/{nome}")
+    public Response findByNome(@PathParam("nome") String nome) {
+        return Response
+                .ok(
+                        clienteService.findByNome(nome).stream().map(ClienteResponseDTO::valueOf).toList())
+                .build();
     }
 
     @POST

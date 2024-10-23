@@ -1,12 +1,11 @@
 package br.unitins.tp1.irondragon.model;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 public class Cartao extends DefaultEntity {
@@ -15,6 +14,7 @@ public class Cartao extends DefaultEntity {
     private String cpf;
     private LocalDate validade;
     private Integer cvc;
+    private TipoCartao tipo;
 
     public String getNomeTitular() {
         return nomeTitular;
@@ -54,5 +54,25 @@ public class Cartao extends DefaultEntity {
 
     public void setCvc(Integer cvc) {
         this.cvc = cvc;
+    }
+
+    public TipoCartao getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoCartao tipo) {
+        this.tipo = tipo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cartao cartao)) return false;
+        return Objects.equals(nomeTitular, cartao.nomeTitular) && Objects.equals(numero, cartao.numero) && Objects.equals(cpf, cartao.cpf) && Objects.equals(validade, cartao.validade) && Objects.equals(cvc, cartao.cvc) && tipo == cartao.tipo;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nomeTitular, numero, cpf, validade, cvc, tipo);
     }
 }

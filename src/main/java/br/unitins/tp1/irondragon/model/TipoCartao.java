@@ -1,19 +1,16 @@
 package br.unitins.tp1.irondragon.model;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.util.Objects;
-
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
-public enum Sexo {
-    MASCULINO (1, "Masculino"),
-    FEMININO (2, "Feminino");
+public enum TipoCartao {
+    CREDITO (1, "Crédito"),
+    DEBITO (2, "Débito");
 
     private final Integer id;
     private final String label;
 
-    Sexo(Integer id, String label) {
+    TipoCartao(Integer id, String label) {
         this.id = id;
         this.label = label;
     }
@@ -26,17 +23,17 @@ public enum Sexo {
         return label;
     }
 
-    public static Sexo valueOf(Integer id) {
+    public static TipoCartao valueOf(Integer id) {
         if(id == null) {
             return null;
         }
 
-        for(Sexo sexo: Sexo.values()) {
-            if(Objects.equals(sexo.id, id)) {
-                return sexo;
+        for(TipoCartao tipoCartao: TipoCartao.values()) {
+            if(tipoCartao.getId().equals(id)) {
+                return tipoCartao;
             }
         }
 
-        throw new IllegalArgumentException("Id inválido!");
+        throw new IllegalArgumentException("Cartão Inválido!");
     }
 }

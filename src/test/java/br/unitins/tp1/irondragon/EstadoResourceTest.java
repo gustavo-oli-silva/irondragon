@@ -1,8 +1,6 @@
 package br.unitins.tp1.irondragon;
 
-import br.unitins.tp1.irondragon.dto.request.CidadeRequestDTO;
 import br.unitins.tp1.irondragon.dto.request.EstadoRequestDTO;
-import br.unitins.tp1.irondragon.model.Cidade;
 import br.unitins.tp1.irondragon.model.Estado;
 import br.unitins.tp1.irondragon.service.EstadoService;
 import io.quarkus.test.junit.QuarkusTest;
@@ -11,8 +9,7 @@ import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -34,6 +31,16 @@ public class EstadoResourceTest {
                 .when().get("/estados/{id}", 1)
                 .then().statusCode(200)
                 .body("id", is(1));
+    }
+
+    @Test
+    public void testFindByNome() {
+        given()
+                .when().get("/estados/search/{nome}", "Tocantins")
+                .then().statusCode(200)
+                .body(
+                        "nome", hasItem("Tocantins")
+                );
     }
 
     @Test

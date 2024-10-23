@@ -1,6 +1,7 @@
 package br.unitins.tp1.irondragon.dto.response;
 
 import br.unitins.tp1.irondragon.model.Cartao;
+import br.unitins.tp1.irondragon.model.TipoCartao;
 
 import java.time.LocalDate;
 
@@ -10,7 +11,8 @@ public record CartaoResponseDTO(
         String numero,
         String cpf,
         LocalDate validade,
-        Integer cvc
+        Integer cvc,
+        TipoCartao tipo
 ) {
     public static CartaoResponseDTO valueOf(Cartao cartao) {
         return new CartaoResponseDTO(
@@ -19,7 +21,8 @@ public record CartaoResponseDTO(
                 cartao.getNumero(),
                 cartao.getCpf(),
                 cartao.getValidade(),
-                cartao.getCvc()
+                cartao.getCvc(),
+                cartao.getTipo()
         );
     }
 }

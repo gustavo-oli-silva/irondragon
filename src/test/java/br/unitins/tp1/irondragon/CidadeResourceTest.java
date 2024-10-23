@@ -9,8 +9,7 @@ import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -33,6 +32,16 @@ public class CidadeResourceTest {
                 .when().get("/cidades/{id}", 1)
                 .then().statusCode(200)
                 .body("id", is(1));
+    }
+
+    @Test
+    public void testFindByNome() {
+        given()
+                .when().get("/cidades/search/{nome}", "Palmas")
+                .then().statusCode(200)
+                .body(
+                        "nome", hasItem("Palmas")
+                );
     }
 
     @Test

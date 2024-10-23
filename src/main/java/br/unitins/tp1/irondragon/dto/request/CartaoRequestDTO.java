@@ -10,6 +10,7 @@ public record CartaoRequestDTO(
         @CPF
         String cpf,
         LocalDate validade,
-        Integer cvc
+        Integer cvc,
+        Integer tipoCartao
 ) {
 }

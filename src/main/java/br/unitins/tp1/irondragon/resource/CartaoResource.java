@@ -29,10 +29,10 @@ public class CartaoResource {
     }
 
     @POST
-    public Response create(@Valid CartaoRequestDTO cartao) {
+    public Response create(@QueryParam("cliente") Long idCliente,@Valid CartaoRequestDTO cartao) {
         return Response
                 .status(Response.Status.CREATED)
-                .entity(CartaoResponseDTO.valueOf(cartaoService.create(cartao)))
+                .entity(CartaoResponseDTO.valueOf(cartaoService.create(idCliente, cartao)))
                 .build();
     }
 
@@ -45,8 +45,8 @@ public class CartaoResource {
 
     @DELETE
     @Path("/{id}")
-    public Response delete(@PathParam("id") Long id) {
-        cartaoService.delete(id);
+    public Response delete(@QueryParam("cliente") Long idCliente, @PathParam("id") Long idCartao) {
+        cartaoService.delete(idCliente, idCartao);
         return Response.noContent().build();
     }
 }

@@ -9,6 +9,9 @@ insert into Fabricante (nome, email) values
 ('Intel', 'support@intel.com'),
 ('AMD', 'support@amd.com');
 
+insert into Fornecedor (nome, email) values
+('Terabyte', 'suporte@terabyte.com');
+
 
 insert into Processador (nome, socket, threads, nucleos, desbloqueado, preco, id_fabricante) values
 ('I5 12700', 'LGA1155', 4, 4, true, 45.00, 1),
@@ -20,5 +23,15 @@ insert into Estado (nome, sigla) values
 
 insert into Cidade (nome, id_estado) values
 ('Palmas', 1);
+
+insert into PlacaIntegrada (nome, directx, opengl, vulkan) values
+('Vega 5', 1.0, 2.0, 3.0);
+
+insert into Cliente (nome, email, cpf) values
+('Keanu Reeves', 'kreeves77@gmail.com', '904.001.690-96'),
+('Evandro', 'ev2302@gmail.com', '513.404.420-19');
+
+insert into Cartao (nometitular, numero, cpf, validade, cvc, tipo) values
+('Keanu Reeves', '40028922', '904.001.690-96', '2022-02-02', 123, 1);
 
 

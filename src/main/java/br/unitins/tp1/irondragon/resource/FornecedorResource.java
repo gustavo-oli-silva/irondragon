@@ -1,6 +1,7 @@
 package br.unitins.tp1.irondragon.resource;
 
 import br.unitins.tp1.irondragon.dto.request.FornecedorRequestDTO;
+import br.unitins.tp1.irondragon.dto.response.CidadeResponseDTO;
 import br.unitins.tp1.irondragon.dto.response.FornecedorResponseDTO;
 import br.unitins.tp1.irondragon.repository.FornecedorRepository;
 import br.unitins.tp1.irondragon.service.FornecedorService;
@@ -27,6 +28,15 @@ public class FornecedorResource {
     public Response findAll() {
         return Response
                 .ok(fornecedorService.findAll().stream().map(FornecedorResponseDTO::valueOf).toList())
+                .build();
+    }
+
+    @GET
+    @Path("/search/{nome}")
+    public Response findByNome(@PathParam("nome") String nome) {
+        return Response
+                .ok(
+                        fornecedorService.findByNome(nome).stream().map(FornecedorResponseDTO::valueOf).toList())
                 .build();
     }
 
