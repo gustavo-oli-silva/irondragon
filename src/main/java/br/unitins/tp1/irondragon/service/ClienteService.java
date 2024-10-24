@@ -1,18 +1,18 @@
 package br.unitins.tp1.irondragon.service;
 
 import br.unitins.tp1.irondragon.dto.request.ClienteRequestDTO;
-import br.unitins.tp1.irondragon.model.Cliente;
+import br.unitins.tp1.irondragon.model.Usuario;
 
 import java.util.List;
 
 public interface ClienteService {
-    public Cliente findById(Long id);
+    public Usuario findById(Long id);
 
-    public List<Cliente> findByNome(String nome);
+    public List<Usuario> findByNome(String nome);
 
-    public List<Cliente> findAll();
+    public List<Usuario> findAll();
 
-    public Cliente create(ClienteRequestDTO dto);
+    public Usuario create(ClienteRequestDTO dto);
 
     public void update(Long id, ClienteRequestDTO dto);
 

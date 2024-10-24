@@ -5,7 +5,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 public class PlacaIntegrada extends DefaultEntity {
     private String nome;
@@ -13,35 +17,4 @@ public class PlacaIntegrada extends DefaultEntity {
     private Float openGl;
     private Float vulkan;
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Float getDirectX() {
-        return directX;
-    }
-
-    public void setDirectX(Float directX) {
-        this.directX = directX;
-    }
-
-    public Float getOpenGl() {
-        return openGl;
-    }
-
-    public void setOpenGl(Float openGl) {
-        this.openGl = openGl;
-    }
-
-    public Float getVulkan() {
-        return vulkan;
-    }
-
-    public void setVulkan(Float vulkan) {
-        this.vulkan = vulkan;
-    }
 }

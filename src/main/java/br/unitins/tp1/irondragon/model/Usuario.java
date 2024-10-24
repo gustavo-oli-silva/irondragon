@@ -1,16 +1,13 @@
 package br.unitins.tp1.irondragon.model;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 
 @Entity
-public class Cliente extends DefaultEntity {
+public class Usuario extends DefaultEntity {
 
-    private String nome;
+    private String username;
     @Column(unique = true)
     private String email;
     @Column(unique = true)
@@ -18,6 +15,7 @@ public class Cliente extends DefaultEntity {
     private String senha;
 
     @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JoinColumn(name = "id_cartao")
     private List<Cartao> cartoes;
 
     public String getNome() {

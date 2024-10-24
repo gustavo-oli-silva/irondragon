@@ -1,9 +1,7 @@
 package br.unitins.tp1.irondragon;
 
 import br.unitins.tp1.irondragon.dto.request.ClienteRequestDTO;
-import br.unitins.tp1.irondragon.dto.request.EstadoRequestDTO;
-import br.unitins.tp1.irondragon.model.Cliente;
-import br.unitins.tp1.irondragon.model.Estado;
+import br.unitins.tp1.irondragon.model.Usuario;
 import br.unitins.tp1.irondragon.resource.ClienteResource;
 import br.unitins.tp1.irondragon.service.ClienteService;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
@@ -18,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @QuarkusTest
-public class ClienteResourceTest {
+public class UsuarioResourceTest {
     @Inject
     public ClienteService clienteService;
 
@@ -101,12 +99,12 @@ public class ClienteResourceTest {
                 .then()
                 .statusCode(204);
 
-        Cliente cliente = clienteService.findById(id);
+        Usuario usuario = clienteService.findById(id);
 
-        assertEquals(cliente.getNome(), "Outro Teste");
-        assertEquals(cliente.getEmail(), "outroteste@test.com");
-        assertEquals(cliente.getCpf(), "042.364.620-60");
-        assertEquals(cliente.getSenha(), "outrasenhaforte");
+        assertEquals(usuario.getNome(), "Outro Teste");
+        assertEquals(usuario.getEmail(), "outroteste@test.com");
+        assertEquals(usuario.getCpf(), "042.364.620-60");
+        assertEquals(usuario.getSenha(), "outrasenhaforte");
 
         clienteService.delete(id);
     }

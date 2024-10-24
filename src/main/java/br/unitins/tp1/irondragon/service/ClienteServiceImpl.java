@@ -1,7 +1,7 @@
 package br.unitins.tp1.irondragon.service;
 
 import br.unitins.tp1.irondragon.dto.request.ClienteRequestDTO;
-import br.unitins.tp1.irondragon.model.Cliente;
+import br.unitins.tp1.irondragon.model.Usuario;
 import br.unitins.tp1.irondragon.repository.ClienteRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -15,43 +15,43 @@ public class ClienteServiceImpl implements ClienteService {
     public ClienteRepository clienteRepository;
 
     @Override
-    public Cliente findById(Long id) {
+    public Usuario findById(Long id) {
         return clienteRepository.findById(id);
     }
 
     @Override
-    public List<Cliente> findByNome(String nome) {
+    public List<Usuario> findByNome(String nome) {
         return clienteRepository.findByNome(nome);
     }
 
     @Override
-    public List<Cliente> findAll() {
+    public List<Usuario> findAll() {
         return clienteRepository.findAll().list();
     }
 
     @Transactional
     @Override
-    public Cliente create(ClienteRequestDTO dto) {
-        Cliente cliente = new Cliente();
-        cliente.setNome(dto.nome());
-        cliente.setEmail(dto.email());
-        cliente.setCpf(dto.cpf());
-        cliente.setSenha(dto.senha());
+    public Usuario create(ClienteRequestDTO dto) {
+        Usuario usuario = new Usuario();
+        usuario.setNome(dto.nome());
+        usuario.setEmail(dto.email());
+        usuario.setCpf(dto.cpf());
+        usuario.setSenha(dto.senha());
 
-        clienteRepository.persist(cliente);
+        clienteRepository.persist(usuario);
 
-        return cliente;
+        return usuario;
     }
 
     @Transactional
     @Override
     public void update(Long id, ClienteRequestDTO dto) {
-        Cliente cliente = clienteRepository.findById(id);
+        Usuario usuario = clienteRepository.findById(id);
 
-        cliente.setNome(dto.nome());
-        cliente.setEmail(dto.email());
-        cliente.setCpf(dto.cpf());
-        cliente.setSenha(dto.senha());
+        usuario.setNome(dto.nome());
+        usuario.setEmail(dto.email());
+        usuario.setCpf(dto.cpf());
+        usuario.setSenha(dto.senha());
     }
 
     @Transactional

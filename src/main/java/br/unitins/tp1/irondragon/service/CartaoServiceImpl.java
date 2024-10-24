@@ -2,7 +2,7 @@ package br.unitins.tp1.irondragon.service;
 
 import br.unitins.tp1.irondragon.dto.request.CartaoRequestDTO;
 import br.unitins.tp1.irondragon.model.Cartao;
-import br.unitins.tp1.irondragon.model.Cliente;
+import br.unitins.tp1.irondragon.model.Usuario;
 import br.unitins.tp1.irondragon.model.TipoCartao;
 import br.unitins.tp1.irondragon.repository.CartaoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -37,7 +37,7 @@ public class CartaoServiceImpl implements CartaoService {
     @Transactional
     @Override
     public Cartao create(Long idCliente, CartaoRequestDTO dto) {
-        Cliente cliente = clienteService.findById(idCliente);
+        Usuario usuario = clienteService.findById(idCliente);
 
         Cartao cartao = new Cartao();
 
@@ -50,7 +50,7 @@ public class CartaoServiceImpl implements CartaoService {
 
         cartaoRepository.persist(cartao);
 
-        cliente.getCartoes().add(cartao);
+        usuario.getCartoes().add(cartao);
 
         return cartao;
     }
@@ -71,7 +71,7 @@ public class CartaoServiceImpl implements CartaoService {
     @Transactional
     @Override
     public void delete(Long idCliente, Long idCartao) {
-        Cliente cliente = clienteService.findById(idCliente);
-        cliente.getCartoes().remove(cartaoRepository.findById(idCartao));
+        Usuario usuario = clienteService.findById(idCliente);
+        usuario.getCartoes().remove(cartaoRepository.findById(idCartao));
     }
 }

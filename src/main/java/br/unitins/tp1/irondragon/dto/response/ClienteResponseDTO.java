@@ -1,6 +1,6 @@
 package br.unitins.tp1.irondragon.dto.response;
 
-import br.unitins.tp1.irondragon.model.Cliente;
+import br.unitins.tp1.irondragon.model.Usuario;
 
 import java.util.List;
 
@@ -11,13 +11,13 @@ public record ClienteResponseDTO(
         String cpf,
         List<CartaoResponseDTO> cartoes
 ) {
-    public static ClienteResponseDTO valueOf(Cliente cliente) {
+    public static ClienteResponseDTO valueOf(Usuario usuario) {
         return new ClienteResponseDTO(
-                cliente.getId(),
-                cliente.getNome(),
-                cliente.getEmail(),
-                cliente.getCpf(),
-                cliente.getCartoes().stream().map(CartaoResponseDTO::valueOf).toList()
+                usuario.getId(),
+                usuario.getNome(),
+                usuario.getEmail(),
+                usuario.getCpf(),
+                usuario.getCartoes().stream().map(CartaoResponseDTO::valueOf).toList()
         );
     }
 }
