@@ -45,8 +45,8 @@ public class CartaoResource {
 
     @DELETE
     @Path("/{id}")
-    public Response delete(@QueryParam("cliente") Long idCliente, @PathParam("id") Long idCartao) {
-        cartaoService.delete(idCliente, idCartao);
+    public Response delete(@PathParam("id") Long idCartao) {
+        cartaoService.delete(idCartao);
         return Response.noContent().build();
     }
 }

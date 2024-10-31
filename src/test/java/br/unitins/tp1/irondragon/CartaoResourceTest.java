@@ -49,7 +49,6 @@ public class CartaoResourceTest {
 
         given()
                 .contentType(ContentType.JSON)
-                .queryParam("cliente", 2L)
                 .body(dto)
                 .when()
                 .post("/cartoes")
@@ -68,7 +67,7 @@ public class CartaoResourceTest {
 
         Cartao cartao = cartaoService.findByNome("Cartao Teste").getFirst();
 
-        cartaoService.delete(1L, cartao.getId());
+        cartaoService.delete(cartao.getId());
     }
 
     @Test

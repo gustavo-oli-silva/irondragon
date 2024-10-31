@@ -16,5 +16,5 @@ public interface CartaoService {
 
     public void update(Long id, CartaoRequestDTO dto);
 
-    public void delete(Long idCliente, Long idCartao);
+    public void delete(Long idCartao);
 }

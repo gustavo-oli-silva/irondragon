@@ -16,9 +16,6 @@ public class CartaoServiceImpl implements CartaoService {
     @Inject
     public CartaoRepository cartaoRepository;
 
-    @Inject
-    public ClienteService clienteService;
-
     @Override
     public Cartao findById(Long id) {
         return cartaoRepository.findById(id);
@@ -37,8 +34,6 @@ public class CartaoServiceImpl implements CartaoService {
     @Transactional
     @Override
     public Cartao create(Long idCliente, CartaoRequestDTO dto) {
-        Usuario usuario = clienteService.findById(idCliente);
-
         Cartao cartao = new Cartao();
 
         cartao.setNumero(dto.numero());
@@ -50,7 +45,6 @@ public class CartaoServiceImpl implements CartaoService {
 
         cartaoRepository.persist(cartao);
 
-        usuario.getCartoes().add(cartao);
 
         return cartao;
     }
@@ -70,8 +64,7 @@ public class CartaoServiceImpl implements CartaoService {
 
     @Transactional
     @Override
-    public void delete(Long idCliente, Long idCartao) {
-        Usuario usuario = clienteService.findById(idCliente);
-        usuario.getCartoes().remove(cartaoRepository.findById(idCartao));
+    public void delete(Long idCartao) {
+        cartaoRepository.deleteById(idCartao);
     }
 }
