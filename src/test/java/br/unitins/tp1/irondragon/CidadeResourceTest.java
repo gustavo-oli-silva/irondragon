@@ -2,7 +2,7 @@ package br.unitins.tp1.irondragon;
 
 import br.unitins.tp1.irondragon.dto.request.CidadeRequestDTO;
 import br.unitins.tp1.irondragon.model.Cidade;
-import br.unitins.tp1.irondragon.service.CidadeService;
+import br.unitins.tp1.irondragon.service.cidade.CidadeService;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;

@@ -1,4 +1,4 @@
-package br.unitins.tp1.irondragon.service;
+package br.unitins.tp1.irondragon.service.cidade;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import br.unitins.tp1.irondragon.dto.request.CidadeRequestDTO;
 import br.unitins.tp1.irondragon.model.Cidade;
 import br.unitins.tp1.irondragon.model.Estado;
 import br.unitins.tp1.irondragon.repository.CidadeRepository;
+import br.unitins.tp1.irondragon.service.estado.EstadoService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;

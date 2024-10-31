@@ -2,7 +2,7 @@ package br.unitins.tp1.irondragon;
 
 import br.unitins.tp1.irondragon.dto.request.FabricanteRequestDTO;
 import br.unitins.tp1.irondragon.model.Fabricante;
-import br.unitins.tp1.irondragon.service.FabricanteService;
+import br.unitins.tp1.irondragon.service.fabricante.FabricanteService;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;

@@ -1,4 +1,4 @@
-package br.unitins.tp1.irondragon.service;
+package br.unitins.tp1.irondragon.service.pedido;
 
 import br.unitins.tp1.irondragon.dto.request.PedidoRequestDTO;
 import br.unitins.tp1.irondragon.model.pedido.Pedido;
@@ -21,7 +21,7 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     public List<Pedido> findByUsername(String username) {
-        return pedidoRepository.findByIdUsuario();
+        return List.of();
     }
 
     @Transactional
@@ -30,6 +30,7 @@ public class PedidoServiceImpl implements PedidoService {
         return null;
     }
 
+    @Transactional
     @Override
     public void delete(Long id) {
 

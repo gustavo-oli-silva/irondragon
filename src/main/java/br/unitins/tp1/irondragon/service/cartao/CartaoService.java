@@ -1,4 +1,4 @@
-package br.unitins.tp1.irondragon.service;
+package br.unitins.tp1.irondragon.service.cartao;
 
 import br.unitins.tp1.irondragon.dto.request.CartaoRequestDTO;
 import br.unitins.tp1.irondragon.model.Cartao;

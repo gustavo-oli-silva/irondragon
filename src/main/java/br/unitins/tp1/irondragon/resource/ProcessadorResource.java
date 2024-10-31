@@ -15,7 +15,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 import br.unitins.tp1.irondragon.dto.request.ProcessadorRequestDTO;
-import br.unitins.tp1.irondragon.service.ProcessadorService;
+import br.unitins.tp1.irondragon.service.processador.ProcessadorService;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

@@ -2,7 +2,7 @@ package br.unitins.tp1.irondragon.resource;
 
 import br.unitins.tp1.irondragon.dto.request.CidadeRequestDTO;
 import br.unitins.tp1.irondragon.dto.response.CidadeResponseDTO;
-import br.unitins.tp1.irondragon.service.CidadeService;
+import br.unitins.tp1.irondragon.service.cidade.CidadeService;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;

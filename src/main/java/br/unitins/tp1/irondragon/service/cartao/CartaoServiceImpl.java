@@ -1,8 +1,7 @@
-package br.unitins.tp1.irondragon.service;
+package br.unitins.tp1.irondragon.service.cartao;
 
 import br.unitins.tp1.irondragon.dto.request.CartaoRequestDTO;
 import br.unitins.tp1.irondragon.model.Cartao;
-import br.unitins.tp1.irondragon.model.Usuario;
 import br.unitins.tp1.irondragon.model.TipoCartao;
 import br.unitins.tp1.irondragon.repository.CartaoRepository;
 import jakarta.enterprise.context.ApplicationScoped;

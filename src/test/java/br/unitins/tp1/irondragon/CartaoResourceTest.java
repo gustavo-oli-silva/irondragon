@@ -1,9 +1,8 @@
 package br.unitins.tp1.irondragon;
 
 import br.unitins.tp1.irondragon.dto.request.CartaoRequestDTO;
-import br.unitins.tp1.irondragon.dto.request.EstadoRequestDTO;
 import br.unitins.tp1.irondragon.model.Cartao;
-import br.unitins.tp1.irondragon.service.CartaoService;
+import br.unitins.tp1.irondragon.service.cartao.CartaoService;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;

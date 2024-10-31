@@ -1,10 +1,8 @@
 package br.unitins.tp1.irondragon.resource;
 
 import br.unitins.tp1.irondragon.dto.request.FornecedorRequestDTO;
-import br.unitins.tp1.irondragon.dto.response.CidadeResponseDTO;
 import br.unitins.tp1.irondragon.dto.response.FornecedorResponseDTO;
-import br.unitins.tp1.irondragon.repository.FornecedorRepository;
-import br.unitins.tp1.irondragon.service.FornecedorService;
+import br.unitins.tp1.irondragon.service.fornecedor.FornecedorService;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;

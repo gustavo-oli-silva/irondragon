@@ -1,9 +1,8 @@
 package br.unitins.tp1.irondragon;
 
-import br.unitins.tp1.irondragon.dto.request.FabricanteRequestDTO;
 import br.unitins.tp1.irondragon.dto.request.PlacaIntegradaRequestDTO;
 import br.unitins.tp1.irondragon.model.PlacaIntegrada;
-import br.unitins.tp1.irondragon.service.PlacaIntegradaService;
+import br.unitins.tp1.irondragon.service.placaintegrada.PlacaIntegradaService;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;

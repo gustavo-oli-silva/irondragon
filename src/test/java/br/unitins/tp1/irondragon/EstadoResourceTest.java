@@ -2,7 +2,7 @@ package br.unitins.tp1.irondragon;
 
 import br.unitins.tp1.irondragon.dto.request.EstadoRequestDTO;
 import br.unitins.tp1.irondragon.model.Estado;
-import br.unitins.tp1.irondragon.service.EstadoService;
+import br.unitins.tp1.irondragon.service.estado.EstadoService;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;

@@ -1,6 +1,5 @@
 package br.unitins.tp1.irondragon.model.converterjpa;
 
-import br.unitins.tp1.irondragon.model.Cartao;
 import br.unitins.tp1.irondragon.model.TipoCartao;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;

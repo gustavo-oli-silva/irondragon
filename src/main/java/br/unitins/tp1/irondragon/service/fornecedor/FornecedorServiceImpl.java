@@ -1,4 +1,4 @@
-package br.unitins.tp1.irondragon.service;
+package br.unitins.tp1.irondragon.service.fornecedor;
 
 import br.unitins.tp1.irondragon.dto.request.FornecedorRequestDTO;
 import br.unitins.tp1.irondragon.model.Fornecedor;

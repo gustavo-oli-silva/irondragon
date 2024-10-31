@@ -11,4 +11,8 @@ public class UsuarioRepository implements PanacheRepository<Usuario> {
     public List<Usuario> findByUsername(String nome) {
         return find("SELECT u FROM Usuario u WHERE u.username LIKE ?1", "%" + nome + "%").list();
     }
+
+    public Usuario findByUsernameAndSenha(String username, String senha) {
+        return find("SELECT u FROM Usuario u WHERE u.username = ?1 and u.senha = ?2", username, senha).firstResult();
+    }
 }

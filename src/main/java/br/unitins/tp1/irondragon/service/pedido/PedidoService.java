@@ -1,4 +1,4 @@
-package br.unitins.tp1.irondragon.service;
+package br.unitins.tp1.irondragon.service.pedido;
 
 import br.unitins.tp1.irondragon.dto.request.PedidoRequestDTO;
 import br.unitins.tp1.irondragon.model.pedido.Pedido;

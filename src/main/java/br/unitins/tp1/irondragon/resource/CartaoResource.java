@@ -1,9 +1,8 @@
 package br.unitins.tp1.irondragon.resource;
 
 import br.unitins.tp1.irondragon.dto.request.CartaoRequestDTO;
-import br.unitins.tp1.irondragon.dto.request.CidadeRequestDTO;
 import br.unitins.tp1.irondragon.dto.response.CartaoResponseDTO;
-import br.unitins.tp1.irondragon.service.CartaoService;
+import br.unitins.tp1.irondragon.service.cartao.CartaoService;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;

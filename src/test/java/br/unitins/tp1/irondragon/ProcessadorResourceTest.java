@@ -2,7 +2,7 @@ package br.unitins.tp1.irondragon;
 
 import br.unitins.tp1.irondragon.dto.request.ProcessadorRequestDTO;
 import br.unitins.tp1.irondragon.model.Processador;
-import br.unitins.tp1.irondragon.service.ProcessadorService;
+import br.unitins.tp1.irondragon.service.processador.ProcessadorService;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;

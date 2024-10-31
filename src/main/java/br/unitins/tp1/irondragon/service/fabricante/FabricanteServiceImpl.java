@@ -1,8 +1,7 @@
-package br.unitins.tp1.irondragon.service;
+package br.unitins.tp1.irondragon.service.fabricante;
 
 import br.unitins.tp1.irondragon.dto.request.FabricanteRequestDTO;
 import br.unitins.tp1.irondragon.model.Fabricante;
-import br.unitins.tp1.irondragon.model.TelefoneFabricante;
 import br.unitins.tp1.irondragon.repository.FabricanteRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
