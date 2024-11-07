@@ -1,6 +1,6 @@
 package br.unitins.tp1.irondragon.dto.response;
 
-import br.unitins.tp1.irondragon.model.Processador;
+import br.unitins.tp1.irondragon.model.processador.Processador;
 
 public record ProcessadorResponseDTO(
     Long id,

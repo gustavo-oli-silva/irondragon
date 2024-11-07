@@ -1,6 +1,6 @@
 package br.unitins.tp1.irondragon.repository;
 
-import br.unitins.tp1.irondragon.model.PlacaIntegrada;
+import br.unitins.tp1.irondragon.model.processador.PlacaIntegrada;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 

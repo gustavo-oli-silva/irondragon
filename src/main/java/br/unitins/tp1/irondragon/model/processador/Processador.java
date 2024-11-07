@@ -1,5 +1,6 @@
-package br.unitins.tp1.irondragon.model;
+package br.unitins.tp1.irondragon.model.processador;
 
+import br.unitins.tp1.irondragon.model.Fabricante;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import lombok.Getter;

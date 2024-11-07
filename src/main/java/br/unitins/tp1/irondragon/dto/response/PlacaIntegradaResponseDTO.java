@@ -1,6 +1,6 @@
 package br.unitins.tp1.irondragon.dto.response;
 
-import br.unitins.tp1.irondragon.model.PlacaIntegrada;
+import br.unitins.tp1.irondragon.model.processador.PlacaIntegrada;
 
 public record PlacaIntegradaResponseDTO(
         Long id,

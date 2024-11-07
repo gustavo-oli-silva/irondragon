@@ -2,7 +2,7 @@ package br.unitins.tp1.irondragon.repository;
 
 import java.util.List;
 
-import br.unitins.tp1.irondragon.model.Processador;
+import br.unitins.tp1.irondragon.model.processador.Processador;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 

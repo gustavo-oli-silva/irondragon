@@ -3,7 +3,7 @@ package br.unitins.tp1.irondragon.service.processador;
 import java.util.List;
 
 import br.unitins.tp1.irondragon.dto.request.ProcessadorRequestDTO;
-import br.unitins.tp1.irondragon.model.Processador;
+import br.unitins.tp1.irondragon.model.processador.Processador;
 import br.unitins.tp1.irondragon.repository.ProcessadorRepository;
 import br.unitins.tp1.irondragon.service.fabricante.FabricanteService;
 import br.unitins.tp1.irondragon.service.placaintegrada.PlacaIntegradaService;

@@ -1,7 +1,7 @@
 package br.unitins.tp1.irondragon.model.pedido;
 
 import br.unitins.tp1.irondragon.model.DefaultEntity;
-import br.unitins.tp1.irondragon.model.Processador;
+import br.unitins.tp1.irondragon.model.processador.Processador;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;

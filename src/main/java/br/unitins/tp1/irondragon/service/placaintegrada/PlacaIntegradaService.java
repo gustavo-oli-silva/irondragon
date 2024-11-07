@@ -1,7 +1,7 @@
 package br.unitins.tp1.irondragon.service.placaintegrada;
 
 import br.unitins.tp1.irondragon.dto.request.PlacaIntegradaRequestDTO;
-import br.unitins.tp1.irondragon.model.PlacaIntegrada;
+import br.unitins.tp1.irondragon.model.processador.PlacaIntegrada;
 
 import java.util.List;
 
