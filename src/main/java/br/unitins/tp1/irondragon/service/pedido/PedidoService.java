@@ -8,9 +8,9 @@ import java.util.List;
 public interface PedidoService {
     public Pedido findById(Long id);
 
-    public List<Pedido> findByUsername(String username);
+    public Pedido create(PedidoRequestDTO dto, String username);
 
-    public Pedido create(PedidoRequestDTO dto);
+    List<Pedido> findAll();
 
-    public void delete(Long id);
+    Pedido findByUsername(String username);
 }

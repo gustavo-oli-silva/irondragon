@@ -8,8 +8,8 @@ import java.util.List;
 
 @ApplicationScoped
 public class UsuarioRepository implements PanacheRepository<Usuario> {
-    public List<Usuario> findByUsername(String nome) {
-        return find("SELECT u FROM Usuario u WHERE u.username LIKE ?1", "%" + nome + "%").list();
+    public Usuario findByUsername(String nome) {
+        return find("SELECT u FROM Usuario u WHERE u.username LIKE ?1", "%" + nome + "%").firstResult();
     }
 
     public Usuario findByUsernameAndSenha(String username, String senha) {

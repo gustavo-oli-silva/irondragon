@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Usuario extends DefaultEntity {
+    @Column(unique = true)
     private String username;
     @Column(unique = true)
     private String email;

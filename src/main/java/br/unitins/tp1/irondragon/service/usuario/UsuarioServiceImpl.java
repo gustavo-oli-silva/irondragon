@@ -18,8 +18,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public List<Usuario> findByNome(String nome) {
-        return List.of();
+    public Usuario findByUsername(String username) {
+        return usuarioRepository.findByUsername(username);
     }
 
     @Override

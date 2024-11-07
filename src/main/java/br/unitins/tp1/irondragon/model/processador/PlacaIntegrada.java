@@ -13,5 +13,4 @@ public class PlacaIntegrada extends DefaultEntity {
     private Float directX;
     private Float openGl;
     private Float vulkan;
-
 }

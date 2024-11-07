@@ -3,6 +3,7 @@ package br.unitins.tp1.irondragon.resource;
 import br.unitins.tp1.irondragon.dto.request.EstadoRequestDTO;
 import br.unitins.tp1.irondragon.dto.response.EstadoResponseDTO;
 import br.unitins.tp1.irondragon.service.estado.EstadoService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -27,6 +28,7 @@ public class EstadoResource {
 
     @GET
     @Path("/{id}")
+    @RolesAllowed({"Admin", "User"})
     public Response findById(@PathParam("id") Long id) {
         return Response
                 .ok(EstadoResponseDTO.valueOf(estadoService.findById(id)))
@@ -35,6 +37,7 @@ public class EstadoResource {
 
     @GET
     @Path("/search/{nome}")
+    @RolesAllowed("Admin")
     public Response findByNome(@PathParam("nome") String nome) {
         return Response
                 .ok(estadoService.findByNome(nome).stream().map(EstadoResponseDTO::valueOf).toList())

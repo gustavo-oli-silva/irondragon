@@ -15,9 +15,9 @@ import java.time.LocalDate;
 @Entity
 public class Lote extends DefaultEntity {
     @ManyToOne
-    @JoinColumn(name = "id_faixa")
+    @JoinColumn(name = "id_processador")
     private Processador processador;
     private LocalDate data;
     private String codigo;
-    private Integer quantidade;
+    private Integer estoque;
 }

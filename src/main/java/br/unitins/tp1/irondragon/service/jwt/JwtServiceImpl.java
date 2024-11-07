@@ -18,7 +18,7 @@ public class JwtServiceImpl implements JwtService {
         Instant now = Instant.now();
         Instant expiryDate = now.plus(EXPIRATION_TIME);
 
-        Set<String> roles = new HashSet<String>();
+        Set<String> roles = new HashSet<>();
         roles.add(dto.perfil().getLabel());
 
         return Jwt.issuer("unitins-jwt")

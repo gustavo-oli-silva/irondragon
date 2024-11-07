@@ -11,6 +11,6 @@ import lombok.Setter;
 public class Conectividade extends DefaultEntity {
     private Float pci;
     private String tipoMemoria;
-    private 
+    private Integer canaisMemoria;
 }
 

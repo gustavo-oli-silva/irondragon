@@ -1,6 +1,9 @@
 package br.unitins.tp1.irondragon.dto.request;
 
+import jakarta.validation.constraints.NotBlank;
+
 public record PlacaIntegradaRequestDTO(
+        @NotBlank(message = "Nome da Placa Integrada não pode ser nulo!")
         String nome,
         Float directX,
         Float openGl,

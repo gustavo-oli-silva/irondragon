@@ -1,5 +1,6 @@
 package br.unitins.tp1.irondragon.model.processador;
 
+import br.unitins.tp1.irondragon.model.DefaultEntity;
 import br.unitins.tp1.irondragon.model.Fabricante;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
@@ -9,11 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Processador extends PanacheEntityBase {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Processador extends DefaultEntity {
     private String nome;
     private String socket;
     private Integer threads;

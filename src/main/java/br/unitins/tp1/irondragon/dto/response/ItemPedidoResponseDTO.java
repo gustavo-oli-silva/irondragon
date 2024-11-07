@@ -3,7 +3,7 @@ package br.unitins.tp1.irondragon.dto.response;
 import br.unitins.tp1.irondragon.model.pedido.ItemPedido;
 
 public record ItemPedidoResponseDTO (
-       Long idProduto,
+       Long idProcessador,
        String nome,
        Integer quantidade,
        Double valor
