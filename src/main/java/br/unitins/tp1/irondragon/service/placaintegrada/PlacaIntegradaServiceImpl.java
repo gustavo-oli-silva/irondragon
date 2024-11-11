@@ -1,6 +1,6 @@
 package br.unitins.tp1.irondragon.service.placaintegrada;
 
-import br.unitins.tp1.irondragon.dto.request.PlacaIntegradaRequestDTO;
+import br.unitins.tp1.irondragon.dto.request.processador.PlacaIntegradaRequestDTO;
 import br.unitins.tp1.irondragon.model.processador.PlacaIntegrada;
 import br.unitins.tp1.irondragon.repository.PlacaIntegradaRepository;
 import jakarta.enterprise.context.ApplicationScoped;

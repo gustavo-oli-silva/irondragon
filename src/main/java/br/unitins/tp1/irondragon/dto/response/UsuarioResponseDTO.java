@@ -1,7 +1,7 @@
 package br.unitins.tp1.irondragon.dto.response;
 
 import br.unitins.tp1.irondragon.model.Perfil;
-import br.unitins.tp1.irondragon.model.Usuario;
+import br.unitins.tp1.irondragon.model.usuario.Usuario;
 
 public record UsuarioResponseDTO(
         Long id,

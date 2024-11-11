@@ -45,7 +45,6 @@ public class PedidoServiceImpl implements PedidoService {
         Pedido pedido = new Pedido();
         pedido.setData(LocalDateTime.now());
         pedido.setUsuario(usuarioService.findByUsername(username));
-        pedido.setValorTotal(dto.valorTotal());
         pedido.setListaItemPedido(new ArrayList<>());
 
         for(ItemPedidoRequestDTO item: dto.listaItemPedido()) {
@@ -57,8 +56,24 @@ public class PedidoServiceImpl implements PedidoService {
             pedido.getListaItemPedido().add(itemPedido);
         }
 
+        pedido.setValorTotal(calcularValorTotal(pedido.getListaItemPedido()));
+
         pedidoRepository.persist(pedido);
 
         return pedido;
+    }
+
+    public Double calcularValorTotal(List<ItemPedido> listaDePedidos) {
+        if(listaDePedidos == null || listaDePedidos.isEmpty()) {
+            return 0.0;
+        }
+
+        double valor = 0.0;
+
+        for(ItemPedido itemPedido: listaDePedidos) {
+            valor += itemPedido.getPreco() * itemPedido.getQuantidade();
+        }
+
+        return valor;
     }
 }

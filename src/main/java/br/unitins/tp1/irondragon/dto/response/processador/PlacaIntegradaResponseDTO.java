@@ -1,4 +1,4 @@
-package br.unitins.tp1.irondragon.dto.response;
+package br.unitins.tp1.irondragon.dto.response.processador;
 
 import br.unitins.tp1.irondragon.model.processador.PlacaIntegrada;
 

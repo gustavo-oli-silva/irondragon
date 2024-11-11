@@ -1,7 +1,7 @@
 package br.unitins.tp1.irondragon.model.pedido;
 
 import br.unitins.tp1.irondragon.model.DefaultEntity;
-import br.unitins.tp1.irondragon.model.Usuario;
+import br.unitins.tp1.irondragon.model.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

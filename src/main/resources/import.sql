@@ -12,9 +12,25 @@ insert into Fabricante (nome, email) values
 insert into Fornecedor (nome, email) values
 ('Terabyte', 'suporte@terabyte.com');
 
-insert into Processador (nome, socket, threads, nucleos, desbloqueado, preco, id_fabricante) values
-('I5 12700', 'LGA1155', 4, 4, true, 45.00, 1),
-('I7 7700K', 'LGA777', 4, 4, true, 70.00, 1);
+insert into MemoriaCache(cachel2, cachel3) values
+(12, 12),
+(20, 20);
+
+insert into Conectividade(pci, tipomemoria, canaismemoria) values
+(3.0, 'DDR4', 4),
+(4.0, 'DDR5', 4);
+
+insert into ConsumoEnergetico(energiabasica, energiamaxima) values
+(40, 80),
+(100, 200);
+
+insert into Frequencia(clockbasico, clockboost) values
+(50, 100),
+(200, 800);
+
+insert into Processador (nome, socket, threads, nucleos, desbloqueado, preco, id_fabricante, id_memoriacache, id_conectividade, id_frequencia, id_consumoenergetico) values
+('I5 12700', 'LGA1155', 4, 4, true, 45.00, 1, 1, 1, 1, 1),
+('I7 7700K', 'LGA777', 4, 4, true, 70.00, 1, 2, 2, 2, 2);
 
 insert into Lote (codigo, estoque, data, id_processador) values
 ('#ZXYD4343', 20, '2024-11-07', 1),

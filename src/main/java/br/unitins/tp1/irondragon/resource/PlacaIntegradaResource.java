@@ -1,7 +1,7 @@
 package br.unitins.tp1.irondragon.resource;
 
-import br.unitins.tp1.irondragon.dto.request.PlacaIntegradaRequestDTO;
-import br.unitins.tp1.irondragon.dto.response.PlacaIntegradaResponseDTO;
+import br.unitins.tp1.irondragon.dto.request.processador.PlacaIntegradaRequestDTO;
+import br.unitins.tp1.irondragon.dto.response.processador.PlacaIntegradaResponseDTO;
 import br.unitins.tp1.irondragon.service.placaintegrada.PlacaIntegradaService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;

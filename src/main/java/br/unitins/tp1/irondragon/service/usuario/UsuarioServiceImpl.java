@@ -1,6 +1,6 @@
 package br.unitins.tp1.irondragon.service.usuario;
 
-import br.unitins.tp1.irondragon.model.Usuario;
+import br.unitins.tp1.irondragon.model.usuario.Usuario;
 import br.unitins.tp1.irondragon.repository.UsuarioRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;

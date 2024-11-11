@@ -1,5 +1,6 @@
 package br.unitins.tp1.irondragon.dto.response;
 
+import br.unitins.tp1.irondragon.dto.response.processador.ProcessadorResponseDTO;
 import br.unitins.tp1.irondragon.model.pedido.Lote;
 
 import java.time.LocalDate;

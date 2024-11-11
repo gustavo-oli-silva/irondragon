@@ -1,4 +1,4 @@
-package br.unitins.tp1.irondragon.dto.request;
+package br.unitins.tp1.irondragon.dto.request.processador;
 
 import jakarta.validation.constraints.NotBlank;
 

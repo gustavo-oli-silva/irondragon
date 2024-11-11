@@ -1,6 +1,6 @@
 package br.unitins.tp1.irondragon.resource;
 
-import br.unitins.tp1.irondragon.dto.response.ProcessadorResponseDTO;
+import br.unitins.tp1.irondragon.dto.response.processador.ProcessadorResponseDTO;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -14,7 +14,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
-import br.unitins.tp1.irondragon.dto.request.ProcessadorRequestDTO;
+import br.unitins.tp1.irondragon.dto.request.processador.ProcessadorRequestDTO;
 import br.unitins.tp1.irondragon.service.processador.ProcessadorService;
 
 @Produces(MediaType.APPLICATION_JSON)

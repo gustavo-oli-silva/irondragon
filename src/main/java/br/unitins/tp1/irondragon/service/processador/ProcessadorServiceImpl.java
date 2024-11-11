@@ -2,7 +2,8 @@ package br.unitins.tp1.irondragon.service.processador;
 
 import java.util.List;
 
-import br.unitins.tp1.irondragon.dto.request.ProcessadorRequestDTO;
+import br.unitins.tp1.irondragon.dto.request.processador.ProcessadorRequestDTO;
+import br.unitins.tp1.irondragon.model.processador.Conectividade;
 import br.unitins.tp1.irondragon.model.processador.Processador;
 import br.unitins.tp1.irondragon.repository.ProcessadorRepository;
 import br.unitins.tp1.irondragon.service.fabricante.FabricanteService;
@@ -52,6 +53,10 @@ public class ProcessadorServiceImpl implements ProcessadorService {
         processador.setPreco(dto.preco());
         processador.setFabricante(fabricanteService.findById(dto.fabricante()));
         processador.setPlacaIntegrada(placaIntegradaService.findById(dto.placaIntegrada()));
+        processador.setConectividade(dto.conectividade().intoEntity());
+        processador.setFrequencia(dto.frequencia().intoEntity());
+        processador.setMemoriaCache(dto.memoriaCache().intoEntity());
+        processador.setConsumoEnergetico(dto.consumoEnergetico().intoEntity());
 
         processadorRepository.persist(processador);
 
@@ -62,6 +67,11 @@ public class ProcessadorServiceImpl implements ProcessadorService {
     @Override
     public void update(Long id, ProcessadorRequestDTO dto) {
         Processador processador = processadorRepository.findById(id);
+
+        if(processador == null) {
+            throw new IllegalArgumentException("O processador especificado não existe!");
+        }
+
         processador.setNome(dto.nome());
         processador.setNucleos(dto.nucleos());
         processador.setPreco(dto.preco());
@@ -70,12 +80,21 @@ public class ProcessadorServiceImpl implements ProcessadorService {
         processador.setSocket(dto.socket());
         processador.setPlacaIntegrada(placaIntegradaService.findById(dto.placaIntegrada()));
         processador.setFabricante(fabricanteService.findById(dto.fabricante()));
+        processador.setConectividade(dto.conectividade().intoEntity());
+        processador.setFrequencia(dto.frequencia().intoEntity());
+        processador.setMemoriaCache(dto.memoriaCache().intoEntity());
+        processador.setConsumoEnergetico(dto.consumoEnergetico().intoEntity());
     }
 
     @Transactional
     @Override
     public void delete(Long id) {
         Processador p = processadorRepository.findById(id);
+
+        if(p == null) {
+            throw new IllegalArgumentException("O processador especificado não existe!");
+        }
+
         processadorRepository.deleteById(id);
     }
     
