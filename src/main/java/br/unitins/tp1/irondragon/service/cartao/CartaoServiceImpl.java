@@ -3,7 +3,9 @@ package br.unitins.tp1.irondragon.service.cartao;
 import br.unitins.tp1.irondragon.dto.request.CartaoRequestDTO;
 import br.unitins.tp1.irondragon.model.Cartao;
 import br.unitins.tp1.irondragon.model.TipoCartao;
+import br.unitins.tp1.irondragon.model.usuario.Usuario;
 import br.unitins.tp1.irondragon.repository.CartaoRepository;
+import br.unitins.tp1.irondragon.service.usuario.UsuarioService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -14,6 +16,9 @@ import java.util.List;
 public class CartaoServiceImpl implements CartaoService {
     @Inject
     public CartaoRepository cartaoRepository;
+
+    @Inject
+    public UsuarioService usuarioService;
 
     @Override
     public Cartao findById(Long id) {

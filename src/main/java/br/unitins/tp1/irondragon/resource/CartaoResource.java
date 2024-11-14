@@ -3,11 +3,13 @@ package br.unitins.tp1.irondragon.resource;
 import br.unitins.tp1.irondragon.dto.request.CartaoRequestDTO;
 import br.unitins.tp1.irondragon.dto.response.CartaoResponseDTO;
 import br.unitins.tp1.irondragon.service.cartao.CartaoService;
+import br.unitins.tp1.irondragon.service.usuario.UsuarioService;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.jwt.JsonWebToken;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -15,6 +17,12 @@ import jakarta.ws.rs.core.Response;
 public class CartaoResource {
     @Inject
     public CartaoService cartaoService;
+
+    @Inject
+    public UsuarioService usuarioService;
+
+    @Inject
+    public JsonWebToken jwt;
 
     @GET
     @Path("/{id}")
@@ -28,7 +36,7 @@ public class CartaoResource {
     }
 
     @POST
-    public Response create(@QueryParam("cliente") Long idCliente,@Valid CartaoRequestDTO cartao) {
+    public Response create(@QueryParam("cliente") Long idCliente, @Valid CartaoRequestDTO cartao) {
         return Response
                 .status(Response.Status.CREATED)
                 .entity(CartaoResponseDTO.valueOf(cartaoService.create(idCliente, cartao)))

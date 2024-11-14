@@ -49,6 +49,10 @@ public class LoteServiceImpl implements LoteService {
     @Transactional
     @Override
     public void update(Long id, LoteRequestDTO dto) {
-
+        Lote lote = loteRepository.findById(id);
+        lote.setProcessador(processadorService.findById(id));
+        lote.setCodigo(dto.codigo());
+        lote.setData(dto.data());
+        lote.setEstoque(dto.estoque());
     }
 }
