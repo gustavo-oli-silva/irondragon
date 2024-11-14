@@ -12,6 +12,7 @@ import java.util.Optional;
 public record ProcessadorResponseDTO(
     Long id,
     String nome,
+    String nomeImagem,
     String socket,
     Integer threads,
     Integer nucleos,
@@ -24,29 +25,23 @@ public record ProcessadorResponseDTO(
     ConsumoEnergeticoResponseDTO consumoEnergetico,
     ConectividadeResponseDTO conectividade
 ) {
-    public static ProcessadorResponseDTO valueOf(Processador processador) {
-        PlacaIntegradaResponseDTO placaIntegradaDTO;
-
-        if (processador.getPlacaIntegrada() == null) {
-            placaIntegradaDTO = new PlacaIntegradaResponseDTO(null, null, null, null, null);
-        } else {
-            placaIntegradaDTO = PlacaIntegradaResponseDTO.valueOf(processador.getPlacaIntegrada());
+        public static ProcessadorResponseDTO valueOf(Processador processador) {
+            return new ProcessadorResponseDTO (
+                    processador.getId(),
+                    processador.getNome(),
+                    processador.getNomeImagem(),
+                    processador.getSocket(),
+                    processador.getThreads(),
+                    processador.getNucleos(),
+                    processador.getDesbloqueado(),
+                    processador.getPreco(),
+                    Optional.ofNullable(processador.getPlacaIntegrada())
+                            .map(PlacaIntegradaResponseDTO::valueOf),
+                    FabricanteResponseDTO.valueOf(processador.getFabricante()),
+                    MemoriaCacheResponseDTO.valueOf(processador.getMemoriaCache()),
+                    FrequenciaResponseDTO.valueOf(processador.getFrequencia()),
+                    ConsumoEnergeticoResponseDTO.valueOf(processador.getConsumoEnergetico()),
+                    ConectividadeResponseDTO.valueOf(processador.getConectividade())
+            );
         }
-
-        return new ProcessadorResponseDTO (
-                processador.getId(),
-                processador.getNome(),
-                processador.getSocket(),
-                processador.getThreads(),
-                processador.getNucleos(),
-                processador.getDesbloqueado(),
-                processador.getPreco(),
-                Optional.of(PlacaIntegradaResponseDTO.valueOf(processador.getPlacaIntegrada())),
-                FabricanteResponseDTO.valueOf(processador.getFabricante()),
-                MemoriaCacheResponseDTO.valueOf(processador.getMemoriaCache()),
-                FrequenciaResponseDTO.valueOf(processador.getFrequencia()),
-                ConsumoEnergeticoResponseDTO.valueOf(processador.getConsumoEnergetico()),
-                ConectividadeResponseDTO.valueOf(processador.getConectividade())
-        );
-    }
 }

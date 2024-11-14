@@ -13,7 +13,7 @@ public interface UsuarioService {
 
     public List<Usuario> findAll();
 
-//    public Estado create(EstadoRequestDTO dto);
+//    public Usuario create( dto);
 //
 //    public void update(Long id, EstadoRequestDTO dto);
 

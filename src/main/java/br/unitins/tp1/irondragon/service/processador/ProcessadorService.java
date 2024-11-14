@@ -12,4 +12,6 @@ public interface ProcessadorService {
     public Processador create(ProcessadorRequestDTO processador);
     public void update(Long id, ProcessadorRequestDTO processador);
     public void delete(Long id);
+
+    public Processador updateNomeImagem(Long id, String nomeImagem);
 }

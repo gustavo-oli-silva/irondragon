@@ -97,5 +97,15 @@ public class ProcessadorServiceImpl implements ProcessadorService {
 
         processadorRepository.deleteById(id);
     }
-    
+
+    @Transactional
+    @Override
+    public Processador updateNomeImagem(Long id, String nomeImagem) {
+        Processador processador = processadorRepository.findById(id);
+
+        processador.setNomeImagem(nomeImagem);
+
+        return processador;
+    }
+
 }

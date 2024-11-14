@@ -17,6 +17,8 @@ public class Processador extends DefaultEntity {
     private Boolean desbloqueado;
     private Double preco;
 
+    private String nomeImagem;
+
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_memoriacache")
     private MemoriaCache memoriaCache;

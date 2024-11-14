@@ -1,21 +1,19 @@
 package br.unitins.tp1.irondragon.resource;
 
 import br.unitins.tp1.irondragon.dto.response.processador.ProcessadorResponseDTO;
+import br.unitins.tp1.irondragon.form.ProcessadorImageForm;
+import br.unitins.tp1.irondragon.service.file.ProcessadorFileServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.DELETE;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.PUT;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 import br.unitins.tp1.irondragon.dto.request.processador.ProcessadorRequestDTO;
 import br.unitins.tp1.irondragon.service.processador.ProcessadorService;
+import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
+
+import java.io.IOException;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -23,6 +21,9 @@ import br.unitins.tp1.irondragon.service.processador.ProcessadorService;
 public class ProcessadorResource {
     @Inject
     public ProcessadorService processadorService;
+
+    @Inject
+    public ProcessadorFileServiceImpl processadorFileService;
 
     @GET
     public Response findAll() {
@@ -66,5 +67,28 @@ public class ProcessadorResource {
     public Response delete(@PathParam("id") Long id) {
         processadorService.delete(id);
         return Response.noContent().build();
+    }
+
+    @PATCH
+    @Path("{id}/upload/imagem")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response uploadImage(@PathParam("id") Long id, @MultipartForm ProcessadorImageForm form) {
+        try {
+            String nomeImagem = processadorFileService.save(form.getNomeImagem(), form.getImagem());
+            processadorService.updateNomeImagem(id, nomeImagem);
+        } catch (IOException e) {
+            return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+        }
+
+        return Response.noContent().build();
+    }
+
+    @GET
+    @Path("download/imagem/{nomeImagem}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response downloadImage(@PathParam("nomeImagem") String nomeImagem) {
+        Response.ResponseBuilder response = Response.ok(processadorFileService.find(nomeImagem));
+        response.header("Content-Disposition", "attachment; filename=" + nomeImagem);
+        return response.build();
     }
 }
