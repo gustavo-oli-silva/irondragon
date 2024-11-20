@@ -28,6 +28,7 @@ public class PedidoResource {
 
     @GET
     @Path("/search")
+    @RolesAllowed({"User"})
     public Response findByUsername() {
         String username = jwt.getSubject();
 
@@ -35,7 +36,7 @@ public class PedidoResource {
     }
 
     @POST
-    @RolesAllowed("User")
+    @RolesAllowed({"User"})
     public Response create(@Valid PedidoRequestDTO dto) {
         String username = jwt.getSubject();
 

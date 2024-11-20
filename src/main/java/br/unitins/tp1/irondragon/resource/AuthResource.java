@@ -1,7 +1,7 @@
 package br.unitins.tp1.irondragon.resource;
 
 import br.unitins.tp1.irondragon.dto.request.AuthRequestDTO;
-import br.unitins.tp1.irondragon.dto.response.UsuarioResponseDTO;
+import br.unitins.tp1.irondragon.dto.response.usuario.UsuarioResponseDTO;
 import br.unitins.tp1.irondragon.model.usuario.Usuario;
 import br.unitins.tp1.irondragon.service.hash.HashService;
 import br.unitins.tp1.irondragon.service.jwt.JwtService;

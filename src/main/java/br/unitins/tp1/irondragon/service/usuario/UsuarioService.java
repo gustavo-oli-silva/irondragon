@@ -1,6 +1,6 @@
 package br.unitins.tp1.irondragon.service.usuario;
 
-import br.unitins.tp1.irondragon.dto.request.UsuarioRequestDTO;
+import br.unitins.tp1.irondragon.dto.request.usuario.UsuarioRequestDTO;
 import br.unitins.tp1.irondragon.model.usuario.Usuario;
 
 import java.util.List;

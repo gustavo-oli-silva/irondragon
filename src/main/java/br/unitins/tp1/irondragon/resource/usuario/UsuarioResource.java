@@ -1,7 +1,7 @@
 package br.unitins.tp1.irondragon.resource.usuario;
 
-import br.unitins.tp1.irondragon.dto.request.UsuarioRequestDTO;
-import br.unitins.tp1.irondragon.dto.response.UsuarioResponseDTO;
+import br.unitins.tp1.irondragon.dto.request.usuario.UsuarioRequestDTO;
+import br.unitins.tp1.irondragon.dto.response.usuario.UsuarioResponseDTO;
 import br.unitins.tp1.irondragon.service.usuario.UsuarioService;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
