@@ -1,6 +1,7 @@
 package br.unitins.tp1.irondragon.model.pedido;
 
 import br.unitins.tp1.irondragon.model.DefaultEntity;
+import br.unitins.tp1.irondragon.model.Fornecedor;
 import br.unitins.tp1.irondragon.model.processador.Processador;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -20,4 +21,7 @@ public class Lote extends DefaultEntity {
     private LocalDate data;
     private String codigo;
     private Integer estoque;
+
+    @ManyToOne
+    private Fornecedor fornecedor;
 }

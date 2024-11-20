@@ -9,6 +9,7 @@ public record PedidoResponseDTO(
         Long id,
         LocalDateTime data,
         Double valorTotal,
+        EnderecoResponseDTO endereco,
         List<ItemPedidoResponseDTO> listaItemPedido
 ) {
     public static PedidoResponseDTO valueOf(Pedido pedido) {
@@ -16,6 +17,7 @@ public record PedidoResponseDTO(
                 pedido.getId(),
                 pedido.getData(),
                 pedido.getValorTotal(),
+                EnderecoResponseDTO.valueOf(pedido.getEnderecoEntrega()),
                 pedido.getListaItemPedido().stream().map(ItemPedidoResponseDTO::valueOf).toList()
         );
     }

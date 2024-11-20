@@ -6,7 +6,8 @@ public record LoteRequestDTO (
         Long idProcessador,
         LocalDate data,
         String codigo,
-        Integer estoque
+        Integer estoque,
+        Long idFornecedor
 ) {
 
 }

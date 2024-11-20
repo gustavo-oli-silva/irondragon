@@ -36,10 +36,12 @@ public class CartaoResource {
     }
 
     @POST
-    public Response create(@QueryParam("cliente") Long idCliente, @Valid CartaoRequestDTO cartao) {
+    public Response create(@Valid CartaoRequestDTO cartao) {
+        String username = jwt.getSubject();
+
         return Response
                 .status(Response.Status.CREATED)
-                .entity(CartaoResponseDTO.valueOf(cartaoService.create(idCliente, cartao)))
+                .entity(CartaoResponseDTO.valueOf(cartaoService.create(username, cartao)))
                 .build();
     }
 

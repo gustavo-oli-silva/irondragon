@@ -3,6 +3,7 @@ package br.unitins.tp1.irondragon.service.lote;
 import br.unitins.tp1.irondragon.dto.request.LoteRequestDTO;
 import br.unitins.tp1.irondragon.model.pedido.Lote;
 import br.unitins.tp1.irondragon.repository.LoteRepository;
+import br.unitins.tp1.irondragon.service.fornecedor.FornecedorService;
 import br.unitins.tp1.irondragon.service.processador.ProcessadorService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -15,6 +16,9 @@ public class LoteServiceImpl implements LoteService {
 
     @Inject
     public ProcessadorService processadorService;
+
+    @Inject
+    public FornecedorService fornecedorService;
 
     @Override
     public Lote findByCodigo(String codigo) {
@@ -40,6 +44,7 @@ public class LoteServiceImpl implements LoteService {
         lote.setCodigo(dto.codigo());
         lote.setData(dto.data());
         lote.setEstoque(dto.estoque());
+        lote.setFornecedor(fornecedorService.findById(dto.idFornecedor()));
 
         loteRepository.persist(lote);
 
@@ -54,5 +59,11 @@ public class LoteServiceImpl implements LoteService {
         lote.setCodigo(dto.codigo());
         lote.setData(dto.data());
         lote.setEstoque(dto.estoque());
+        lote.setFornecedor(fornecedorService.findById(dto.idFornecedor()));
+    }
+
+    @Override
+    public void delete(Long id) {
+        loteRepository.deleteById(id);
     }
 }

@@ -19,6 +19,10 @@ public class Pedido extends DefaultEntity {
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_enderecoentrega")
+    private EnderecoEntrega enderecoEntrega;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_pedido")
     private List<ItemPedido> listaItemPedido;

@@ -1,21 +1,22 @@
 package br.unitins.tp1.irondragon.service.usuario;
 
+import br.unitins.tp1.irondragon.dto.request.UsuarioRequestDTO;
 import br.unitins.tp1.irondragon.model.usuario.Usuario;
 
 import java.util.List;
 
 public interface UsuarioService {
-    public Usuario findById(Long id);
+    Usuario findById(Long id);
 
     Usuario findByUsername(String username);
 
-    public Usuario findByUsernameAndSenha(String username, String senha);
+    Usuario findByUsernameAndSenha(String username, String senha);
 
-    public List<Usuario> findAll();
+    List<Usuario> findAll();
 
-//    public Usuario create( dto);
-//
+    Usuario create(UsuarioRequestDTO dto);
+
 //    public void update(Long id, EstadoRequestDTO dto);
 
-    public void delete(Long id);
+    void delete(Long id);
 }

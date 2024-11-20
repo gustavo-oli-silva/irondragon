@@ -37,7 +37,7 @@ public class CartaoServiceImpl implements CartaoService {
 
     @Transactional
     @Override
-    public Cartao create(Long idCliente, CartaoRequestDTO dto) {
+    public Cartao create(String username, CartaoRequestDTO dto) {
         Cartao cartao = new Cartao();
 
         cartao.setNumero(dto.numero());
@@ -48,7 +48,6 @@ public class CartaoServiceImpl implements CartaoService {
         cartao.setTipo(TipoCartao.valueOf(dto.tipoCartao()));
 
         cartaoRepository.persist(cartao);
-
 
         return cartao;
     }

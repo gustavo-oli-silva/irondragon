@@ -46,6 +46,7 @@ public class PedidoServiceImpl implements PedidoService {
         pedido.setData(LocalDateTime.now());
         pedido.setUsuario(usuarioService.findByUsername(username));
         pedido.setListaItemPedido(new ArrayList<>());
+        pedido.setEnderecoEntrega(dto.endereco().toEntityEnderecoEntrega());
 
         for(ItemPedidoRequestDTO item: dto.listaItemPedido()) {
             ItemPedido itemPedido = new ItemPedido();

@@ -12,5 +12,7 @@ public interface LoteService {
 
     Lote findByIdProcessador(Long id);
 
+    void delete(Long id);
+
     void update(Long id, LoteRequestDTO dto);
 }

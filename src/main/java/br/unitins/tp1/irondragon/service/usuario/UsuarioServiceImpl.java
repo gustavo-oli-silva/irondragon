@@ -1,16 +1,25 @@
 package br.unitins.tp1.irondragon.service.usuario;
 
+import br.unitins.tp1.irondragon.dto.request.UsuarioRequestDTO;
+import br.unitins.tp1.irondragon.model.Perfil;
 import br.unitins.tp1.irondragon.model.usuario.Usuario;
 import br.unitins.tp1.irondragon.repository.UsuarioRepository;
+import br.unitins.tp1.irondragon.service.hash.HashService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
 public class UsuarioServiceImpl implements UsuarioService {
     @Inject
     public UsuarioRepository usuarioRepository;
+
+    @Inject
+    public HashService hashService;
 
     @Override
     public Usuario findById(Long id) {
@@ -30,6 +39,22 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public List<Usuario> findAll() {
         return usuarioRepository.findAll().list();
+    }
+
+    @Transactional
+    @Override
+    public Usuario create(UsuarioRequestDTO dto) {
+        Usuario usuario = new Usuario();
+        usuario.setUsername(dto.username());
+        usuario.setEmail(dto.email());
+        usuario.setDataCriacao(LocalDateTime.now());
+        usuario.setEnderecos(new ArrayList<>());
+        usuario.setPerfil(Perfil.USER);
+        usuario.setSenha(hashService.getHashSenha(dto.senha()));
+
+        usuarioRepository.persist(usuario);
+
+        return usuario;
     }
 
     @Override
