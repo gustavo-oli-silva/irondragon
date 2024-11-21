@@ -8,7 +8,9 @@ import lombok.Setter;
 @Getter
 @Entity
 public class Fornecedor extends DefaultEntity {
+    @Column(nullable = false)
     private String nome;
+    @Column(nullable = false)
     private String email;
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -5,6 +5,7 @@ import br.unitins.tp1.irondragon.model.usuario.Cliente;
 import br.unitins.tp1.irondragon.model.usuario.Usuario;
 import br.unitins.tp1.irondragon.repository.ClienteRepository;
 import br.unitins.tp1.irondragon.service.usuario.UsuarioService;
+import br.unitins.tp1.irondragon.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -38,6 +39,8 @@ public class ClienteServiceImpl implements ClienteService {
     @Transactional
     @Override
     public Cliente create(String username, ClienteRequestDTO dto) {
+        validarCpf(dto.cpf());
+
         Usuario usuario = usuarioService.findByUsername(username);
 
         Cliente cliente = new Cliente();
@@ -48,6 +51,14 @@ public class ClienteServiceImpl implements ClienteService {
         clienteRepository.persist(cliente);
 
         return cliente;
+    }
+
+    public void validarCpf(String cpf) {
+        Cliente cliente = clienteRepository.findByCpf(cpf);
+
+        if(cliente != null) {
+            throw new ValidationException("cpf", "CPF inválido!");
+        }
     }
 
     @Override
