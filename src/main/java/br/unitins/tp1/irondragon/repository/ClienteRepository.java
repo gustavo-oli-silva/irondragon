@@ -15,6 +15,10 @@ public class ClienteRepository implements PanacheRepository<Cliente> {
         return find(jpql.toString(), idUsuario).firstResult();
     }
 
+    public Cliente findByUsername(String username) {
+        return find("SELECT c FROM Cliente c WHERE c.usuario.username = ?1", username).firstResult();
+    }
+
     public Cliente findByCpf(String cpf) {
         return find("SELECT c FROM Cliente c WHERE c.cpf = ?1", cpf).firstResult();
     }

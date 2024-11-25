@@ -15,5 +15,7 @@ public interface ClienteService {
 
     Cliente create(String username, ClienteRequestDTO dto);
 
+    public Cliente findByUsername(String username);
+
     void delete(Long id);
 }

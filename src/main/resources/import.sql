@@ -29,8 +29,8 @@ insert into Frequencia(clockbasico, clockboost) values
 (200, 800);
 
 insert into Processador (nome, socket, threads, nucleos, desbloqueado, preco, id_fabricante, id_memoriacache, id_conectividade, id_frequencia, id_consumoenergetico) values
-('I5 12700', 'LGA1155', 4, 4, true, 45.00, 1, 1, 1, 1, 1),
-('I7 7700K', 'LGA777', 4, 4, true, 70.00, 1, 2, 2, 2, 2);
+('I5 12700', 'LGA1155', 4, 4, true, 600.00, 1, 1, 1, 1, 1),
+('I7 7700K', 'LGA777', 4, 4, true, 2400.00, 1, 2, 2, 2, 2);
 
 insert into Lote (codigo, estoque, data, id_processador) values
 ('#ZXYD4343', 20, '2024-11-07', 1),

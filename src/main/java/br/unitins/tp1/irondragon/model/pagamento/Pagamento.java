@@ -13,4 +13,5 @@ import lombok.Setter;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Pagamento extends DefaultEntity {
     private Double valor;
+    private Boolean pago;
 }

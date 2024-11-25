@@ -3,9 +3,12 @@ package br.unitins.tp1.irondragon.service.pedido;
 import br.unitins.tp1.irondragon.dto.request.ItemPedidoRequestDTO;
 import br.unitins.tp1.irondragon.dto.request.PedidoRequestDTO;
 import br.unitins.tp1.irondragon.model.pedido.ItemPedido;
+import br.unitins.tp1.irondragon.model.pedido.Lote;
 import br.unitins.tp1.irondragon.model.pedido.Pedido;
 import br.unitins.tp1.irondragon.repository.PedidoRepository;
+import br.unitins.tp1.irondragon.service.cliente.ClienteService;
 import br.unitins.tp1.irondragon.service.lote.LoteService;
+import br.unitins.tp1.irondragon.service.processador.ProcessadorService;
 import br.unitins.tp1.irondragon.service.usuario.UsuarioService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -21,10 +24,13 @@ public class PedidoServiceImpl implements PedidoService {
     public PedidoRepository pedidoRepository;
 
     @Inject
-    public UsuarioService usuarioService;
+    public ClienteService clienteService;
 
     @Inject
     public LoteService loteService;
+
+    @Inject
+    public ProcessadorService processadorService;
 
     @Override
     public Pedido findById(Long id) {
@@ -44,15 +50,19 @@ public class PedidoServiceImpl implements PedidoService {
     public Pedido create(PedidoRequestDTO dto, String username) {
         Pedido pedido = new Pedido();
         pedido.setData(LocalDateTime.now());
-        pedido.setUsuario(usuarioService.findByUsername(username));
+        pedido.setCliente(clienteService.findByUsername(username));
         pedido.setListaItemPedido(new ArrayList<>());
         pedido.setEnderecoEntrega(dto.endereco().toEntityEnderecoEntrega());
 
         for(ItemPedidoRequestDTO item: dto.listaItemPedido()) {
             ItemPedido itemPedido = new ItemPedido();
-            itemPedido.setLote(loteService.findByIdProcessador(item.idProcessador()));
+            Lote lote = loteService.findByIdProcessador(item.idProcessador());
+
+            itemPedido.setLote(lote);
             itemPedido.setQuantidade(item.quantidade());
-            itemPedido.setPreco(item.preco());
+            itemPedido.setPreco(lote.getProcessador().getPreco());
+
+            lote.setEstoque(lote.getEstoque() - item.quantidade());
 
             pedido.getListaItemPedido().add(itemPedido);
         }

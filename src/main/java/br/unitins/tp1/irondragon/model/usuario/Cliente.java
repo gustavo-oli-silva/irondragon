@@ -3,6 +3,7 @@ package br.unitins.tp1.irondragon.model.usuario;
 import br.unitins.tp1.irondragon.model.Cartao;
 import br.unitins.tp1.irondragon.model.DefaultEntity;
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@EqualsAndHashCode(callSuper = false)
 @Entity
 public class Cliente extends DefaultEntity {
     @OneToOne

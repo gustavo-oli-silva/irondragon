@@ -1,7 +1,8 @@
 package br.unitins.tp1.irondragon.model.pedido;
 
 import br.unitins.tp1.irondragon.model.DefaultEntity;
-import br.unitins.tp1.irondragon.model.usuario.Usuario;
+import br.unitins.tp1.irondragon.model.pagamento.Pagamento;
+import br.unitins.tp1.irondragon.model.usuario.Cliente;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,12 +17,15 @@ public class Pedido extends DefaultEntity {
     private LocalDateTime data;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_usuario")
-    private Usuario usuario;
+    @JoinColumn(name = "id_cliente")
+    private Cliente cliente;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_enderecoentrega")
     private EnderecoEntrega enderecoEntrega;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Pagamento pagamento;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_pedido")

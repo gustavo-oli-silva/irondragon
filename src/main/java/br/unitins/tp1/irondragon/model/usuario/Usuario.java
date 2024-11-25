@@ -4,6 +4,7 @@ import br.unitins.tp1.irondragon.model.DefaultEntity;
 import br.unitins.tp1.irondragon.model.Endereco;
 import br.unitins.tp1.irondragon.model.Perfil;
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@EqualsAndHashCode(callSuper = false)
 @Entity
 public class Usuario extends DefaultEntity {
     @Column(unique = true)

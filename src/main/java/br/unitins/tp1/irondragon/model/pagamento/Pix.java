@@ -11,5 +11,6 @@ import java.time.LocalDateTime;
 @Entity
 public class Pix extends Pagamento {
     private String chave;
+    private String destinatario;
     private LocalDateTime dataValidade;
 }

@@ -1,5 +1,6 @@
 package br.unitins.tp1.irondragon.dto.response;
 
+import br.unitins.tp1.irondragon.model.pagamento.Pagamento;
 import br.unitins.tp1.irondragon.model.pedido.Pedido;
 
 import java.time.LocalDateTime;

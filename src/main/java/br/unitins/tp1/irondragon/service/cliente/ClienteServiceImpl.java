@@ -53,6 +53,11 @@ public class ClienteServiceImpl implements ClienteService {
         return cliente;
     }
 
+    @Override
+    public Cliente findByUsername(String username) {
+        return clienteRepository.findByUsername(username);
+    }
+
     public void validarCpf(String cpf) {
         Cliente cliente = clienteRepository.findByCpf(cpf);
 
