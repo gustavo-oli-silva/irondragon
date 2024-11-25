@@ -92,9 +92,11 @@ public class PagamentoServiceImpl implements PagamentoService {
 
         cartaoPagamento.setCpf(cartao.getCpf());
         cartaoPagamento.setCvc(cartao.getCvc());
+        cartaoPagamento.setValidade(cartao.getValidade());
         cartaoPagamento.setNumero(cartao.getNumero());
         cartaoPagamento.setNomeTitular(cartao.getNomeTitular());
         cartaoPagamento.setValor(pedido.getValorTotal());
+        cartaoPagamento.setTipo(cartao.getTipo());
         cartaoPagamento.setPago(true);
 
         pedido.setPagamento(cartaoPagamento);

@@ -15,13 +15,13 @@ import java.util.List;
 @Entity
 public class Cliente extends DefaultEntity {
     @OneToOne
-    @JoinColumn(name = "id_usuario", unique = true)
+    @JoinColumn(name = "id_usuario", unique = true, nullable = false)
     private Usuario usuario;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String cpf;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_cartao")
     List<Cartao> listaDeCartoes;
 }

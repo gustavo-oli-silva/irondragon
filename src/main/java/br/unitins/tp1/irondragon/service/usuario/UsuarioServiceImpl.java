@@ -1,7 +1,7 @@
 package br.unitins.tp1.irondragon.service.usuario;
 
 import br.unitins.tp1.irondragon.dto.request.usuario.UsuarioRequestDTO;
-import br.unitins.tp1.irondragon.model.Perfil;
+import br.unitins.tp1.irondragon.model.usuario.Perfil;
 import br.unitins.tp1.irondragon.model.usuario.Usuario;
 import br.unitins.tp1.irondragon.repository.UsuarioRepository;
 import br.unitins.tp1.irondragon.service.hash.HashService;

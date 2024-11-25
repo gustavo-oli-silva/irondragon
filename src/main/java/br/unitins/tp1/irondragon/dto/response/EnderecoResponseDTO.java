@@ -4,6 +4,7 @@ import br.unitins.tp1.irondragon.model.Endereco;
 import br.unitins.tp1.irondragon.model.pedido.EnderecoEntrega;
 
 public record EnderecoResponseDTO(
+        Long id,
         String logradouro,
         String cep,
         String bairro,
@@ -12,6 +13,7 @@ public record EnderecoResponseDTO(
 ) {
     public static EnderecoResponseDTO valueOf(Endereco endereco) {
         return new EnderecoResponseDTO(
+                endereco.getId(),
                 endereco.getLogradouro(),
                 endereco.getCep(),
                 endereco.getBairro(),
@@ -22,6 +24,7 @@ public record EnderecoResponseDTO(
 
     public static EnderecoResponseDTO valueOf(EnderecoEntrega endereco) {
         return new EnderecoResponseDTO(
+                endereco.getId(),
                 endereco.getLogradouro(),
                 endereco.getCep(),
                 endereco.getBairro(),

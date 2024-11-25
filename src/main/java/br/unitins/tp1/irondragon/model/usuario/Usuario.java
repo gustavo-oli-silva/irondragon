@@ -2,7 +2,6 @@ package br.unitins.tp1.irondragon.model.usuario;
 
 import br.unitins.tp1.irondragon.model.DefaultEntity;
 import br.unitins.tp1.irondragon.model.Endereco;
-import br.unitins.tp1.irondragon.model.Perfil;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

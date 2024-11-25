@@ -1,6 +1,6 @@
 package br.unitins.tp1.irondragon.dto.response.usuario;
 
-import br.unitins.tp1.irondragon.model.Perfil;
+import br.unitins.tp1.irondragon.model.usuario.Perfil;
 import br.unitins.tp1.irondragon.model.usuario.Usuario;
 
 import java.time.LocalDate;

@@ -12,9 +12,9 @@ public interface CartaoService {
 
     public List<Cartao> findAll();
 
-    public Cartao create(String username, CartaoRequestDTO dto);
+    public Cartao create(CartaoRequestDTO dto, String username);
 
-    public void update(Long id, CartaoRequestDTO dto);
+    public void update(Long id, CartaoRequestDTO dto, String username);
 
-    public void delete(Long idCartao);
+    public void delete(Long idCartao, String username);
 }

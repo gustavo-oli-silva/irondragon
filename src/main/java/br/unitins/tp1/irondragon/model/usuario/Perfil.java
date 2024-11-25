@@ -1,7 +1,6 @@
-package br.unitins.tp1.irondragon.model;
+package br.unitins.tp1.irondragon.model.usuario;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.criteria.CriteriaBuilder;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum Perfil {

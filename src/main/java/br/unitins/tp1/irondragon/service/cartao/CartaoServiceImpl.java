@@ -3,9 +3,12 @@ package br.unitins.tp1.irondragon.service.cartao;
 import br.unitins.tp1.irondragon.dto.request.CartaoRequestDTO;
 import br.unitins.tp1.irondragon.model.Cartao;
 import br.unitins.tp1.irondragon.model.TipoCartao;
+import br.unitins.tp1.irondragon.model.usuario.Cliente;
 import br.unitins.tp1.irondragon.model.usuario.Usuario;
 import br.unitins.tp1.irondragon.repository.CartaoRepository;
+import br.unitins.tp1.irondragon.service.cliente.ClienteService;
 import br.unitins.tp1.irondragon.service.usuario.UsuarioService;
+import br.unitins.tp1.irondragon.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -18,7 +21,7 @@ public class CartaoServiceImpl implements CartaoService {
     public CartaoRepository cartaoRepository;
 
     @Inject
-    public UsuarioService usuarioService;
+    public ClienteService clienteService;
 
     @Override
     public Cartao findById(Long id) {
@@ -37,8 +40,9 @@ public class CartaoServiceImpl implements CartaoService {
 
     @Transactional
     @Override
-    public Cartao create(String username, CartaoRequestDTO dto) {
+    public Cartao create(CartaoRequestDTO dto, String username) {
         Cartao cartao = new Cartao();
+        Cliente cliente = clienteService.findByUsername(username);
 
         cartao.setNumero(dto.numero());
         cartao.setNomeTitular(dto.nomeTitular());
@@ -47,15 +51,18 @@ public class CartaoServiceImpl implements CartaoService {
         cartao.setValidade(dto.validade());
         cartao.setTipo(TipoCartao.valueOf(dto.tipoCartao()));
 
-        cartaoRepository.persist(cartao);
+        cliente.getListaDeCartoes().add(cartao);
 
         return cartao;
     }
 
     @Transactional
     @Override
-    public void update(Long id, CartaoRequestDTO dto) {
+    public void update(Long id, CartaoRequestDTO dto, String username) {
         Cartao cartao = cartaoRepository.findById(id);
+        Cliente cliente = clienteService.findByUsername(username);
+
+        validarClienteCartao(cartao, cliente);
 
         cartao.setNumero(dto.numero());
         cartao.setNomeTitular(dto.nomeTitular());
@@ -67,7 +74,22 @@ public class CartaoServiceImpl implements CartaoService {
 
     @Transactional
     @Override
-    public void delete(Long idCartao) {
-        cartaoRepository.deleteById(idCartao);
+    public void delete(Long idCartao, String username) {
+        Cartao cartao = cartaoRepository.findById(idCartao);
+        Cliente cliente = clienteService.findByUsername(username);
+
+        validarClienteCartao(cartao, cliente);
+
+        cliente.getListaDeCartoes().remove(cartao);
+    }
+
+    public void validarClienteCartao(Cartao cartao, Cliente cliente) {
+        for(Cartao c: cliente.getListaDeCartoes()) {
+            if(c.equals(cartao)) {
+                return;
+            }
+        }
+
+        throw new ValidationException("cartao", "O cartão informado é inválido!");
     }
 }

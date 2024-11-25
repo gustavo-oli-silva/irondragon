@@ -4,6 +4,7 @@ import br.unitins.tp1.irondragon.dto.request.CartaoRequestDTO;
 import br.unitins.tp1.irondragon.dto.response.CartaoResponseDTO;
 import br.unitins.tp1.irondragon.service.cartao.CartaoService;
 import br.unitins.tp1.irondragon.service.usuario.UsuarioService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -17,9 +18,6 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 public class CartaoResource {
     @Inject
     public CartaoService cartaoService;
-
-    @Inject
-    public UsuarioService usuarioService;
 
     @Inject
     public JsonWebToken jwt;
@@ -36,26 +34,33 @@ public class CartaoResource {
     }
 
     @POST
+    @RolesAllowed({"User"})
     public Response create(@Valid CartaoRequestDTO cartao) {
         String username = jwt.getSubject();
 
         return Response
                 .status(Response.Status.CREATED)
-                .entity(CartaoResponseDTO.valueOf(cartaoService.create(username, cartao)))
+                .entity(CartaoResponseDTO.valueOf(cartaoService.create(cartao, username)))
                 .build();
     }
 
     @PUT
     @Path("/{id}")
+    @RolesAllowed({"User"})
     public Response update(@PathParam("id") Long id, @Valid CartaoRequestDTO cartao) {
-        cartaoService.update(id, cartao);
+        String username = jwt.getSubject();
+
+        cartaoService.update(id, cartao, username);
         return Response.noContent().build();
     }
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed({"User"})
     public Response delete(@PathParam("id") Long idCartao) {
-        cartaoService.delete(idCartao);
+        String username = jwt.getSubject();
+
+        cartaoService.delete(idCartao, username);
         return Response.noContent().build();
     }
 }
