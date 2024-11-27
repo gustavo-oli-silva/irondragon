@@ -5,6 +5,7 @@ import br.unitins.tp1.irondragon.dto.request.PedidoRequestDTO;
 import br.unitins.tp1.irondragon.model.pedido.ItemPedido;
 import br.unitins.tp1.irondragon.model.pedido.Lote;
 import br.unitins.tp1.irondragon.model.pedido.Pedido;
+import br.unitins.tp1.irondragon.model.pedido.StatusPedido;
 import br.unitins.tp1.irondragon.repository.PedidoRepository;
 import br.unitins.tp1.irondragon.service.cliente.ClienteService;
 import br.unitins.tp1.irondragon.service.lote.LoteService;
@@ -53,6 +54,7 @@ public class PedidoServiceImpl implements PedidoService {
         pedido.setCliente(clienteService.findByUsername(username));
         pedido.setListaItemPedido(new ArrayList<>());
         pedido.setEnderecoEntrega(dto.endereco().toEntityEnderecoEntrega());
+        pedido.setStatusPedido(StatusPedido.PAGAMENTO_PENDENTE);
 
         for(ItemPedidoRequestDTO item: dto.listaItemPedido()) {
             ItemPedido itemPedido = new ItemPedido();

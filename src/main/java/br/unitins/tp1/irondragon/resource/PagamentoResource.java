@@ -59,4 +59,26 @@ public class PagamentoResource {
                 .entity(pagamentoService.cardPayment(pedido, cartao, username))
                 .build();
     }
+
+    @PATCH
+    @Path("{pedido}/boleto/{boleto}")
+    @RolesAllowed({"User"})
+    public Response boletoPayment(@PathParam("boleto") Long boleto, @PathParam("pedido") Long pedido) {
+        String username = jwt.getSubject();
+
+        pagamentoService.payment(pedido, boleto, username, "boleto");
+
+        return Response.noContent().build();
+    }
+
+    @PATCH
+    @Path("{pedido}/pix/{pix}")
+    @RolesAllowed({"User"})
+    public Response pixPayment(@PathParam("pix") Long pix, @PathParam("pedido") Long pedido) {
+        String username = jwt.getSubject();
+
+        pagamentoService.payment(pedido, pix, username, "pix");
+
+        return Response.noContent().build();
+    }
 }

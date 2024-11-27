@@ -6,6 +6,7 @@ import br.unitins.tp1.irondragon.model.pagamento.CartaoPagamento;
 import br.unitins.tp1.irondragon.model.pagamento.Pagamento;
 import br.unitins.tp1.irondragon.model.pagamento.Pix;
 import br.unitins.tp1.irondragon.model.pedido.Pedido;
+import br.unitins.tp1.irondragon.model.pedido.StatusPedido;
 import br.unitins.tp1.irondragon.model.usuario.Cliente;
 import br.unitins.tp1.irondragon.repository.PagamentoRepository;
 import br.unitins.tp1.irondragon.service.cartao.CartaoService;
@@ -77,6 +78,51 @@ public class PagamentoServiceImpl implements PagamentoService {
 
     @Transactional
     @Override
+    public void payment(Long idPedido, Long idPagamento, String username, String tipoPagamento) {
+        Pedido pedido = pedidoService.findById(idPedido);
+        Pagamento pagamento = pagamentoRepository.findById(idPagamento);
+        Cliente cliente = clienteService.findByUsername(username);
+
+        if(!(pedido.getCliente().equals(cliente))) {
+            throw new ValidationException("pedido", "Pedido inválido!");
+        }
+
+        if(!(pedido.getPagamento().equals(pagamento))) {
+            throw new ValidationException("pedido", "Pedido inválido!");
+        }
+
+        if(pagamento.getPago()) {
+            throw new ValidationException("pagamento", "Pagamento já foi realizado!");
+        }
+
+        switch (tipoPagamento) {
+            case "boleto" -> {
+                Boleto boleto = pagamentoRepository.getBoletoByPagamentoId(idPagamento);
+
+                if(LocalDate.now().isAfter(boleto.getDataValidade())) {
+                    throw new ValidationException("pagamento", "Pagamento vencido!");
+                }
+
+                boleto.setPago(true);
+                pedido.setStatusPedido(StatusPedido.PREPARANDO_PRODUTO);
+            }
+
+            case "pix" -> {
+                Pix pix = pagamentoRepository.getPixByPagamentoId(idPagamento);
+
+                if(LocalDateTime.now().isAfter(pix.getDataValidade())) {
+                    throw new ValidationException("pagamento", "Pagamento vencido!");
+                }
+
+                pix.setPago(true);
+                pedido.setStatusPedido(StatusPedido.PREPARANDO_PRODUTO);
+            }
+        }
+    }
+
+
+    @Transactional
+    @Override
     public CartaoPagamento cardPayment(Long idPedido, long idCartao, String username) {
         Pedido pedido = pedidoService.findById(idPedido);
 
@@ -99,6 +145,7 @@ public class PagamentoServiceImpl implements PagamentoService {
         cartaoPagamento.setTipo(cartao.getTipo());
         cartaoPagamento.setPago(true);
 
+        pedido.setStatusPedido(StatusPedido.PREPARANDO_PRODUTO);
         pedido.setPagamento(cartaoPagamento);
 
         return cartaoPagamento;

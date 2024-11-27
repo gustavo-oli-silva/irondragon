@@ -17,4 +17,6 @@ public interface PagamentoService {
     Boleto generateBoleto(Long idPedido, String username);
 
     Pix generatePix(Long idPedido, String username);
+
+    void payment(Long idPedido, Long idPagamento, String username, String tipoPagamento);
 }

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 
 @Getter
-@JsonFormat(shape = JsonFormat.Shape.STRING)
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum StatusPedido {
     PEDIDO_EXPIRADO (1, "Pedido expirado"),
     PAGAMENTO_PENDENTE (2, "Pagamento pendente"),

@@ -31,4 +31,6 @@ public class Pedido extends DefaultEntity {
     @JoinColumn(name = "id_pedido")
     private List<ItemPedido> listaItemPedido;
     private Double valorTotal;
+
+    private StatusPedido statusPedido;
 }
