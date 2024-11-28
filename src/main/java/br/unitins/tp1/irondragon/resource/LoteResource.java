@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.jboss.logging.Logger;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -16,9 +17,14 @@ public class LoteResource {
     @Inject
     public LoteService loteService;
 
+    private static final Logger LOGGER = Logger.getLogger(LoteResource.class);
+
     @GET
     @Path("/{id}")
     public Response findById(@PathParam("id") Long id) {
+        LOGGER.info("Execução do método findById. Id: " + id);
+        LOGGER.debug("debug");
+
         return Response.ok(LoteResponseDTO.valueOf(loteService.findById(id))).build();
     }
 
@@ -30,6 +36,7 @@ public class LoteResource {
 
     @POST
     public Response create(@Valid LoteRequestDTO dto) {
+        LOGGER.info("Lote " + dto.codigo() + " com " + dto.estoque() + " unidades foi registrado!");
         return Response.status(Response.Status.CREATED).entity(LoteResponseDTO.valueOf(loteService.create(dto))).build();
     }
 

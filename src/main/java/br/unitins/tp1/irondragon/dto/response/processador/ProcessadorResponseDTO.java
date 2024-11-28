@@ -19,11 +19,11 @@ public record ProcessadorResponseDTO(
     Boolean desbloqueado,
     Double preco,
     Optional<PlacaIntegradaResponseDTO> placaIntegrada,
-    FabricanteResponseDTO fabricante,
     MemoriaCacheResponseDTO memoriaCache,
     FrequenciaResponseDTO frequencia,
     ConsumoEnergeticoResponseDTO consumoEnergetico,
-    ConectividadeResponseDTO conectividade
+    ConectividadeResponseDTO conectividade,
+    FabricanteResponseDTO fabricante
 ) {
         public static ProcessadorResponseDTO valueOf(Processador processador) {
             return new ProcessadorResponseDTO (
@@ -37,11 +37,11 @@ public record ProcessadorResponseDTO(
                     processador.getPreco(),
                     Optional.ofNullable(processador.getPlacaIntegrada())
                             .map(PlacaIntegradaResponseDTO::valueOf),
-                    FabricanteResponseDTO.valueOf(processador.getFabricante()),
                     MemoriaCacheResponseDTO.valueOf(processador.getMemoriaCache()),
                     FrequenciaResponseDTO.valueOf(processador.getFrequencia()),
                     ConsumoEnergeticoResponseDTO.valueOf(processador.getConsumoEnergetico()),
-                    ConectividadeResponseDTO.valueOf(processador.getConectividade())
+                    ConectividadeResponseDTO.valueOf(processador.getConectividade()),
+                    FabricanteResponseDTO.valueOf(processador.getFabricante())
             );
         }
 }
