@@ -6,6 +6,7 @@ import br.unitins.tp1.irondragon.model.processador.Processador;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
+@EqualsAndHashCode(callSuper = false)
 @Entity
 public class Lote extends DefaultEntity {
     @ManyToOne

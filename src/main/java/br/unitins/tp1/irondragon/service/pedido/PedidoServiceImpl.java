@@ -11,6 +11,7 @@ import br.unitins.tp1.irondragon.service.cliente.ClienteService;
 import br.unitins.tp1.irondragon.service.lote.LoteService;
 import br.unitins.tp1.irondragon.service.processador.ProcessadorService;
 import br.unitins.tp1.irondragon.service.usuario.UsuarioService;
+import io.quarkus.scheduler.Scheduled;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -74,6 +75,18 @@ public class PedidoServiceImpl implements PedidoService {
         pedidoRepository.persist(pedido);
 
         return pedido;
+    }
+
+    @Transactional
+    @Scheduled(every = "1m")
+    public void verifyIfPaymentIsNull() {
+        List<Pedido> pedido = pedidoRepository.findPedidoWherePagamentoIsNull();
+
+        pedido.forEach(p -> {
+            if(LocalDateTime.now().isAfter(p.getData().plusMinutes(5))) {
+                pedidoRepository.delete(p);
+            }
+        });
     }
 
     public Double calcularValorTotal(List<ItemPedido> listaDePedidos) {
