@@ -7,6 +7,7 @@ public record FornecedorRequestDTO(
         @NotBlank(message = "Nome do fornecedor não pode ser nulo!")
         String nome,
         @Email
-        String email
+        String email,
+        TelefoneRequestDTO telefone
 ) {
 }

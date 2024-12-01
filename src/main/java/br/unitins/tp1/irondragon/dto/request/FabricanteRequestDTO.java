@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 public record FabricanteRequestDTO(
         String nome,
         @Email
-        String email
+        String email,
+        TelefoneRequestDTO telefone
 ) {
 }

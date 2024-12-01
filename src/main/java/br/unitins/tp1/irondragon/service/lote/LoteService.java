@@ -12,6 +12,8 @@ public interface LoteService {
 
     Lote findByIdProcessador(Long id);
 
+    Integer findEstoqueByIdProcessador(Long idProcessador);
+
     void delete(Long id);
 
     void update(Long id, LoteRequestDTO dto);

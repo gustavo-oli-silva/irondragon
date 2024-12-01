@@ -2,15 +2,16 @@ package br.unitins.tp1.irondragon.service.pedido;
 
 import br.unitins.tp1.irondragon.dto.request.ItemPedidoRequestDTO;
 import br.unitins.tp1.irondragon.dto.request.PedidoRequestDTO;
-import br.unitins.tp1.irondragon.model.pedido.ItemPedido;
-import br.unitins.tp1.irondragon.model.pedido.Lote;
-import br.unitins.tp1.irondragon.model.pedido.Pedido;
-import br.unitins.tp1.irondragon.model.pedido.StatusPedido;
+import br.unitins.tp1.irondragon.model.Endereco;
+import br.unitins.tp1.irondragon.model.pedido.*;
 import br.unitins.tp1.irondragon.repository.PedidoRepository;
+import br.unitins.tp1.irondragon.service.cidade.CidadeService;
 import br.unitins.tp1.irondragon.service.cliente.ClienteService;
+import br.unitins.tp1.irondragon.service.endereco.EnderecoService;
 import br.unitins.tp1.irondragon.service.lote.LoteService;
 import br.unitins.tp1.irondragon.service.processador.ProcessadorService;
 import br.unitins.tp1.irondragon.service.usuario.UsuarioService;
+import br.unitins.tp1.irondragon.validation.ValidationException;
 import io.quarkus.scheduler.Scheduled;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -27,6 +28,9 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Inject
     public ClienteService clienteService;
+
+    @Inject
+    public EnderecoService enderecoService;
 
     @Inject
     public LoteService loteService;
@@ -51,23 +55,51 @@ public class PedidoServiceImpl implements PedidoService {
     @Override
     public Pedido create(PedidoRequestDTO dto, String username) {
         Pedido pedido = new Pedido();
+        Endereco endereco = enderecoService.findByIdAndUsername(dto.idEndereco(), username);
+
+        EnderecoEntrega enderecoEntrega = new EnderecoEntrega();
+
+        enderecoEntrega.setLogradouro(endereco.getLogradouro());
+        enderecoEntrega.setNumero(endereco.getNumero());
+        enderecoEntrega.setCidade(endereco.getCidade());
+        enderecoEntrega.setCep(endereco.getCep());
+        enderecoEntrega.setComplemento(endereco.getComplemento());
+        enderecoEntrega.setBairro(endereco.getBairro());
+        enderecoEntrega.setCidade(enderecoEntrega.getCidade());
+
         pedido.setData(LocalDateTime.now());
         pedido.setCliente(clienteService.findByUsername(username));
         pedido.setListaItemPedido(new ArrayList<>());
-        pedido.setEnderecoEntrega(dto.endereco().toEntityEnderecoEntrega());
+        pedido.setEnderecoEntrega(enderecoEntrega);
         pedido.setStatusPedido(StatusPedido.PAGAMENTO_PENDENTE);
 
         for(ItemPedidoRequestDTO item: dto.listaItemPedido()) {
-            ItemPedido itemPedido = new ItemPedido();
             Lote lote = loteService.findByIdProcessador(item.idProcessador());
 
-            itemPedido.setLote(lote);
-            itemPedido.setQuantidade(item.quantidade());
-            itemPedido.setPreco(lote.getProcessador().getPreco());
+            if(item.quantidade() > loteService.findEstoqueByIdProcessador(item.idProcessador())) {
+                throw new ValidationException("quantidade", "A quantidade do pedido é superior ao disponível no estoque!");
+            }
 
-            lote.setEstoque(lote.getEstoque() - item.quantidade());
+            int quantidade = item.quantidade();
 
-            pedido.getListaItemPedido().add(itemPedido);
+            while(quantidade > 0) {
+                ItemPedido itemPedido = new ItemPedido();
+                if(lote.getEstoque() == 0) {
+                    lote = loteService.findByIdProcessador(item.idProcessador());
+                }
+
+                itemPedido.setLote(lote);
+
+                int qntRetirada = Math.min(quantidade, lote.getEstoque());
+
+                lote.setEstoque(lote.getEstoque() - qntRetirada);
+
+                quantidade -= qntRetirada;
+
+                itemPedido.setQuantidade(qntRetirada);
+                itemPedido.setPreco(lote.getProcessador().getPreco());
+                pedido.getListaItemPedido().add(itemPedido);
+            }
         }
 
         pedido.setValorTotal(calcularValorTotal(pedido.getListaItemPedido()));
@@ -84,9 +116,18 @@ public class PedidoServiceImpl implements PedidoService {
 
         pedido.forEach(p -> {
             if(LocalDateTime.now().isAfter(p.getData().plusMinutes(5))) {
+                returnToLote(p);
                 pedidoRepository.delete(p);
             }
         });
+    }
+
+    public void returnToLote(Pedido pedido) {
+        for(ItemPedido itemPedido: pedido.getListaItemPedido()) {
+            Lote lote = itemPedido.getLote();
+
+            lote.setEstoque(lote.getEstoque() + itemPedido.getQuantidade());
+        }
     }
 
     public Double calcularValorTotal(List<ItemPedido> listaDePedidos) {

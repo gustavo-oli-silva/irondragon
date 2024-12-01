@@ -9,7 +9,8 @@ public record EnderecoResponseDTO(
         String cep,
         String bairro,
         String complemento,
-        Integer numero
+        Integer numero,
+        CidadeResponseDTO cidade
 ) {
     public static EnderecoResponseDTO valueOf(Endereco endereco) {
         return new EnderecoResponseDTO(
@@ -18,7 +19,8 @@ public record EnderecoResponseDTO(
                 endereco.getCep(),
                 endereco.getBairro(),
                 endereco.getComplemento(),
-                endereco.getNumero()
+                endereco.getNumero(),
+                CidadeResponseDTO.valueOf(endereco.getCidade())
         );
     }
 
@@ -29,7 +31,8 @@ public record EnderecoResponseDTO(
                 endereco.getCep(),
                 endereco.getBairro(),
                 endereco.getComplemento(),
-                endereco.getNumero()
+                endereco.getNumero(),
+                CidadeResponseDTO.valueOf(endereco.getCidade())
         );
     }
 }

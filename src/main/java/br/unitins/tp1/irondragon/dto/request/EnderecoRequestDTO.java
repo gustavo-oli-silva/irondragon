@@ -8,7 +8,8 @@ public record EnderecoRequestDTO(
         String cep,
         String bairro,
         String complemento,
-        Integer numero
+        Integer numero,
+        Long idCidade
 ) {
     public Endereco toEntityEndereco() {
         Endereco endereco = new Endereco();

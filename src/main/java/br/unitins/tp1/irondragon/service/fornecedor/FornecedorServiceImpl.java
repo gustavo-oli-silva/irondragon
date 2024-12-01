@@ -35,6 +35,7 @@ public class FornecedorServiceImpl implements FornecedorService {
         Fornecedor fornecedor = new Fornecedor();
         fornecedor.setNome(dto.nome());
         fornecedor.setEmail(dto.email());
+        fornecedor.setTelefone(dto.telefone().toEntityTelefoneFornecedor());
 
         fornecedorRepository.persist(fornecedor);
 
@@ -47,6 +48,7 @@ public class FornecedorServiceImpl implements FornecedorService {
         Fornecedor fornecedor = fornecedorRepository.findById(id);
         fornecedor.setNome(dto.nome());
         fornecedor.setEmail(dto.email());
+        fornecedor.setTelefone(dto.telefone().toEntityTelefoneFornecedor());
     }
 
     @Transactional

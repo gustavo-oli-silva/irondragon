@@ -39,6 +39,7 @@ public class FabricanteServiceImpl implements FabricanteService {
 
         fabricante.setNome(dto.nome());
         fabricante.setEmail(dto.email());
+        fabricante.setTelefone(dto.telefone().toEntityTelefoneFabricante());
         fabricanteRepository.persist(fabricante);
 
         return fabricante;
@@ -51,6 +52,7 @@ public class FabricanteServiceImpl implements FabricanteService {
 
         fabricante.setNome(dto.nome());
         fabricante.setEmail(dto.email());
+        fabricante.setTelefone(dto.telefone().toEntityTelefoneFabricante());
     }
 
     @Transactional

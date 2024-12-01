@@ -5,6 +5,7 @@ import br.unitins.tp1.irondragon.model.Cartao;
 import br.unitins.tp1.irondragon.model.Endereco;
 import br.unitins.tp1.irondragon.model.usuario.Usuario;
 import br.unitins.tp1.irondragon.repository.EnderecoRepository;
+import br.unitins.tp1.irondragon.service.cidade.CidadeService;
 import br.unitins.tp1.irondragon.service.usuario.UsuarioService;
 import br.unitins.tp1.irondragon.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -21,9 +22,21 @@ public class EnderecoServiceImpl implements EnderecoService {
     @Inject
     public UsuarioService usuarioService;
 
+    @Inject
+    public CidadeService cidadeService;
+
     @Override
     public Endereco findById(Long id) {
         return enderecoRepository.findById(id);
+    }
+
+    @Override
+    public Endereco findByIdAndUsername(Long id, String username) {
+        Usuario usuario = usuarioService.findByUsername(username);
+        Endereco endereco = enderecoRepository.findById(id);
+        validarUsuarioEndereco(usuario, endereco);
+
+        return endereco;
     }
 
     @Override
@@ -44,6 +57,7 @@ public class EnderecoServiceImpl implements EnderecoService {
         Usuario usuario = usuarioService.findByUsername(username);
 
         Endereco endereco = dto.toEntityEndereco();
+        endereco.setCidade(cidadeService.findById(dto.idCidade()));
 
         usuario.getEnderecos().add(endereco);
 
@@ -63,7 +77,7 @@ public class EnderecoServiceImpl implements EnderecoService {
         endereco.setComplemento((dto.complemento() == null) ? "Sem complemento" : dto.complemento());
         endereco.setBairro(dto.bairro());
         endereco.setLogradouro(dto.logradouro());
-        endereco.setCidade(dto.toEntityEndereco().getCidade());
+        endereco.setCidade(cidadeService.findById(dto.idCidade()));
         endereco.setCep(dto.cep());
     }
 

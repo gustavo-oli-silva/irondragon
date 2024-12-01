@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 public record LoteResponseDTO(
         Long id,
+        FornecedorResponseDTO fornecedor,
         LocalDate data,
         String codigo,
         Integer estoque,
@@ -15,6 +16,7 @@ public record LoteResponseDTO(
     public static LoteResponseDTO valueOf(Lote lote) {
         return new LoteResponseDTO(
                 lote.getId(),
+                FornecedorResponseDTO.valueOf(lote.getFornecedor()),
                 lote.getData(),
                 lote.getCodigo(),
                 lote.getEstoque(),

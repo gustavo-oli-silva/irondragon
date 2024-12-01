@@ -14,6 +14,8 @@ public interface EnderecoService {
 
     Endereco create(EnderecoRequestDTO dto, String username);
 
+    Endereco findByIdAndUsername(Long id, String username);
+
     void update(Long id, EnderecoRequestDTO dto, String username);
 
     void delete(Long id, String username);

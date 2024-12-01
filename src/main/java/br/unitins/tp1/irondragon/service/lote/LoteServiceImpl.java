@@ -51,6 +51,11 @@ public class LoteServiceImpl implements LoteService {
         return lote;
     }
 
+    @Override
+    public Integer findEstoqueByIdProcessador(Long idProcessador) {
+        return loteRepository.findEstoqueByIdProcessador(idProcessador);
+    }
+
     @Transactional
     @Override
     public void update(Long id, LoteRequestDTO dto) {

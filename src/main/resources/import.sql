@@ -5,12 +5,19 @@
 -- insert into myentity (id, field) values(3, 'field-3');
 -- alter sequence myentity_seq restart with 4;
 
-insert into Fabricante (nome, email) values
-('Intel', 'support@intel.com'),
-('AMD', 'support@amd.com');
+insert into TelefoneFabricante (codigoarea, numero) values
+('63', '40028922'),
+('63', '40028922');
 
-insert into Fornecedor (nome, email) values
-('Terabyte', 'suporte@terabyte.com');
+insert into Fabricante (nome, email, id_telefone) values
+('Intel', 'support@intel.com', 1),
+('AMD', 'support@amd.com', 2);
+
+insert into TelefoneFornecedor (codigoarea, numero) values
+('63', '40028922');
+
+insert into Fornecedor (nome, email, id_telefone) values
+('Terabyte', 'suporte@terabyte.com', 1);
 
 insert into MemoriaCache(cachel2, cachel3) values
 (12, 12),

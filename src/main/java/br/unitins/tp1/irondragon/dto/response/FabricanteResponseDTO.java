@@ -6,13 +6,15 @@ import br.unitins.tp1.irondragon.model.TelefoneFabricante;
 public record FabricanteResponseDTO(
         Long id,
         String nome,
-        String email
+        String email,
+        TelefoneResponseDTO telefone
 ) {
     public static FabricanteResponseDTO valueOf(Fabricante fabricante) {
         return new FabricanteResponseDTO (
                 fabricante.getId(),
                 fabricante.getNome(),
-                fabricante.getEmail()
+                fabricante.getEmail(),
+                TelefoneResponseDTO.valueOf(fabricante.getTelefone())
         );
     }
 }
