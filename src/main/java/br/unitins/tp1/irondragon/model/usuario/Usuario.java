@@ -21,6 +21,8 @@ public class Usuario extends DefaultEntity {
     @Column(unique = true)
     private String email;
     private String senha;
+    @Column(unique = true, nullable = false)
+    private String cpf;
     private Perfil perfil;
 
     private LocalDateTime dataCriacao;

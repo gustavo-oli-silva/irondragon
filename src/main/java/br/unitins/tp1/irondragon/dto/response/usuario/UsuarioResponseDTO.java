@@ -11,6 +11,7 @@ public record UsuarioResponseDTO(
         String username,
         String email,
         String senha,
+        String cpf,
         LocalDateTime dataCriacao,
         LocalDate dataNascimento,
         Perfil perfil
@@ -21,6 +22,7 @@ public record UsuarioResponseDTO(
                 usuario.getUsername(),
                 usuario.getEmail(),
                 usuario.getSenha(),
+                usuario.getCpf(),
                 usuario.getDataCriacao(),
                 usuario.getDataNascimento(),
                 usuario.getPerfil()

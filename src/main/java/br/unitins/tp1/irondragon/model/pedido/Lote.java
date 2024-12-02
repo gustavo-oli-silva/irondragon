@@ -25,5 +25,6 @@ public class Lote extends DefaultEntity {
     private Integer estoque;
 
     @ManyToOne
+    @JoinColumn(name = "id_fornecedor")
     private Fornecedor fornecedor;
 }

@@ -1,6 +1,6 @@
 package br.unitins.tp1.irondragon.resource.usuario;
 
-import br.unitins.tp1.irondragon.dto.request.usuario.ClienteRequestDTO;
+import br.unitins.tp1.irondragon.dto.response.processador.ProcessadorResponseDTO;
 import br.unitins.tp1.irondragon.dto.response.usuario.ClienteResponseDTO;
 import br.unitins.tp1.irondragon.service.cliente.ClienteService;
 import jakarta.annotation.security.RolesAllowed;
@@ -26,19 +26,45 @@ public class ClienteResource {
         return Response.ok(clienteService.findAll().stream().map(ClienteResponseDTO::valueOf)).build();
     }
 
-    @POST
-    @RolesAllowed({"User"})
-    public Response create(@Valid ClienteRequestDTO dto) {
-        String username = jwt.getSubject();
-
-        return Response.status(Response.Status.CREATED).entity(clienteService.create(username, dto)).build();
-    }
-
     @DELETE
     @Path("/{id}")
     @RolesAllowed({"Admin"})
     public Response delete(@PathParam("id") Long id) {
         clienteService.delete(id);
+        return Response.noContent().build();
+    }
+
+    @GET
+    @Path("/search/desejos")
+    @RolesAllowed({"User"})
+    public Response findListaDeDesejos() {
+        String username = jwt.getSubject();
+
+        return Response
+                .ok(clienteService.getListaDeDesejos(username).stream().map(ProcessadorResponseDTO::valueOf).toList())
+                .build();
+    }
+
+    @POST
+    @Path("/desejos/{processador}")
+    @RolesAllowed({"User"})
+    public Response addToListaDeDesejos(@PathParam("processador") Long id) {
+        String username = jwt.getSubject();
+
+        return Response
+                .status(Response.Status.CREATED)
+                .entity(ProcessadorResponseDTO.valueOf(clienteService.addToListaDeDesejos(id, username)))
+                .build();
+    }
+
+    @DELETE
+    @Path("/desejos/{processador}")
+    @RolesAllowed({"User"})
+    public Response removeFromListaDeDesejos(@PathParam("processador") Long id) {
+        String username = jwt.getSubject();
+
+        clienteService.removeFromListaDeDesejos(id, username);
+
         return Response.noContent().build();
     }
 }

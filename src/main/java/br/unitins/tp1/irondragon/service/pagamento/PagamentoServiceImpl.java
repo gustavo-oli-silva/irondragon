@@ -13,11 +13,13 @@ import br.unitins.tp1.irondragon.service.cartao.CartaoService;
 import br.unitins.tp1.irondragon.service.cliente.ClienteService;
 import br.unitins.tp1.irondragon.service.pedido.PedidoService;
 import br.unitins.tp1.irondragon.validation.ValidationException;
+import io.quarkus.scheduler.Scheduled;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
 import java.time.*;
+import java.util.List;
 import java.util.UUID;
 
 @ApplicationScoped
@@ -121,6 +123,31 @@ public class PagamentoServiceImpl implements PagamentoService {
         }
     }
 
+    @Transactional
+    @Scheduled(every = "1h")
+    public void verifyIfBoletoIsExpired() {
+        List<Boleto> boletos = pagamentoRepository.getListOfBoleto();
+
+        boletos.forEach(b -> {
+            if(LocalDate.now().isAfter(b.getDataValidade())) {
+                Pedido pedido = pedidoService.findPedidoByIdPagamento(b.getId());
+                pedido.setStatusPedido(StatusPedido.PEDIDO_EXPIRADO);
+            }
+        });
+    }
+
+    @Transactional
+    @Scheduled(every = "1h")
+    public void verifyIfPixIsExpired() {
+        List<Pix> pix = pagamentoRepository.getListOfPix();
+
+        pix.forEach(p -> {
+            if(LocalDateTime.now().isAfter(p.getDataValidade())) {
+                Pedido pedido = pedidoService.findPedidoByIdPagamento(p.getId());
+                pedido.setStatusPedido(StatusPedido.PEDIDO_EXPIRADO);
+            }
+        });
+    }
 
     @Transactional
     @Override

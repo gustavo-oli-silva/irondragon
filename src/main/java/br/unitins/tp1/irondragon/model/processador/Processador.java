@@ -3,11 +3,13 @@ package br.unitins.tp1.irondragon.model.processador;
 import br.unitins.tp1.irondragon.model.DefaultEntity;
 import br.unitins.tp1.irondragon.model.Fabricante;
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@EqualsAndHashCode(callSuper = false)
 @Entity
 public class Processador extends DefaultEntity {
     private String nome;

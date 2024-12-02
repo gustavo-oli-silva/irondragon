@@ -2,6 +2,7 @@ package br.unitins.tp1.irondragon.model.usuario;
 
 import br.unitins.tp1.irondragon.model.Cartao;
 import br.unitins.tp1.irondragon.model.DefaultEntity;
+import br.unitins.tp1.irondragon.model.processador.Processador;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,8 +19,9 @@ public class Cliente extends DefaultEntity {
     @JoinColumn(name = "id_usuario", unique = true, nullable = false)
     private Usuario usuario;
 
-    @Column(unique = true, nullable = false)
-    private String cpf;
+    @OneToMany
+    @JoinColumn(name = "id_processador")
+    private List<Processador> listaDeDesejos;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_cartao")

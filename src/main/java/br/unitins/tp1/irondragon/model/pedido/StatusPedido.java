@@ -7,10 +7,12 @@ import lombok.Getter;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum StatusPedido {
     PEDIDO_EXPIRADO (1, "Pedido expirado"),
-    PAGAMENTO_PENDENTE (2, "Pagamento pendente"),
-    PREPARANDO_PRODUTO (3, "Preparando produto"),
-    PRODUTO_ENVIADO (4, "Produto enviado"),
-    PRODUTO_ENTREGUE (5, "Produto entregue");
+    PEDIDO_CANCELADO( 2, "Pedido cancelado"),
+    PAGAMENTO_PENDENTE (3, "Pagamento pendente"),
+    PREPARANDO_PRODUTO (4, "Preparando produto"),
+    PRODUTO_ENVIADO (5, "Produto enviado"),
+    PRODUTO_ENTREGUE (6, "Produto entregue"),
+    PRODUTO_DEVOLVIDO(7, "Produto devolvido!");
 
     private final Integer id;
     private final String label;

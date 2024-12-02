@@ -15,4 +15,8 @@ public class PedidoRepository implements PanacheRepository<Pedido> {
     public List<Pedido> findPedidoWherePagamentoIsNull() {
         return find("SELECT p FROM Pedido p WHERE p.pagamento IS NULL").list();
     }
+
+    public Pedido findPedidoByIdPagamento(Long idPedido) {
+        return find("SELECT p FROM Pedido p WHERE p.pagamento.id = ?1", idPedido).firstResult();
+    }
 }

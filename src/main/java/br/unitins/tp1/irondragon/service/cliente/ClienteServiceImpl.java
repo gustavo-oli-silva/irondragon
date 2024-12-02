@@ -1,9 +1,10 @@
 package br.unitins.tp1.irondragon.service.cliente;
 
-import br.unitins.tp1.irondragon.dto.request.usuario.ClienteRequestDTO;
+import br.unitins.tp1.irondragon.model.processador.Processador;
 import br.unitins.tp1.irondragon.model.usuario.Cliente;
 import br.unitins.tp1.irondragon.model.usuario.Usuario;
 import br.unitins.tp1.irondragon.repository.ClienteRepository;
+import br.unitins.tp1.irondragon.service.processador.ProcessadorService;
 import br.unitins.tp1.irondragon.service.usuario.UsuarioService;
 import br.unitins.tp1.irondragon.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -20,6 +21,9 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Inject
     public UsuarioService usuarioService;
+
+    @Inject
+    public ProcessadorService processadorService;
 
     @Override
     public Cliente findById(Long id) {
@@ -38,19 +42,44 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Transactional
     @Override
-    public Cliente create(String username, ClienteRequestDTO dto) {
-        validarCpf(dto.cpf());
-
+    public Cliente create(String username) {
         Usuario usuario = usuarioService.findByUsername(username);
 
         Cliente cliente = new Cliente();
         cliente.setUsuario(usuario);
-        cliente.setCpf(dto.cpf());
         cliente.setListaDeCartoes(new ArrayList<>());
+        cliente.setListaDeDesejos(new ArrayList<>());
 
         clienteRepository.persist(cliente);
 
         return cliente;
+    }
+
+    @Override
+    public List<Processador> getListaDeDesejos(String username) {
+        Cliente cliente = clienteRepository.findByUsername(username);
+
+        return cliente.getListaDeDesejos();
+    }
+
+    @Transactional
+    @Override
+    public Processador addToListaDeDesejos(Long idProcessador, String username) {
+        Cliente cliente = clienteRepository.findByUsername(username);
+        Processador processador = processadorService.findById(idProcessador);
+
+        cliente.getListaDeDesejos().add(processador);
+
+        return processador;
+    }
+
+    @Transactional
+    @Override
+    public void removeFromListaDeDesejos(Long idProcessador, String username) {
+        Cliente cliente = clienteRepository.findByUsername(username);
+        Processador processador = processadorService.findById(idProcessador);
+
+        cliente.getListaDeDesejos().remove(processador);
     }
 
     @Override

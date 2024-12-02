@@ -42,4 +42,15 @@ public class PedidoResource {
 
         return Response.ok(PedidoResponseDTO.valueOf(pedidoService.create(dto, username))).build();
     }
+
+    @PATCH
+    @Path("/cancelar/{pedido}")
+    @RolesAllowed({"User"})
+    public Response cancelPedido(@PathParam("pedido") Long id) {
+        String username = jwt.getSubject();
+
+        pedidoService.cancelPedido(id, username);
+
+        return Response.noContent().build();
+    }
 }

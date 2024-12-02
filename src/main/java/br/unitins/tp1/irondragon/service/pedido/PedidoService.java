@@ -10,6 +10,10 @@ public interface PedidoService {
 
     public Pedido create(PedidoRequestDTO dto, String username);
 
+    void cancelPedido(Long idPedido, String username);
+
+    public Pedido findPedidoByIdPagamento(Long idPagamento);
+
     List<Pedido> findAll();
 
     Pedido findByUsername(String username);

@@ -39,10 +39,6 @@ insert into Processador (nome, socket, threads, nucleos, desbloqueado, preco, id
 ('I5 12700', 'LGA1155', 4, 4, true, 600.00, 1, 1, 1, 1, 1),
 ('I7 7700K', 'LGA777', 4, 4, true, 2400.00, 1, 2, 2, 2, 2);
 
-insert into Lote (codigo, estoque, data, id_processador) values
-('#ZXYD4343', 20, '2024-11-07', 1),
-('#INTEL2024DFCG', 40, '2024-11-06', 2);
-
 insert into Estado (nome, sigla) values
 ('Tocantins', 'TO'),
 ('São Paulo', 'SP');
@@ -56,10 +52,15 @@ insert into PlacaIntegrada (nome, directx, opengl, vulkan) values
 -- insert into Cartao (nometitular, numero, cpf, validade, cvc, tipo) values
 -- ('Keanu Reeves', '40028922', '904.001.690-96', '2022-02-02', 123, 1);
 
-insert into Usuario (username, senha, perfil) values
-('Ahri', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 1),
-('Acabaxi', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 2);
+insert into Usuario (username, senha, perfil, cpf) values
+('Ahri', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 1, '123'),
+('Acabaxi', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 2, '321');
 
+insert into Cliente(id_usuario) values
+(2);
 
+insert into Lote (codigo, estoque, data, id_processador, id_fornecedor) values
+('#ZXYD4343', 20, '2024-11-07', 1, 1),
+('#INTEL2024DFCG', 40, '2024-11-06', 2, 1);
 
 
