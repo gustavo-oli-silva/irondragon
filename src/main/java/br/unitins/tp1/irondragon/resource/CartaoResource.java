@@ -63,4 +63,13 @@ public class CartaoResource {
         cartaoService.delete(idCartao, username);
         return Response.noContent().build();
     }
+
+    @GET
+    @Path("/usuarios")
+    @RolesAllowed({"User"})
+    public Response listByUsername() {
+        String username = jwt.getSubject();
+
+        return Response.ok(cartaoService.listByUsername(username)).build();
+    }
 }

@@ -145,6 +145,18 @@ public class PedidoServiceImpl implements PedidoService {
         return pedidoRepository.findPedidoByIdPagamento(idPagamento);
     }
 
+    @Transactional
+    @Override
+    public void updateStatusPedido(Long idPedido, StatusPedido statusPedido) {
+        Pedido pedido = pedidoRepository.findById(idPedido);
+
+        if(pedido == null) {
+            throw new ValidationException("id", "O pedido não existe!");
+        }
+
+        pedido.setStatusPedido(statusPedido);
+    }
+
     public void returnToLote(Pedido pedido) {
         for(ItemPedido itemPedido: pedido.getListaItemPedido()) {
             Lote lote = itemPedido.getLote();

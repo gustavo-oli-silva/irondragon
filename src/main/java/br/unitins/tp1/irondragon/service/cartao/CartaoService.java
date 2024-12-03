@@ -16,5 +16,7 @@ public interface CartaoService {
 
     public void update(Long id, CartaoRequestDTO dto, String username);
 
+    List<Cartao> listByUsername(String username);
+
     public void delete(Long idCartao, String username);
 }

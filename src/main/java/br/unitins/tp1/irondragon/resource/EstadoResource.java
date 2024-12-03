@@ -38,7 +38,7 @@ public class EstadoResource {
 
     @GET
     @Path("/search/{nome}")
-    @RolesAllowed("Admin")
+    @RolesAllowed({"Super", "Admin", "User"})
     public Response findByNome(@PathParam("nome") String nome) {
         return Response
                 .ok(estadoService.findByNome(nome).stream().map(EstadoResponseDTO::valueOf).toList())
@@ -53,6 +53,7 @@ public class EstadoResource {
     }
 
     @POST
+    @RolesAllowed({"Super", "Admin"})
     public Response create(@Valid EstadoRequestDTO estado) {
         return Response
                 .status(Status.CREATED).entity(EstadoResponseDTO.valueOf(estadoService.create(estado)))
@@ -61,6 +62,7 @@ public class EstadoResource {
 
     @PUT
     @Path("/{id}")
+    @RolesAllowed({"Super", "Admin"})
     public Response update(@PathParam("id") Long id, @Valid EstadoRequestDTO estado) {
         estadoService.update(id, estado);
         return Response.noContent().build();
@@ -68,6 +70,7 @@ public class EstadoResource {
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed({"Super", "Admin"})
     public Response delete(@PathParam("id") Long id) {
         estadoService.delete(id);
         return Response.noContent().build();

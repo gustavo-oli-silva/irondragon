@@ -3,6 +3,7 @@ package br.unitins.tp1.irondragon.resource;
 import br.unitins.tp1.irondragon.dto.request.CidadeRequestDTO;
 import br.unitins.tp1.irondragon.dto.response.CidadeResponseDTO;
 import br.unitins.tp1.irondragon.service.cidade.CidadeService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -45,6 +46,7 @@ public class CidadeResource {
     }
 
     @POST
+    @RolesAllowed({"Super", "Admin"})
     public Response create(@Valid CidadeRequestDTO cidade) {
         return Response
                 .status(Status.CREATED)
@@ -54,6 +56,7 @@ public class CidadeResource {
 
     @PUT
     @Path("/{id}")
+    @RolesAllowed({"Super", "Admin"})
     public Response update(@PathParam("id") Long id, @Valid CidadeRequestDTO cidade) {
         cidadeService.update(id, cidade);
         return Response.noContent().build();
@@ -61,6 +64,7 @@ public class CidadeResource {
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed({"Super", "Admin"})
     public Response delete(@PathParam("id") Long id) {
         cidadeService.delete(id);
         return Response.noContent().build();

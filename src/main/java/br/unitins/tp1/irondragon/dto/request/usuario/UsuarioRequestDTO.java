@@ -1,5 +1,6 @@
 package br.unitins.tp1.irondragon.dto.request.usuario;
 
+import br.unitins.tp1.irondragon.dto.request.TelefoneRequestDTO;
 import jakarta.validation.constraints.Email;
 
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ public record UsuarioRequestDTO(
         String email,
         String senha,
         String cpf,
-        LocalDate dataNascimento
+        LocalDate dataNascimento,
+        TelefoneRequestDTO telefone
 ) {
 }

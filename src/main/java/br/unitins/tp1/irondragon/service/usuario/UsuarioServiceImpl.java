@@ -57,12 +57,19 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setPerfil(Perfil.USER);
         usuario.setSenha(hashService.getHashSenha(dto.senha()));
         usuario.setDataNascimento(dto.dataNascimento());
+        usuario.setTelefone(dto.telefone().toEntityTelefoneUsuario());
 
         usuarioRepository.persist(usuario);
 
         clienteService.create(usuario.getUsername());
 
         return usuario;
+    }
+
+    @Transactional
+    @Override
+    public void changeProfile(Usuario usuario, Perfil perfil) {
+        usuario.setPerfil(perfil);
     }
 
     @Override

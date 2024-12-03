@@ -3,6 +3,7 @@ package br.unitins.tp1.irondragon.resource;
 import br.unitins.tp1.irondragon.dto.response.processador.ProcessadorResponseDTO;
 import br.unitins.tp1.irondragon.form.ProcessadorImageForm;
 import br.unitins.tp1.irondragon.service.file.ProcessadorFileServiceImpl;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -49,6 +50,7 @@ public class ProcessadorResource {
     }
 
     @POST
+    @RolesAllowed({"Super", "Admin"})
     public Response create(ProcessadorRequestDTO processador) {
         return Response.status(Status.CREATED)
                 .entity(ProcessadorResponseDTO.valueOf(processadorService.create(processador)))
@@ -57,6 +59,7 @@ public class ProcessadorResource {
 
     @PUT
     @Path("/{id}")
+    @RolesAllowed({"Super", "Admin"})
     public Response update(@PathParam("id") Long id, @Valid ProcessadorRequestDTO processador) {
         processadorService.update(id, processador);
         return Response.noContent().build();
@@ -64,6 +67,7 @@ public class ProcessadorResource {
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed({"Super", "Admin"})
     public Response delete(@PathParam("id") Long id) {
         processadorService.delete(id);
         return Response.noContent().build();
@@ -71,6 +75,7 @@ public class ProcessadorResource {
 
     @PATCH
     @Path("{id}/upload/imagem")
+    @RolesAllowed({"Super", "Admin"})
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response uploadImage(@PathParam("id") Long id, @MultipartForm ProcessadorImageForm form) {
         try {

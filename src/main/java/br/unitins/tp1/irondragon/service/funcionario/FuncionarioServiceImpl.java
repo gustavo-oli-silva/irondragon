@@ -1,9 +1,14 @@
 package br.unitins.tp1.irondragon.service.funcionario;
 
+import br.unitins.tp1.irondragon.dto.request.usuario.FuncionarioRequestDTO;
 import br.unitins.tp1.irondragon.model.usuario.Funcionario;
+import br.unitins.tp1.irondragon.model.usuario.Usuario;
 import br.unitins.tp1.irondragon.repository.FuncionarioRepository;
+import br.unitins.tp1.irondragon.service.usuario.UsuarioService;
+import br.unitins.tp1.irondragon.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 
@@ -11,6 +16,9 @@ import java.util.List;
 public class FuncionarioServiceImpl implements FuncionarioService {
     @Inject
     public FuncionarioRepository funcionarioRepository;
+
+    @Inject
+    public UsuarioService usuarioService;
 
     @Override
     public Funcionario findById(Long id) {
@@ -27,9 +35,26 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         return funcionarioRepository.listAll();
     }
 
+    @Transactional
     @Override
-    public Funcionario create(String username) {
-        return null;
+    public Funcionario create(Long idUsuario, FuncionarioRequestDTO dto) {
+        Usuario usuario = usuarioService.findById(idUsuario);
+
+        if(usuario == null) throw new ValidationException("usuario", "Usuário não existe!");
+
+        Funcionario verificacao = funcionarioRepository.findFuncionarioByUsername(usuario.getUsername());
+
+        if(verificacao != null) throw new ValidationException("id", "Funcionário já existente!");
+
+        Funcionario funcionario = new Funcionario();
+        funcionario.setDataContratacao(dto.dataContratacao());
+        funcionario.setCargo(dto.cargo());
+        funcionario.setUsuario(usuario);
+        funcionario.setSalario(dto.salario());
+
+        funcionarioRepository.persist(funcionario);
+
+        return funcionario;
     }
 
     @Override
@@ -38,7 +63,19 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     }
 
     @Override
-    public void delete(Long id) {
+    public Funcionario findByCpfAndSenha(String cpf, String senha) {
+        return funcionarioRepository.findFuncionarioByCpfAndSenha(cpf, senha);
+    }
 
+    @Transactional
+    @Override
+    public void delete(Long id) {
+        Funcionario funcionario = funcionarioRepository.findById(id);
+
+        if(funcionario == null) {
+            throw new ValidationException("id", "Funcionário inexistente!");
+        }
+
+        funcionarioRepository.deleteById(id);
     }
 }

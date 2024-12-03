@@ -1,5 +1,6 @@
 package br.unitins.tp1.irondragon.dto.response.usuario;
 
+import br.unitins.tp1.irondragon.dto.response.TelefoneResponseDTO;
 import br.unitins.tp1.irondragon.model.usuario.Perfil;
 import br.unitins.tp1.irondragon.model.usuario.Usuario;
 
@@ -14,6 +15,7 @@ public record UsuarioResponseDTO(
         String cpf,
         LocalDateTime dataCriacao,
         LocalDate dataNascimento,
+        TelefoneResponseDTO telefone,
         Perfil perfil
 ) {
     public static UsuarioResponseDTO valueOf(Usuario usuario) {
@@ -25,6 +27,7 @@ public record UsuarioResponseDTO(
                 usuario.getCpf(),
                 usuario.getDataCriacao(),
                 usuario.getDataNascimento(),
+                TelefoneResponseDTO.valueOf(usuario.getTelefone()),
                 usuario.getPerfil()
         );
     }

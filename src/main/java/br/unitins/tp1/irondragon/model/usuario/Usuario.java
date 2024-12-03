@@ -29,7 +29,11 @@ public class Usuario extends DefaultEntity {
 
     private LocalDate dataNascimento;
 
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "id_telefone")
+    private TelefoneUsuario telefone;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_endereco")
-    List<Endereco> enderecos;
+    private List<Endereco> enderecos;
 }

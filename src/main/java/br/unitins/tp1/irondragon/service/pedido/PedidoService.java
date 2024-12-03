@@ -2,6 +2,7 @@ package br.unitins.tp1.irondragon.service.pedido;
 
 import br.unitins.tp1.irondragon.dto.request.PedidoRequestDTO;
 import br.unitins.tp1.irondragon.model.pedido.Pedido;
+import br.unitins.tp1.irondragon.model.pedido.StatusPedido;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface PedidoService {
     List<Pedido> findAll();
 
     Pedido findByUsername(String username);
+
+    void updateStatusPedido(Long idPedido, StatusPedido statusPedido);
 }

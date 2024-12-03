@@ -72,6 +72,11 @@ public class CartaoServiceImpl implements CartaoService {
         cartao.setTipo(TipoCartao.valueOf(dto.tipoCartao()));
     }
 
+    public List<Cartao> listByUsername(String username) {
+        Cliente cliente = clienteService.findByUsername(username);
+        return cliente.getListaDeCartoes();
+    }
+
     @Transactional
     @Override
     public void delete(Long idCartao, String username) {

@@ -1,0 +1,227 @@
+@startuml
+
+' CLASSES
+class Fabricante {
+    - nome: String
+    - email: String
+}
+
+class Fornecedor {
+    - nome: String
+    - email: String
+}
+
+class Lote {
+    - data: LocalDate
+    - codigo: String
+    - estoque: Integer
+}
+
+class Processador {
+    - nome: String
+    - socket: String
+    - threads: Integer
+    - nucleos: Integer
+    - desbloqueado: boolean
+    - preco: Double
+}
+
+class PlacaIntegrada {
+    - nome: String
+    - directX: Float
+    - openGL: Float 
+    - vulkan: Float 
+}
+
+class Usuario {
+    - username: String
+    - email: String
+    - senha: String
+    - cpf: String
+}
+
+class Cliente {
+    - nome: String
+    - cpf: String 
+}
+
+class Funcionario {
+    - dataContratacao: LocalDate
+    - cargo: String
+    - salario: Double
+}
+
+class Pedido {
+    - data: LocalDateTime
+    - valorTotal: Double
+}
+
+class ItemPedido {
+    - quantidade: int
+    - preco: Double
+}
+
+class Endereco {
+    - logradouro: String
+    - bairro: String
+    - complemento: String
+    - numero: Integer
+}
+
+class EnderecoEntrega {
+    - logradouro: String
+    - bairro: String
+    - complemento: String
+    - numero: Integer
+}
+
+abstract class Pagamento {
+    - valor: Double 
+}
+
+class Pix extends Pagamento {
+    - chave: String
+    - dataValidade: LocalDateTime
+}
+
+class Boleto extends Pagamento {
+    - codigoBarras: String 
+    - dataValidade: LocalDate
+}
+
+class Cartao {
+    - nomeTitular: String
+    - numero: String
+    - cpf: String
+    - validade: LocalDate
+    - cvc: Integer
+}
+
+class CartaoPagamento extends Pagamento {
+    - nomeTitular: String
+    - numero: String
+    - cpf: String 
+    - validade: LocalDate
+    - cvc: Integer
+}
+
+class Frequencia {
+    - clockBasico: Double 
+    - clockBoost: Double 
+}
+
+class Conectividade {
+    - pci: Float 
+    - tipoMemoria: String 
+    - canaisMemoria: Integer
+}
+
+class MemoriaCache {
+    - cacheL2: Double 
+    - cacheL3: Double 
+}
+
+class ConsumoEnergetico {
+    - energiaBasica: Integer 
+    - energiaMaxima: Integer
+}
+
+class TelefoneCliente {
+    - ddd: String 
+    - numero: String
+}
+
+class TelefoneFabricante {
+    - ddd: String 
+    - numero: String
+}
+
+class TelefoneFornecedor {
+    - ddd: String
+    - numero: String
+}
+
+class TelefoneUsuario {
+    - ddd: String
+    - numero: String
+}
+
+class Cidade {
+    - nome: String
+}
+
+class Estado {
+    - nome: String
+    - sigla: String
+}
+
+enum StatusPedido {
+    + PEDIDO_EXPIRADO
+    + PEDIDO_CANCELADO
+    + PAGAMENTO_PENDENTE
+    + PREPARANDO_PRODUTO
+    + PRODUTO_ENVIADO
+    + PRODUTO_ENTREGUE
+    + PRODUTO_DEVOLVIDO
+}
+
+enum TipoCartao {
+    + CREDITO
+    + DEBITO
+}
+
+enum Perfil {
+    + USER
+    + ADMIN
+}
+
+' RELACIONAMENTOS
+Processador "*" --> "1" PlacaIntegrada
+Processador "*" o--> "1" Fabricante
+Processador "1" *--> "1" Frequencia
+Processador "1" *--> "1" Conectividade
+Processador "1" *--> "1" MemoriaCache
+Processador "1" *--> "1" ConsumoEnergetico
+
+Fabricante "1" *--> "1" TelefoneFabricante
+
+Fornecedor "1" *--> "1" TelefoneFornecedor
+
+Lote "*" --> "1" Processador
+Lote "1" --> "1" Fornecedor
+
+Cliente "*" --> "*" Processador: listaDesejos
+Cliente "1" *--> "*" TelefoneCliente
+Cliente "1" --> "1" Usuario
+Cliente "1" --> "*" Cartao
+
+Usuario "1" --> "1" Endereco
+Usuario --> Perfil
+Usuario "1" --> "1" TelefoneUsuario
+
+Funcionario "1" --> "1" Usuario
+
+Pedido "*" --> "1" Cliente
+Pedido "1" *--> "*" ItemPedido
+Pedido "1" *--> "1" EnderecoEntrega
+Pedido "1" --> "*" Pagamento
+Pedido --> StatusPedido
+
+Cartao --> TipoCartao
+
+CartaoPagamento --> TipoCartao
+
+Endereco "1" --> "1" Cidade
+
+EnderecoEntrega "1" --> "1" Cidade
+
+Cidade "1" --> "1" Estado
+
+ItemPedido "*" --> "1" Lote
+
+' ANOTAÇOES
+note top of Processador {
+    A memória é medida em MB
+}
+
+@enduml

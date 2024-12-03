@@ -16,6 +16,11 @@ insert into Fabricante (nome, email, id_telefone) values
 insert into TelefoneFornecedor (codigoarea, numero) values
 ('63', '40028922');
 
+insert into TelefoneUsuario (codigoarea, numero) values
+('63', '40028922'),
+('63', '40093822'),
+('SUPER', 'SUPER');
+
 insert into Fornecedor (nome, email, id_telefone) values
 ('Terabyte', 'suporte@terabyte.com', 1);
 
@@ -52,11 +57,17 @@ insert into PlacaIntegrada (nome, directx, opengl, vulkan) values
 -- insert into Cartao (nometitular, numero, cpf, validade, cvc, tipo) values
 -- ('Keanu Reeves', '40028922', '904.001.690-96', '2022-02-02', 123, 1);
 
-insert into Usuario (username, senha, perfil, cpf) values
-('Ahri', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 1, '123'),
-('Acabaxi', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 2, '321');
+insert into Usuario (username, senha, perfil, cpf, id_telefone) values
+('Ahri', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 2, '123', 1),
+('SUPER', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 1, 'SUPER', 3),
+('Acabaxi', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 3, '321', 2);
+
+insert into Funcionario(id_usuario, cargo, salario, datacontratacao) values
+(1, 'Administrador', 1200, '2024-12-03'),
+(2, 'SUPER', 0, '2004-07-29');
 
 insert into Cliente(id_usuario) values
+(1),
 (2);
 
 insert into Lote (codigo, estoque, data, id_processador, id_fornecedor) values

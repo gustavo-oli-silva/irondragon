@@ -1,5 +1,6 @@
 package br.unitins.tp1.irondragon.service.funcionario;
 
+import br.unitins.tp1.irondragon.dto.request.usuario.FuncionarioRequestDTO;
 import br.unitins.tp1.irondragon.model.processador.Processador;
 import br.unitins.tp1.irondragon.model.usuario.Cliente;
 import br.unitins.tp1.irondragon.model.usuario.Funcionario;
@@ -13,9 +14,11 @@ public interface FuncionarioService {
 
     List<Funcionario> findAll();
 
-    Funcionario create(String username);
+    Funcionario create(Long idUsuario, FuncionarioRequestDTO dto);
 
     Funcionario findByUsername(String username);
+
+    Funcionario findByCpfAndSenha(String cpf, String senha);
 
     void delete(Long id);
 }

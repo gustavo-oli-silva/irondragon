@@ -2,6 +2,7 @@ package br.unitins.tp1.irondragon.dto.request;
 
 import br.unitins.tp1.irondragon.model.TelefoneFabricante;
 import br.unitins.tp1.irondragon.model.TelefoneFornecedor;
+import br.unitins.tp1.irondragon.model.usuario.TelefoneUsuario;
 import jakarta.validation.constraints.NotBlank;
 
 public record TelefoneRequestDTO(
@@ -24,5 +25,13 @@ public record TelefoneRequestDTO(
         telefoneFabricante.setNumero(numero());
 
         return telefoneFabricante;
+    }
+
+    public TelefoneUsuario toEntityTelefoneUsuario() {
+        TelefoneUsuario telefoneUsuario = new TelefoneUsuario();
+        telefoneUsuario.setNumero(numero());
+        telefoneUsuario.setCodigoArea(codigoArea());
+
+        return telefoneUsuario;
     }
 }
