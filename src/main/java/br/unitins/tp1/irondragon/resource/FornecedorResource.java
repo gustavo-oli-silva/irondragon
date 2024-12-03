@@ -8,22 +8,27 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.jboss.logging.Logger;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("/fornecedores")
 public class FornecedorResource {
+    private static final Logger LOGGER = Logger.getLogger(FornecedorResource.class);
+
     @Inject
     public FornecedorService fornecedorService;
 
     @GET
     @Path("/{id}")
     public Response findById(@PathParam("id") Long id) {
+        LOGGER.info("Método findById com o parametro [" + id + "] foi executado!");
         return Response.ok(FornecedorResponseDTO.valueOf(fornecedorService.findById(id))).build();
     }
 
     @GET
     public Response findAll() {
+        LOGGER.info("Método findAll foi executado!");
         return Response
                 .ok(fornecedorService.findAll().stream().map(FornecedorResponseDTO::valueOf).toList())
                 .build();
@@ -32,9 +37,10 @@ public class FornecedorResource {
     @GET
     @Path("/search/{nome}")
     public Response findByNome(@PathParam("nome") String nome) {
+        LOGGER.info("Método findByNome com o parametro [" + nome + "] foi executado!");
+
         return Response
-                .ok(
-                        fornecedorService.findByNome(nome).stream().map(FornecedorResponseDTO::valueOf).toList())
+                .ok(fornecedorService.findByNome(nome).stream().map(FornecedorResponseDTO::valueOf).toList())
                 .build();
     }
 

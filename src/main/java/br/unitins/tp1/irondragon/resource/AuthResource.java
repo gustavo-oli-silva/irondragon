@@ -13,11 +13,14 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.jboss.logging.Logger;
 
 @Path("/auth")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class AuthResource {
+
+    private static final Logger LOGGER = Logger.getLogger(AuthResource.class);
 
     @Inject
     HashService hashService;
@@ -39,6 +42,9 @@ public class AuthResource {
             return Response.status(Response.Status.NO_CONTENT)
                     .entity("Usuario não encontrado").build();
         }
+
+        LOGGER.info("Cliente " + usuario.getUsername() + " logou no sistema!");
+
         return Response.ok()
                 .header("Authorization", jwtService.generateJwt(UsuarioResponseDTO.valueOf(usuario)))
                 .build();

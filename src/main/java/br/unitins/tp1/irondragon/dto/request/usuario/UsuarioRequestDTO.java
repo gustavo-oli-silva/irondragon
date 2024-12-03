@@ -9,6 +9,7 @@ public record UsuarioRequestDTO(
         @Email
         String email,
         String senha,
+        String cpf,
         LocalDate dataNascimento
 ) {
 }

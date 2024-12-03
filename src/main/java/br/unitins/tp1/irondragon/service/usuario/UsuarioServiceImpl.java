@@ -52,6 +52,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setUsername(dto.username());
         usuario.setEmail(dto.email());
         usuario.setDataCriacao(LocalDateTime.now());
+        usuario.setCpf(dto.cpf());
         usuario.setEnderecos(new ArrayList<>());
         usuario.setPerfil(Perfil.USER);
         usuario.setSenha(hashService.getHashSenha(dto.senha()));
