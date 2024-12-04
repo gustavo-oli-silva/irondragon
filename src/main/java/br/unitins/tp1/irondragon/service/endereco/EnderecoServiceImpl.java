@@ -34,6 +34,11 @@ public class EnderecoServiceImpl implements EnderecoService {
     public Endereco findByIdAndUsername(Long id, String username) {
         Usuario usuario = usuarioService.findByUsername(username);
         Endereco endereco = enderecoRepository.findById(id);
+
+        if(endereco == null) {
+            throw new ValidationException("endereco", "Endereço informado não existe!");
+        }
+
         validarUsuarioEndereco(usuario, endereco);
 
         return endereco;
@@ -71,6 +76,10 @@ public class EnderecoServiceImpl implements EnderecoService {
 
         Endereco endereco = enderecoRepository.findById(id);
 
+        if(endereco == null) {
+            throw new ValidationException("endereco", "Endereço informado não existe!");
+        }
+
         validarUsuarioEndereco(usuario, endereco);
 
         endereco.setNumero(dto.numero());
@@ -87,6 +96,10 @@ public class EnderecoServiceImpl implements EnderecoService {
         Usuario usuario = usuarioService.findByUsername(username);
 
         Endereco endereco = enderecoRepository.findById(id);
+
+        if(endereco == null) {
+            throw new ValidationException("endereco", "Endereço informado não existe!");
+        }
 
         validarUsuarioEndereco(usuario, endereco);
 

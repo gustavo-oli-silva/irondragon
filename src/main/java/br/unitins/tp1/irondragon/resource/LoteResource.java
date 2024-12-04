@@ -15,16 +15,24 @@ import org.jboss.logging.Logger;
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("/lotes")
 public class LoteResource {
+    private static final Logger LOGGER = Logger.getLogger(LoteResource.class);
+
     @Inject
     public LoteService loteService;
 
-    private static final Logger LOGGER = Logger.getLogger(LoteResource.class);
+    @GET
+    @RolesAllowed({"Super", "Admin"})
+    public Response findAll() {
+        LOGGER.info("Execução do método findAll");
+
+        return Response.ok(loteService.findAll().stream().map(LoteResponseDTO::valueOf)).build();
+    }
 
     @GET
     @Path("/{id}")
+    @RolesAllowed({"Super", "Admin"})
     public Response findById(@PathParam("id") Long id) {
         LOGGER.info("Execução do método findById. Id: " + id);
-        LOGGER.debug("debug");
 
         return Response.ok(LoteResponseDTO.valueOf(loteService.findById(id))).build();
     }
@@ -32,8 +40,9 @@ public class LoteResource {
     @GET
     @Path("/search/{codigo}")
     @RolesAllowed({"Super", "Admin"})
-
     public Response findByCodigo(@PathParam("codigo") String codigo) {
+        LOGGER.info("Método findByCodigo foi executado com o parametro " + codigo);
+
         return Response.ok(LoteResponseDTO.valueOf(loteService.findByCodigo(codigo))).build();
     }
 
@@ -48,6 +57,8 @@ public class LoteResource {
     @Path("/{id}")
     @RolesAllowed({"Super", "Admin"})
     public Response update(@PathParam("id") Long id, @Valid LoteRequestDTO dto) {
+        LOGGER.info("Método update foi executado com o parametro " + id + ", lote: " + dto);
+
         loteService.update(id, dto);
         return Response.noContent().build();
     }
@@ -56,6 +67,8 @@ public class LoteResource {
     @Path("/{id}")
     @RolesAllowed({"Super", "Admin"})
     public Response delete(@PathParam("id") Long id) {
+        LOGGER.info("Método delete foi executado com o parametro " + id);
+
         loteService.delete(id);
         return Response.noContent().build();
     }

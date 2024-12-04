@@ -84,19 +84,19 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente findByUsername(String username) {
-        return clienteRepository.findByUsername(username);
-    }
+        Cliente cliente = clienteRepository.findByUsername(username);
 
-    public void validarCpf(String cpf) {
-        Cliente cliente = clienteRepository.findByCpf(cpf);
-
-        if(cliente != null) {
-            throw new ValidationException("cpf", "CPF inválido!");
-        }
+        return cliente;
     }
 
     @Override
     public void delete(Long id) {
+        Cliente cliente = clienteRepository.findById(id);
+
+        if(cliente == null) {
+            throw new ValidationException("id", "Cliente informado não existe!");
+        }
+
         clienteRepository.deleteById(id);
     }
 }

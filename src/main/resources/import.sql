@@ -68,7 +68,8 @@ insert into Funcionario(id_usuario, cargo, salario, datacontratacao) values
 
 insert into Cliente(id_usuario) values
 (1),
-(2);
+(2),
+(3);
 
 insert into Lote (codigo, estoque, data, id_processador, id_fornecedor) values
 ('#ZXYD4343', 20, '2024-11-07', 1, 1),

@@ -8,15 +8,15 @@ import java.util.List;
 
 @ApplicationScoped
 public class PedidoRepository implements PanacheRepository<Pedido> {
-    public Pedido findByUsername(String username) {
-        return find("SELECT p FROM Pedido p WHERE p.usuario.username = ?1", username).firstResult();
-    }
-
     public List<Pedido> findPedidoWherePagamentoIsNull() {
         return find("SELECT p FROM Pedido p WHERE p.pagamento IS NULL").list();
     }
 
     public Pedido findPedidoByIdPagamento(Long idPedido) {
         return find("SELECT p FROM Pedido p WHERE p.pagamento.id = ?1", idPedido).firstResult();
+    }
+
+    public List<Pedido> listPedidoByUsername(String username) {
+        return find("SELECT p FROM Pedido p WHERE p.cliente.usuario.username = ?1", username).list();
     }
 }

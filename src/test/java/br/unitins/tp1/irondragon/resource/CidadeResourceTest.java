@@ -1,8 +1,8 @@
-package br.unitins.tp1.irondragon;
+package br.unitins.tp1.irondragon.resource;
 
-import br.unitins.tp1.irondragon.dto.request.EstadoRequestDTO;
-import br.unitins.tp1.irondragon.model.Estado;
-import br.unitins.tp1.irondragon.service.estado.EstadoService;
+import br.unitins.tp1.irondragon.dto.request.CidadeRequestDTO;
+import br.unitins.tp1.irondragon.model.Cidade;
+import br.unitins.tp1.irondragon.service.cidade.CidadeService;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
@@ -14,21 +14,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @QuarkusTest
-public class EstadoResourceTest {
+public class CidadeResourceTest {
+
     @Inject
-    public EstadoService estadoService;
-    
+    public CidadeService cidadeService;
+
     @Test
     public void testFindAll() {
         given()
-                .when().get("/estados")
+                .when().get("/cidades")
                 .then().statusCode(200);
     }
 
     @Test
     public void testFindById() {
         given()
-                .when().get("/estados/{id}", 1)
+                .when().get("/cidades/{id}", 1)
                 .then().statusCode(200)
                 .body("id", is(1));
     }
@@ -36,67 +37,67 @@ public class EstadoResourceTest {
     @Test
     public void testFindByNome() {
         given()
-                .when().get("/estados/search/{nome}", "Tocantins")
+                .when().get("/cidades/search/{nome}", "Palmas")
                 .then().statusCode(200)
                 .body(
-                        "nome", hasItem("Tocantins")
+                        "nome", hasItem("Palmas")
                 );
     }
 
     @Test
     public void testCreate() {
-        EstadoRequestDTO estado = new EstadoRequestDTO("Teste", "TE");
+        CidadeRequestDTO cidade = new CidadeRequestDTO("Teste", 1L);
 
         given()
                 .contentType(ContentType.JSON)
-                .body(estado)
+                .body(cidade)
                 .when()
-                .post("/estados")
+                .post("/cidades")
                 .then()
                 .statusCode(201)
                 .body(
                         "id", notNullValue(),
                         "nome", is("Teste"),
-                        "sigla", is("TE")
+                        "estado.nome", is("Tocantins"),
+                        "estado.sigla", is("TO")
                 );
 
-        estadoService.delete(estadoService.findByNome("Teste").getFirst().getId());
+        cidadeService.delete(cidadeService.findByNome("Teste").getFirst().getId());
     }
 
     @Test
     public void testUpdate() {
-        EstadoRequestDTO dto = new EstadoRequestDTO("Teste", "TE");
-        EstadoRequestDTO novoDto = new EstadoRequestDTO("Outro Teste", "TO");
+        CidadeRequestDTO dto = new CidadeRequestDTO("Teste", 1L);
+        CidadeRequestDTO novoDto = new CidadeRequestDTO("Outro Teste", 2L);
 
-        Long id = estadoService.create(dto).getId();
+        Long id = cidadeService.create(dto).getId();
 
         given()
                 .contentType(ContentType.JSON)
                 .body(novoDto)
                 .when()
-                .put("/estados/" + id)
+                .put("/cidades/" + id)
                 .then()
                 .statusCode(204);
 
-        Estado estado = estadoService.findById(id);
+        Cidade cidade = cidadeService.findById(id);
 
-        assertEquals(estado.getNome(), "Outro Teste");
-        assertEquals(estado.getSigla(), "TO");
+        assertEquals(cidade.getNome(), "Outro Teste");
 
-        estadoService.delete(id);
+        cidadeService.delete(id);
     }
 
     @Test
     public void testDelete() {
-        EstadoRequestDTO dto = new EstadoRequestDTO("Rio Grande do Sul", "RS");
+        CidadeRequestDTO dto = new CidadeRequestDTO("Teste", 1L);
 
-        Long id = estadoService.create(dto).getId();
+        Long id = cidadeService.create(dto).getId();
 
         given()
                 .when()
-                .delete("/estados/" + id)
+                .delete("/cidades/" + id)
                 .then().statusCode(204);
 
-        assertNull(estadoService.findById(id));
+        assertNull(cidadeService.findById(id));
     }
 }

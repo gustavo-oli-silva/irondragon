@@ -1,35 +1,32 @@
 package br.unitins.tp1.irondragon.dto.response.processador;
 
-import br.unitins.tp1.irondragon.dto.request.processador.ConectividadeRequestDTO;
-import br.unitins.tp1.irondragon.dto.request.processador.ConsumoEnergeticoRequestDTO;
-import br.unitins.tp1.irondragon.dto.request.processador.FrequenciaRequestDTO;
-import br.unitins.tp1.irondragon.dto.request.processador.MemoriaCacheRequestDTO;
 import br.unitins.tp1.irondragon.dto.response.FabricanteResponseDTO;
 import br.unitins.tp1.irondragon.model.processador.Processador;
 
+import java.util.List;
 import java.util.Optional;
 
 public record ProcessadorResponseDTO(
-    Long id,
-    String nome,
-    String nomeImagem,
-    String socket,
-    Integer threads,
-    Integer nucleos,
-    Boolean desbloqueado,
-    Double preco,
-    Optional<PlacaIntegradaResponseDTO> placaIntegrada,
-    MemoriaCacheResponseDTO memoriaCache,
-    FrequenciaResponseDTO frequencia,
-    ConsumoEnergeticoResponseDTO consumoEnergetico,
-    ConectividadeResponseDTO conectividade,
-    FabricanteResponseDTO fabricante
+        Long id,
+        String nome,
+        List<String> imagens,
+        String socket,
+        Integer threads,
+        Integer nucleos,
+        Boolean desbloqueado,
+        Double preco,
+        Optional<PlacaIntegradaResponseDTO> placaIntegrada,
+        MemoriaCacheResponseDTO memoriaCache,
+        FrequenciaResponseDTO frequencia,
+        ConsumoEnergeticoResponseDTO consumoEnergetico,
+        ConectividadeResponseDTO conectividade,
+        FabricanteResponseDTO fabricante
 ) {
         public static ProcessadorResponseDTO valueOf(Processador processador) {
             return new ProcessadorResponseDTO (
                     processador.getId(),
                     processador.getNome(),
-                    processador.getNomeImagem(),
+                    processador.getImagens(),
                     processador.getSocket(),
                     processador.getThreads(),
                     processador.getNucleos(),

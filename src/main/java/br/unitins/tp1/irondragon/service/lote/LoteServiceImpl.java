@@ -5,9 +5,12 @@ import br.unitins.tp1.irondragon.model.pedido.Lote;
 import br.unitins.tp1.irondragon.repository.LoteRepository;
 import br.unitins.tp1.irondragon.service.fornecedor.FornecedorService;
 import br.unitins.tp1.irondragon.service.processador.ProcessadorService;
+import br.unitins.tp1.irondragon.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+
+import java.util.List;
 
 @ApplicationScoped
 public class LoteServiceImpl implements LoteService {
@@ -21,19 +24,38 @@ public class LoteServiceImpl implements LoteService {
     public FornecedorService fornecedorService;
 
     @Override
+    public List<Lote> findAll() {
+        return loteRepository.findAll().list();
+    }
+
+    @Override
     public Lote findByCodigo(String codigo) {
-        return loteRepository.findByIdCodigo(codigo);
+        Lote lote = loteRepository.findByIdCodigo(codigo);
+
+        if(lote == null) {
+            throw new ValidationException("codigo", "Lote não existe!");
+        }
+
+        return lote;
     }
 
     @Transactional
     @Override
     public Lote findById(Long id) {
-        return loteRepository.findById(id);
+        Lote lote = loteRepository.findById(id);
+
+        return lote;
     }
 
     @Override
     public Lote findByIdProcessador(Long id) {
-        return loteRepository.findByIdProcessador(id);
+        Lote lote = loteRepository.findByIdProcessador(id);
+
+        if(lote == null) {
+            throw new ValidationException("id", "Lote não existe!");
+        }
+
+        return lote;
     }
 
     @Transactional
@@ -60,6 +82,11 @@ public class LoteServiceImpl implements LoteService {
     @Override
     public void update(Long id, LoteRequestDTO dto) {
         Lote lote = loteRepository.findById(id);
+
+        if(lote == null) {
+            throw new ValidationException("id", "Lote não existe!");
+        }
+
         lote.setProcessador(processadorService.findById(id));
         lote.setCodigo(dto.codigo());
         lote.setData(dto.data());
@@ -69,6 +96,12 @@ public class LoteServiceImpl implements LoteService {
 
     @Override
     public void delete(Long id) {
+        Lote lote = loteRepository.findById(id);
+
+        if(lote == null) {
+            throw new ValidationException("id", "Lote não existe!");
+        }
+
         loteRepository.deleteById(id);
     }
 }

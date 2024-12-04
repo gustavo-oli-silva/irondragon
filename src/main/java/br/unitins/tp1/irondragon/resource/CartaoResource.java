@@ -3,7 +3,6 @@ package br.unitins.tp1.irondragon.resource;
 import br.unitins.tp1.irondragon.dto.request.CartaoRequestDTO;
 import br.unitins.tp1.irondragon.dto.response.CartaoResponseDTO;
 import br.unitins.tp1.irondragon.service.cartao.CartaoService;
-import br.unitins.tp1.irondragon.service.usuario.UsuarioService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -11,11 +10,14 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.jwt.JsonWebToken;
+import org.jboss.logging.Logger;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("/cartoes")
 public class CartaoResource {
+    private static final Logger LOGGER = Logger.getLogger(CartaoResource.class);
+
     @Inject
     public CartaoService cartaoService;
 
@@ -25,11 +27,15 @@ public class CartaoResource {
     @GET
     @Path("/{id}")
     public Response findById(@PathParam("id") Long id) {
+        LOGGER.info("Método findById foi executado com o parametro [" + id + "] !");
+
         return Response.ok(CartaoResponseDTO.valueOf(cartaoService.findById(id))).build();
     }
 
     @GET
     public Response findAll() {
+        LOGGER.info("Método findAll foi executado!");
+
         return Response.ok(cartaoService.findAll().stream().map(CartaoResponseDTO::valueOf).toList()).build();
     }
 
@@ -37,6 +43,8 @@ public class CartaoResource {
     @RolesAllowed({"User"})
     public Response create(@Valid CartaoRequestDTO cartao) {
         String username = jwt.getSubject();
+
+        LOGGER.info("Cliente [" + username + "] cadastrou o cartao: " + cartao);
 
         return Response
                 .status(Response.Status.CREATED)
@@ -50,6 +58,8 @@ public class CartaoResource {
     public Response update(@PathParam("id") Long id, @Valid CartaoRequestDTO cartao) {
         String username = jwt.getSubject();
 
+        LOGGER.info("Cliente [" + username + "] modificou o Cartão " + id + ": " + cartao);
+
         cartaoService.update(id, cartao, username);
         return Response.noContent().build();
     }
@@ -60,6 +70,8 @@ public class CartaoResource {
     public Response delete(@PathParam("id") Long idCartao) {
         String username = jwt.getSubject();
 
+        LOGGER.info("Cliente [" + username + "] deletou o cartão " + idCartao);
+
         cartaoService.delete(idCartao, username);
         return Response.noContent().build();
     }
@@ -69,6 +81,8 @@ public class CartaoResource {
     @RolesAllowed({"User"})
     public Response listByUsername() {
         String username = jwt.getSubject();
+
+        LOGGER.info("Cliente [" + username + "] pediu a lista dos cartões cadastrados");
 
         return Response.ok(cartaoService.listByUsername(username)).build();
     }

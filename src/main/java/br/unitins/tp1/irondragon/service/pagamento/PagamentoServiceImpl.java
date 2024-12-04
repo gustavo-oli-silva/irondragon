@@ -84,6 +84,11 @@ public class PagamentoServiceImpl implements PagamentoService {
     public void payment(Long idPedido, Long idPagamento, String username, String tipoPagamento) {
         Pedido pedido = pedidoService.findById(idPedido);
         Pagamento pagamento = pagamentoRepository.findById(idPagamento);
+
+        if(pagamento == null) {
+            throw new ValidationException("pagamento", "Cadastro de pagamento não encontrado!");
+        }
+
         Cliente cliente = clienteService.findByUsername(username);
 
         if(!(pedido.getCliente().equals(cliente))) {

@@ -8,6 +8,7 @@ import br.unitins.tp1.irondragon.model.processador.Processador;
 import br.unitins.tp1.irondragon.repository.ProcessadorRepository;
 import br.unitins.tp1.irondragon.service.fabricante.FabricanteService;
 import br.unitins.tp1.irondragon.service.placaintegrada.PlacaIntegradaService;
+import br.unitins.tp1.irondragon.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -103,7 +104,9 @@ public class ProcessadorServiceImpl implements ProcessadorService {
     public Processador updateNomeImagem(Long id, String nomeImagem) {
         Processador processador = processadorRepository.findById(id);
 
-        processador.setNomeImagem(nomeImagem);
+        if(processador == null) throw new ValidationException("id", "Processador não existe!");
+
+        processador.getImagens().add(nomeImagem);
 
         return processador;
     }

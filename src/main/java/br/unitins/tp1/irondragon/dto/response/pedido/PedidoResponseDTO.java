@@ -1,11 +1,12 @@
-package br.unitins.tp1.irondragon.dto.response;
+package br.unitins.tp1.irondragon.dto.response.pedido;
 
+import br.unitins.tp1.irondragon.dto.response.EnderecoResponseDTO;
+import br.unitins.tp1.irondragon.dto.response.ItemPedidoResponseDTO;
 import br.unitins.tp1.irondragon.dto.response.pagamento.BoletoResponseDTO;
 import br.unitins.tp1.irondragon.dto.response.pagamento.CartaoPagamentoResponseDTO;
 import br.unitins.tp1.irondragon.dto.response.pagamento.PixResponseDTO;
 import br.unitins.tp1.irondragon.model.pagamento.Boleto;
 import br.unitins.tp1.irondragon.model.pagamento.CartaoPagamento;
-import br.unitins.tp1.irondragon.model.pagamento.Pagamento;
 import br.unitins.tp1.irondragon.model.pagamento.Pix;
 import br.unitins.tp1.irondragon.model.pedido.Pedido;
 import br.unitins.tp1.irondragon.model.pedido.StatusPedido;

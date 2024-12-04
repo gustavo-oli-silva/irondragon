@@ -25,6 +25,12 @@ public class CartaoServiceImpl implements CartaoService {
 
     @Override
     public Cartao findById(Long id) {
+        Cartao cartao = cartaoRepository.findById(id);
+
+        if(cartao == null) {
+            throw new ValidationException("cartao", "Cartao informado não existe!");
+        }
+
         return cartaoRepository.findById(id);
     }
 

@@ -39,11 +39,27 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     public Pedido findById(Long id) {
-        return pedidoRepository.findById(id);
+        Pedido pedido = pedidoRepository.findById(id);
+
+        if(pedido == null) {
+            throw new ValidationException("id", "Pedido informado não existe!");
+        }
+
+        return pedido;
     }
 
-    public Pedido findByUsername(String username) {
-        return pedidoRepository.findByUsername(username);
+    @Override
+    public Pedido findByUsername(Long id, String username) {
+        Cliente cliente = clienteService.findByUsername(username);
+        Pedido pedido = pedidoRepository.findById(id);
+
+        if(pedido == null) {
+            throw new ValidationException("id", "Pedido inválido!");
+        }
+
+        validarPedidoCliente(pedido, cliente);
+
+        return pedido;
     }
 
     public List<Pedido> findAll() {
@@ -73,6 +89,10 @@ public class PedidoServiceImpl implements PedidoService {
         pedido.setStatusPedido(StatusPedido.PAGAMENTO_PENDENTE);
 
         for(ItemPedidoRequestDTO item: dto.listaItemPedido()) {
+            if(item.quantidade() <= 0) {
+                throw new ValidationException("quantidade", "Quantidade não deve ser igual ou inferior a 0");
+            }
+
             Lote lote = loteService.findByIdProcessador(item.idProcessador());
 
             if(item.quantidade() > loteService.findEstoqueByIdProcessador(item.idProcessador())) {
@@ -136,13 +156,19 @@ public class PedidoServiceImpl implements PedidoService {
             pedido.setStatusPedido(StatusPedido.PEDIDO_CANCELADO);
             returnToLote(pedido);
         } else {
-            throw new ValidationException("statuspedido", "O pedido não pode ser cancelado");
+            throw new ValidationException("statusPedido", "O pedido não pode ser cancelado");
         }
     }
 
     @Override
     public Pedido findPedidoByIdPagamento(Long idPagamento) {
-        return pedidoRepository.findPedidoByIdPagamento(idPagamento);
+        Pedido pedido = pedidoRepository.findPedidoByIdPagamento(idPagamento);
+
+        if(pedido == null) {
+            throw new ValidationException("id", "Pedido informado não existe!");
+        }
+
+        return pedido;
     }
 
     @Transactional
@@ -155,6 +181,11 @@ public class PedidoServiceImpl implements PedidoService {
         }
 
         pedido.setStatusPedido(statusPedido);
+    }
+
+    @Override
+    public List<Pedido> listByUsername(String username) {
+        return pedidoRepository.listPedidoByUsername(username);
     }
 
     public void returnToLote(Pedido pedido) {

@@ -16,7 +16,8 @@ public record UsuarioResponseDTO(
         LocalDateTime dataCriacao,
         LocalDate dataNascimento,
         TelefoneResponseDTO telefone,
-        Perfil perfil
+        Perfil perfil,
+        String nomeImagem
 ) {
     public static UsuarioResponseDTO valueOf(Usuario usuario) {
         return new UsuarioResponseDTO(
@@ -28,7 +29,8 @@ public record UsuarioResponseDTO(
                 usuario.getDataCriacao(),
                 usuario.getDataNascimento(),
                 TelefoneResponseDTO.valueOf(usuario.getTelefone()),
-                usuario.getPerfil()
+                usuario.getPerfil(),
+                usuario.getNomeImagem()
         );
     }
 }

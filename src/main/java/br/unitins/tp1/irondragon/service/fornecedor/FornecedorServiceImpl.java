@@ -3,6 +3,7 @@ package br.unitins.tp1.irondragon.service.fornecedor;
 import br.unitins.tp1.irondragon.dto.request.FornecedorRequestDTO;
 import br.unitins.tp1.irondragon.model.Fornecedor;
 import br.unitins.tp1.irondragon.repository.FornecedorRepository;
+import br.unitins.tp1.irondragon.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -16,7 +17,13 @@ public class FornecedorServiceImpl implements FornecedorService {
 
     @Override
     public Fornecedor findById(Long id) {
-        return fornecedorRepository.findById(id);
+        Fornecedor fornecedor = fornecedorRepository.findById(id);
+
+        if(fornecedor == null) {
+            throw new ValidationException("id", "Fornecedor informado não existe!");
+        }
+
+        return fornecedor;
     }
 
     @Override
@@ -46,6 +53,11 @@ public class FornecedorServiceImpl implements FornecedorService {
     @Override
     public void update(Long id, FornecedorRequestDTO dto) {
         Fornecedor fornecedor = fornecedorRepository.findById(id);
+
+        if(fornecedor == null) {
+            throw new ValidationException("id", "Fornecedor informado não existe!");
+        }
+
         fornecedor.setNome(dto.nome());
         fornecedor.setEmail(dto.email());
         fornecedor.setTelefone(dto.telefone().toEntityTelefoneFornecedor());
@@ -54,6 +66,12 @@ public class FornecedorServiceImpl implements FornecedorService {
     @Transactional
     @Override
     public void delete(Long id) {
+        Fornecedor fornecedor = fornecedorRepository.findById(id);
+
+        if(fornecedor == null) {
+            throw new ValidationException("id", "Fornecedor informado não existe!");
+        }
+
         fornecedorRepository.deleteById(id);
     }
 }

@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = false)
@@ -19,7 +21,10 @@ public class Processador extends DefaultEntity {
     private Boolean desbloqueado;
     private Double preco;
 
-    private String nomeImagem;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "imagem_processador", joinColumns = @JoinColumn(name = "id_processador"))
+    @Column(name = "imagem")
+    private List<String> imagens;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_memoriacache")

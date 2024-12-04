@@ -84,6 +84,8 @@ public class AuthResource {
             usuarioService.changeProfile(funcionario.getUsuario(), Perfil.ADMIN);
         }
 
+        LOGGER.info("Funcionário [" + funcionario.getUsuario().getUsername() + "] fez login");
+
         return Response.ok()
                 .header("Authorization", jwtService.generateJwt(UsuarioResponseDTO.valueOf(funcionario.getUsuario())))
                 .build();

@@ -36,4 +36,6 @@ public class Usuario extends DefaultEntity {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_endereco")
     private List<Endereco> enderecos;
+
+    private String nomeImagem;
 }

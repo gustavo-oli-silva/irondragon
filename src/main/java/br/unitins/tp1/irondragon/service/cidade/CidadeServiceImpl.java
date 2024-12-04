@@ -7,6 +7,7 @@ import br.unitins.tp1.irondragon.model.Cidade;
 import br.unitins.tp1.irondragon.model.Estado;
 import br.unitins.tp1.irondragon.repository.CidadeRepository;
 import br.unitins.tp1.irondragon.service.estado.EstadoService;
+import br.unitins.tp1.irondragon.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -57,6 +58,11 @@ public class CidadeServiceImpl implements CidadeService {
     @Override
     public void update(Long id, CidadeRequestDTO cidade) {
         Cidade c = cidadeRepository.findById(id);
+
+        if(c == null) {
+            throw new ValidationException("id", "A cidade informada não existe!");
+        }
+
         c.setNome(cidade.nome());
         c.setEstado(estadoService.findById(cidade.estado()));
     }
@@ -64,6 +70,12 @@ public class CidadeServiceImpl implements CidadeService {
     @Transactional
     @Override
     public void delete(Long id) {
+        Cidade cidade = cidadeRepository.findById(id);
+
+        if(cidade == null) {
+            throw new ValidationException("id", "Cidade informada não existe!");
+        }
+
         cidadeRepository.deleteById(id);
     }
     

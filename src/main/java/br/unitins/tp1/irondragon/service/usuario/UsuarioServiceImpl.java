@@ -1,11 +1,14 @@
 package br.unitins.tp1.irondragon.service.usuario;
 
+import br.unitins.tp1.irondragon.dto.request.usuario.EmailUpdateDTO;
+import br.unitins.tp1.irondragon.dto.request.usuario.SenhaUpdateDTO;
 import br.unitins.tp1.irondragon.dto.request.usuario.UsuarioRequestDTO;
 import br.unitins.tp1.irondragon.model.usuario.Perfil;
 import br.unitins.tp1.irondragon.model.usuario.Usuario;
 import br.unitins.tp1.irondragon.repository.UsuarioRepository;
 import br.unitins.tp1.irondragon.service.cliente.ClienteService;
 import br.unitins.tp1.irondragon.service.hash.HashService;
+import br.unitins.tp1.irondragon.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -68,8 +71,40 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Transactional
     @Override
+    public void updateEmail(EmailUpdateDTO dto, String username) {
+        Usuario usuario = usuarioRepository.findByUsername(username);
+
+        Usuario email = usuarioRepository.findByEmail(dto.email());
+
+        if(email != null) {
+            throw new ValidationException("email", "Email inválido!");
+        }
+
+        usuario.setEmail(dto.email());
+    }
+
+    @Transactional
+    @Override
+    public void updateSenha(SenhaUpdateDTO dto, String username) {
+        Usuario usuario = usuarioRepository.findByUsername(username);
+
+        usuario.setSenha(hashService.getHashSenha(dto.senha()));
+    }
+
+    @Transactional
+    @Override
     public void changeProfile(Usuario usuario, Perfil perfil) {
         usuario.setPerfil(perfil);
+    }
+
+    @Transactional
+    @Override
+    public Usuario updateNomeImagem(String username, String nomeImagem) {
+        Usuario usuario = usuarioRepository.findByUsername(username);
+
+        usuario.setNomeImagem(nomeImagem);
+
+        return usuario;
     }
 
     @Override

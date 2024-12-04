@@ -3,6 +3,7 @@ package br.unitins.tp1.irondragon.service.fabricante;
 import br.unitins.tp1.irondragon.dto.request.FabricanteRequestDTO;
 import br.unitins.tp1.irondragon.model.Fabricante;
 import br.unitins.tp1.irondragon.repository.FabricanteRepository;
+import br.unitins.tp1.irondragon.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -16,7 +17,13 @@ public class FabricanteServiceImpl implements FabricanteService {
 
     @Override
     public Fabricante findById(Long id) {
-        return fabricanteRepository.findById(id);
+        Fabricante fabricante = fabricanteRepository.findById(id);
+
+        if(fabricante == null) {
+            throw new ValidationException("id", "Fabricante informado não existe");
+        }
+
+        return fabricante;
     }
 
     @Override
@@ -50,6 +57,10 @@ public class FabricanteServiceImpl implements FabricanteService {
     public void update(Long id, FabricanteRequestDTO dto) {
         Fabricante fabricante = fabricanteRepository.findById(id);
 
+        if(fabricante == null) {
+            throw new ValidationException("id", "Fabricante informado não existe");
+        }
+
         fabricante.setNome(dto.nome());
         fabricante.setEmail(dto.email());
         fabricante.setTelefone(dto.telefone().toEntityTelefoneFabricante());
@@ -58,6 +69,12 @@ public class FabricanteServiceImpl implements FabricanteService {
     @Transactional
     @Override
     public void delete(Long id) {
+        Fabricante fabricante = fabricanteRepository.findById(id);
+
+        if(fabricante == null) {
+            throw new ValidationException("id", "Fabricante informado não existe");
+        }
+
         fabricanteRepository.deleteById(id);
     }
 }

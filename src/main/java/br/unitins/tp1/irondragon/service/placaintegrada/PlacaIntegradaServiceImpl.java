@@ -3,6 +3,7 @@ package br.unitins.tp1.irondragon.service.placaintegrada;
 import br.unitins.tp1.irondragon.dto.request.processador.PlacaIntegradaRequestDTO;
 import br.unitins.tp1.irondragon.model.processador.PlacaIntegrada;
 import br.unitins.tp1.irondragon.repository.PlacaIntegradaRepository;
+import br.unitins.tp1.irondragon.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -48,6 +49,11 @@ public class PlacaIntegradaServiceImpl implements PlacaIntegradaService {
     @Override
     public void update(Long id, PlacaIntegradaRequestDTO dto) {
         PlacaIntegrada placaIntegrada = placaIntegradaRepository.findById(id);
+
+        if(placaIntegrada == null) {
+            throw new ValidationException("id", "A placa integrada informada não existe!");
+        }
+
         placaIntegrada.setNome(dto.nome());
         placaIntegrada.setDirectX(dto.directX());
         placaIntegrada.setOpenGl(dto.openGl());
@@ -57,6 +63,12 @@ public class PlacaIntegradaServiceImpl implements PlacaIntegradaService {
     @Transactional
     @Override
     public void delete(Long id) {
+        PlacaIntegrada placaIntegrada = placaIntegradaRepository.findById(id);
+
+        if(placaIntegrada == null) {
+            throw new ValidationException("id", "A placa integrada informada não existe!");
+        }
+
         placaIntegradaRepository.deleteById(id);
     }
 }

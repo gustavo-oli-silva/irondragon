@@ -3,6 +3,7 @@ package br.unitins.tp1.irondragon.resource;
 import br.unitins.tp1.irondragon.dto.request.FornecedorRequestDTO;
 import br.unitins.tp1.irondragon.dto.response.FornecedorResponseDTO;
 import br.unitins.tp1.irondragon.service.fornecedor.FornecedorService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -45,7 +46,10 @@ public class FornecedorResource {
     }
 
     @POST
+    @RolesAllowed({"Super", "Admin"})
     public Response create(@Valid FornecedorRequestDTO dto) {
+        LOGGER.info("Método create foi executado, fornecedor: " + dto);
+
         return Response
                 .status(Response.Status.CREATED).entity(FornecedorResponseDTO.valueOf(fornecedorService.create(dto)))
                 .build();
@@ -53,14 +57,19 @@ public class FornecedorResource {
 
     @PUT
     @Path("/{id}")
-    public Response update(@PathParam("id") Long id,@Valid FornecedorRequestDTO dto) {
+    @RolesAllowed({"Super", "Admin"})
+    public Response update(@PathParam("id") Long id, @Valid FornecedorRequestDTO dto) {
+        LOGGER.info("Método update foi executado com o parametro " + id + ", fornecedor: " + dto);
+
         fornecedorService.update(id, dto);
         return Response.noContent().build();
     }
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed({"Super", "Admin"})
     public Response delete(@PathParam("id") Long id) {
+        LOGGER.info("Método delete foi executado com o parametro " + id);
         fornecedorService.delete(id);
         return Response.noContent().build();
     }

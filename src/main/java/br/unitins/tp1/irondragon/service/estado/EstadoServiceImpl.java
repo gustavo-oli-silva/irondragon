@@ -5,6 +5,7 @@ import java.util.List;
 import br.unitins.tp1.irondragon.dto.request.EstadoRequestDTO;
 import br.unitins.tp1.irondragon.model.Estado;
 import br.unitins.tp1.irondragon.repository.EstadoRepository;
+import br.unitins.tp1.irondragon.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -17,7 +18,13 @@ public class EstadoServiceImpl implements EstadoService {
 
     @Override
     public Estado findById(Long id) {
-        return estadoRepository.findById(id);
+        Estado estado = estadoRepository.findById(id);
+
+        if(estado == null) {
+            throw new ValidationException("id", "Estado não existente!");
+        }
+
+        return estado;
     }
 
     @Override
@@ -40,15 +47,26 @@ public class EstadoServiceImpl implements EstadoService {
 
     @Transactional
     @Override
-    public void update(Long id, EstadoRequestDTO estado) {
-        Estado e = estadoRepository.findById(id);
-        e.setNome(estado.nome());
-        e.setSigla(estado.sigla());
+    public void update(Long id, EstadoRequestDTO dto) {
+        Estado estado = estadoRepository.findById(id);
+
+        if(estado == null) {
+            throw new ValidationException("id", "Fabricante informado não existe");
+        }
+
+        estado.setNome(dto.nome());
+        estado.setSigla(dto.sigla());
     }
 
     @Transactional
     @Override
     public void delete(Long id) {
+        Estado estado = estadoRepository.findById(id);
+
+        if(estado == null) {
+            throw new ValidationException("id", "Fabricante informado não existe");
+        }
+
         estadoRepository.deleteById(id);
     }
 

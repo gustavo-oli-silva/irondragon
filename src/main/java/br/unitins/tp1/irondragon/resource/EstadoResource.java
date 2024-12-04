@@ -18,11 +18,13 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
+import org.jboss.logging.Logger;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("/estados")
 public class EstadoResource {
+    private static final Logger LOGGER = Logger.getLogger(EstadoResource.class);
 
     @Inject
     public EstadoService estadoService;
@@ -31,6 +33,8 @@ public class EstadoResource {
     @Path("/{id}")
     @RolesAllowed({"Admin", "User"})
     public Response findById(@PathParam("id") Long id) {
+        LOGGER.info("Método findById foi executado!");
+
         return Response
                 .ok(EstadoResponseDTO.valueOf(estadoService.findById(id)))
                 .build();
@@ -40,6 +44,8 @@ public class EstadoResource {
     @Path("/search/{nome}")
     @RolesAllowed({"Super", "Admin", "User"})
     public Response findByNome(@PathParam("nome") String nome) {
+        LOGGER.info("Método findById foi executado com o parametro [" + nome + "]!");
+
         return Response
                 .ok(estadoService.findByNome(nome).stream().map(EstadoResponseDTO::valueOf).toList())
                 .build();
@@ -47,6 +53,8 @@ public class EstadoResource {
 
     @GET
     public Response findAll() {
+        LOGGER.info("Método findAll foi executado!");
+
         return Response
                 .ok(estadoService.findAll().stream().map(EstadoResponseDTO::valueOf).toList())
                 .build();
@@ -55,6 +63,8 @@ public class EstadoResource {
     @POST
     @RolesAllowed({"Super", "Admin"})
     public Response create(@Valid EstadoRequestDTO estado) {
+        LOGGER.info("Método create foi executado, estado: " + estado);
+
         return Response
                 .status(Status.CREATED).entity(EstadoResponseDTO.valueOf(estadoService.create(estado)))
                 .build();
@@ -64,6 +74,8 @@ public class EstadoResource {
     @Path("/{id}")
     @RolesAllowed({"Super", "Admin"})
     public Response update(@PathParam("id") Long id, @Valid EstadoRequestDTO estado) {
+        LOGGER.info("Método update foi executado, estado com id " + id + ": " + estado);
+
         estadoService.update(id, estado);
         return Response.noContent().build();
     }
@@ -72,6 +84,8 @@ public class EstadoResource {
     @Path("/{id}")
     @RolesAllowed({"Super", "Admin"})
     public Response delete(@PathParam("id") Long id) {
+        LOGGER.info("Método delete foi executado com o parametro " + id);
+
         estadoService.delete(id);
         return Response.noContent().build();
     }

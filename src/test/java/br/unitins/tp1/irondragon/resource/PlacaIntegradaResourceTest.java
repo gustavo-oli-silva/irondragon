@@ -1,4 +1,4 @@
-package br.unitins.tp1.irondragon;
+package br.unitins.tp1.irondragon.resource;
 
 import br.unitins.tp1.irondragon.dto.request.processador.PlacaIntegradaRequestDTO;
 import br.unitins.tp1.irondragon.model.processador.PlacaIntegrada;

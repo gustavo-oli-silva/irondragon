@@ -12,12 +12,11 @@ import java.util.List;
 import java.util.UUID;
 
 @ApplicationScoped
-public class ProcessadorFileServiceImpl implements FileService {
-
+public class UsuarioFileServiceImpl implements FileService {
     private final String PATH_PROCESSADOR =
             System.getProperty("user.home") +
                     File.separator + "quarkus" +
-                    File.separator + "processador" +
+                    File.separator + "usuario" +
                     File.separator;
 
     private static final List<String> SUPPORTED_MIME_TYPES =
@@ -33,7 +32,6 @@ public class ProcessadorFileServiceImpl implements FileService {
     @Override
     public String save(String nomeArquivo, byte[] arquivo) throws IOException {
         Path dir = Paths.get(PATH_PROCESSADOR);
-        imageIsHigherThanLimit(arquivo);
 
         Files.createDirectories(dir);
 

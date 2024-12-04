@@ -15,9 +15,11 @@ public interface PedidoService {
 
     public Pedido findPedidoByIdPagamento(Long idPagamento);
 
+    Pedido findByUsername(Long id, String username);
+
     List<Pedido> findAll();
 
-    Pedido findByUsername(String username);
-
     void updateStatusPedido(Long idPedido, StatusPedido statusPedido);
+
+    List<Pedido> listByUsername(String username);
 }
