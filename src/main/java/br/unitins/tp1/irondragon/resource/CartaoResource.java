@@ -26,6 +26,7 @@ public class CartaoResource {
 
     @GET
     @Path("/{id}")
+    @RolesAllowed({"Super", "Admin"})
     public Response findById(@PathParam("id") Long id) {
         LOGGER.info("Método findById foi executado com o parametro [" + id + "] !");
 
@@ -33,6 +34,7 @@ public class CartaoResource {
     }
 
     @GET
+    @RolesAllowed({"Super", "Admin"})
     public Response findAll() {
         LOGGER.info("Método findAll foi executado!");
 

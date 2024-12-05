@@ -22,12 +22,14 @@ public class FornecedorResource {
 
     @GET
     @Path("/{id}")
+    @RolesAllowed({"Super", "Admin"})
     public Response findById(@PathParam("id") Long id) {
         LOGGER.info("Método findById com o parametro [" + id + "] foi executado!");
         return Response.ok(FornecedorResponseDTO.valueOf(fornecedorService.findById(id))).build();
     }
 
     @GET
+    @RolesAllowed({"Super", "Admin"})
     public Response findAll() {
         LOGGER.info("Método findAll foi executado!");
         return Response

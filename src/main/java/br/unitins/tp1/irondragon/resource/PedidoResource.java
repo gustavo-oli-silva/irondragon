@@ -26,6 +26,7 @@ public class PedidoResource {
     public JsonWebToken jwt;
 
     @GET
+    @RolesAllowed({"Super", "Admin"})
     public Response findAll() {
         LOGGER.info("Método findAll foi executado");
 

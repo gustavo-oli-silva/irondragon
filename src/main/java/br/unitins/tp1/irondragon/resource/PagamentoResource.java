@@ -23,6 +23,7 @@ public class PagamentoResource {
 
     @GET
     @Path("/{id}")
+    @RolesAllowed({"Super", "Admin"})
     public Response findById(@PathParam("id") Long id) {
         LOGGER.info("Método findById foi executado com o parametro " + id);
         return Response.ok(pagamentoService.findByIdPedido(id)).build();

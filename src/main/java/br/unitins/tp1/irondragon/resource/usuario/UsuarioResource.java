@@ -37,7 +37,7 @@ public class UsuarioResource {
     public JsonWebToken jwt;
 
     @GET
-    @RolesAllowed({"Super", "Admin", "User"})
+    @RolesAllowed({"Super", "Admin"})
     public Response findAll() {
         LOGGER.info("Método findAll foi executado!");
 

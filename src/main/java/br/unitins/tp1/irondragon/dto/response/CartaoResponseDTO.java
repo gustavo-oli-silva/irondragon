@@ -11,7 +11,6 @@ public record CartaoResponseDTO(
         String numero,
         String cpf,
         LocalDate validade,
-        Integer cvc,
         TipoCartao tipo
 ) {
     public static CartaoResponseDTO valueOf(Cartao cartao) {
@@ -21,7 +20,6 @@ public record CartaoResponseDTO(
                 cartao.getNumero(),
                 cartao.getCpf(),
                 cartao.getValidade(),
-                cartao.getCvc(),
                 cartao.getTipo()
         );
     }
