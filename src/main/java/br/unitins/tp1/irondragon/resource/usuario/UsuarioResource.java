@@ -37,6 +37,7 @@ public class UsuarioResource {
     public JsonWebToken jwt;
 
     @GET
+    @RolesAllowed({"Super", "Admin", "User"})
     public Response findAll() {
         LOGGER.info("Método findAll foi executado!");
 
@@ -45,6 +46,7 @@ public class UsuarioResource {
 
     @GET
     @Path("/{id}")
+    @RolesAllowed({"Super", "Admin"})
     public Response findById(@PathParam("id") Long id) {
         LOGGER.info("Método findById foi executado com o parametro [" + id + "] !");
 
@@ -55,7 +57,7 @@ public class UsuarioResource {
     public Response create(@Valid UsuarioRequestDTO dto) {
         LOGGER.info("Método create foi executado, Usuario: " + dto);
 
-        return Response.ok(UsuarioResponseDTO.valueOf(usuarioService.create(dto))).build();
+        return Response.status(Response.Status.CREATED).entity(UsuarioResponseDTO.valueOf(usuarioService.create(dto))).build();
     }
 
     @PATCH
@@ -121,5 +123,16 @@ public class UsuarioResource {
         Response.ResponseBuilder response = Response.ok(usuarioFileService.find(nomeImagem));
         response.header("Content-Disposition", "attachment; filename=" + nomeImagem);
         return response.build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @RolesAllowed({"Super", "Admin"})
+    public Response delete(@PathParam("id") Long id) {
+        LOGGER.info("O cliente " + id + " está em processo de ser deletado!");
+
+        usuarioService.delete(id);
+
+        return Response.noContent().build();
     }
 }

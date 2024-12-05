@@ -4,6 +4,7 @@ import br.unitins.tp1.irondragon.dto.request.processador.PlacaIntegradaRequestDT
 import br.unitins.tp1.irondragon.model.processador.PlacaIntegrada;
 import br.unitins.tp1.irondragon.service.placaintegrada.PlacaIntegradaService;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.security.TestSecurity;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,7 @@ public class PlacaIntegradaResourceTest {
     public PlacaIntegradaService placaIntegradaService;
 
     @Test
+    @TestSecurity(user = "test", roles = {"Super", "Admin"})
     public void testFindAll() {
         given()
                 .when().get("/placasintegradas")
@@ -26,6 +28,7 @@ public class PlacaIntegradaResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles = {"Super", "Admin"})
     public void testFindById() {
         given()
                 .when().get("/placasintegradas/{id}", 1)
@@ -34,6 +37,7 @@ public class PlacaIntegradaResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles = {"Super", "Admin"})
     public void testFindByNome() {
         given()
                 .when().get("/placasintegradas/search/{nome}", "Vega 5")
@@ -44,6 +48,7 @@ public class PlacaIntegradaResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles = {"Super", "Admin"})
     public void testCreate() {
         PlacaIntegradaRequestDTO placaIntegrada = new PlacaIntegradaRequestDTO("Vega 8", 1.0f, 2.0f, 3.0f);
 
@@ -66,6 +71,7 @@ public class PlacaIntegradaResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles = {"Super", "Admin"})
     public void testUpdate() {
         PlacaIntegradaRequestDTO dto = new PlacaIntegradaRequestDTO("Teste", 1.0f, 2.0f, 3.0f);
         PlacaIntegradaRequestDTO novoDto = new PlacaIntegradaRequestDTO("Outro Teste", 3.0f, 2.0f, 1.0f);
@@ -91,6 +97,7 @@ public class PlacaIntegradaResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles = {"Super", "Admin"})
     public void testDelete() {
         PlacaIntegradaRequestDTO placaIntegrada = new PlacaIntegradaRequestDTO("Vega 7", 1.0f, 2.0f, 3.0f);
 

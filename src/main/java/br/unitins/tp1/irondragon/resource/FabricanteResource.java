@@ -3,6 +3,7 @@ package br.unitins.tp1.irondragon.resource;
 import br.unitins.tp1.irondragon.dto.request.FabricanteRequestDTO;
 import br.unitins.tp1.irondragon.dto.response.FabricanteResponseDTO;
 import br.unitins.tp1.irondragon.service.fabricante.FabricanteService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -20,6 +21,7 @@ public class FabricanteResource {
     public FabricanteService fabricanteService;
 
     @GET
+    @RolesAllowed({"Super", "Admin"})
     @Path("/{id}")
     public Response findById(@PathParam("id") Long id) {
         LOGGER.info("Método findById foi executado!");
@@ -30,6 +32,7 @@ public class FabricanteResource {
     }
 
     @GET
+    @RolesAllowed({"Super", "Admin"})
     @Path("/search/{nome}")
     public Response findByNome(@PathParam("nome") String nome) {
         LOGGER.info("Método findById foi executado com o parametro " + nome);
@@ -41,6 +44,7 @@ public class FabricanteResource {
     }
 
     @GET
+    @RolesAllowed({"Super", "Admin"})
     public Response findAll() {
         LOGGER.info("Método findAll foi executado!");
 
@@ -50,6 +54,7 @@ public class FabricanteResource {
     }
 
     @POST
+    @RolesAllowed({"Super", "Admin"})
     public Response create(@Valid FabricanteRequestDTO dto) {
         LOGGER.info("Método create foi executado, fabricante: " + dto);
 
@@ -61,6 +66,7 @@ public class FabricanteResource {
 
     @PUT
     @Path("/{id}")
+    @RolesAllowed({"Super", "Admin"})
     public Response update(@PathParam("id") Long id, @Valid FabricanteRequestDTO dto) {
         LOGGER.info("Método create foi executado com o parametro " + id + ", fabricante: " + dto);
 
@@ -70,6 +76,7 @@ public class FabricanteResource {
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed({"Super", "Admin"})
     public Response delete(@PathParam("id") Long id) {
         LOGGER.info("Método delete foi executado com o parametro " + id);
 

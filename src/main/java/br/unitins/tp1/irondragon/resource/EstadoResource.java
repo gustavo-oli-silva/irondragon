@@ -31,7 +31,7 @@ public class EstadoResource {
 
     @GET
     @Path("/{id}")
-    @RolesAllowed({"Admin", "User"})
+    @RolesAllowed({"Super", "Admin", "User"})
     public Response findById(@PathParam("id") Long id) {
         LOGGER.info("Método findById foi executado!");
 
@@ -52,6 +52,7 @@ public class EstadoResource {
     }
 
     @GET
+    @RolesAllowed({"Super", "Admin", "User"})
     public Response findAll() {
         LOGGER.info("Método findAll foi executado!");
 

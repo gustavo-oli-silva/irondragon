@@ -1,6 +1,8 @@
 package br.unitins.tp1.irondragon.service.funcionario;
 
+import br.unitins.tp1.irondragon.dto.request.usuario.CargoUpdateDTO;
 import br.unitins.tp1.irondragon.dto.request.usuario.FuncionarioRequestDTO;
+import br.unitins.tp1.irondragon.dto.request.usuario.SalarioUpdateDTO;
 import br.unitins.tp1.irondragon.model.usuario.Funcionario;
 import br.unitins.tp1.irondragon.model.usuario.Usuario;
 import br.unitins.tp1.irondragon.repository.FuncionarioRepository;
@@ -55,6 +57,44 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         funcionarioRepository.persist(funcionario);
 
         return funcionario;
+    }
+
+    @Transactional
+    @Override
+    public Funcionario update(Long id, FuncionarioRequestDTO dto) {
+        Funcionario funcionario = funcionarioRepository.findById(id);
+
+        if(funcionario == null) throw new ValidationException("id", "Funcionário inexistente!");
+
+        funcionario.setDataContratacao(dto.dataContratacao());
+        funcionario.setCargo(dto.cargo());
+        funcionario.setSalario(dto.salario());
+
+        return funcionario;
+    }
+
+    @Transactional
+    @Override
+    public void updateCargo(Long id, CargoUpdateDTO dto) {
+        Funcionario funcionario = funcionarioRepository.findById(id);
+
+        if(funcionario == null) {
+            throw new ValidationException("id", "Funcionário inexistente!");
+        }
+
+        funcionario.setCargo(dto.cargo());
+    }
+
+    @Transactional
+    @Override
+    public void updateSalario(Long id, SalarioUpdateDTO dto) {
+        Funcionario funcionario = funcionarioRepository.findById(id);
+
+        if(funcionario == null) {
+            throw new ValidationException("id", "Funcionário inexistente!");
+        }
+
+        funcionario.setSalario(dto.salario());
     }
 
     @Override

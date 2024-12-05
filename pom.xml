@@ -96,7 +96,8 @@
 
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-logging-gelf</artifactId>
+            <artifactId>quarkus-test-security</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <dependency>

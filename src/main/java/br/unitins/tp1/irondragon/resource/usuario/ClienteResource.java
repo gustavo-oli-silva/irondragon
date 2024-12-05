@@ -26,6 +26,7 @@ public class ClienteResource {
     public JsonWebToken jwt;
 
     @GET
+    @RolesAllowed({"Super", "Admin"})
     public Response findAll() {
         LOGGER.info("Método findAll foi executado!");
 
@@ -34,7 +35,7 @@ public class ClienteResource {
 
     @DELETE
     @Path("/{id}")
-    @RolesAllowed({"Admin"})
+    @RolesAllowed({"Super", "Admin"})
     public Response delete(@PathParam("id") Long id) {
         LOGGER.info("Método delete foi executado com o parametro " + id);
 

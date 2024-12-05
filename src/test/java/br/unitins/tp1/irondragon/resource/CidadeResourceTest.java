@@ -4,6 +4,7 @@ import br.unitins.tp1.irondragon.dto.request.CidadeRequestDTO;
 import br.unitins.tp1.irondragon.model.Cidade;
 import br.unitins.tp1.irondragon.service.cidade.CidadeService;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.security.TestSecurity;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,7 @@ public class CidadeResourceTest {
     public CidadeService cidadeService;
 
     @Test
+    @TestSecurity(user = "test", roles = {"Super", "Admin"})
     public void testFindAll() {
         given()
                 .when().get("/cidades")
@@ -27,6 +29,7 @@ public class CidadeResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles = {"Super", "Admin"})
     public void testFindById() {
         given()
                 .when().get("/cidades/{id}", 1)
@@ -35,6 +38,7 @@ public class CidadeResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles = {"Super", "Admin"})
     public void testFindByNome() {
         given()
                 .when().get("/cidades/search/{nome}", "Palmas")
@@ -45,6 +49,7 @@ public class CidadeResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles = {"Super", "Admin"})
     public void testCreate() {
         CidadeRequestDTO cidade = new CidadeRequestDTO("Teste", 1L);
 
@@ -66,6 +71,7 @@ public class CidadeResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles = {"Super", "Admin"})
     public void testUpdate() {
         CidadeRequestDTO dto = new CidadeRequestDTO("Teste", 1L);
         CidadeRequestDTO novoDto = new CidadeRequestDTO("Outro Teste", 2L);
@@ -88,6 +94,7 @@ public class CidadeResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles = {"Super", "Admin"})
     public void testDelete() {
         CidadeRequestDTO dto = new CidadeRequestDTO("Teste", 1L);
 

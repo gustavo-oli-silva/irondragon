@@ -3,10 +3,7 @@ package br.unitins.tp1.irondragon.model.pedido;
 import br.unitins.tp1.irondragon.model.DefaultEntity;
 import br.unitins.tp1.irondragon.model.Fornecedor;
 import br.unitins.tp1.irondragon.model.processador.Processador;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +19,7 @@ public class Lote extends DefaultEntity {
     @JoinColumn(name = "id_processador")
     private Processador processador;
     private LocalDate data;
+    @Column(unique = true)
     private String codigo;
     private Integer estoque;
 

@@ -26,7 +26,13 @@ public class ProcessadorServiceImpl implements ProcessadorService {
 
     @Override
     public Processador findById(Long id) {
-        return processadorRepository.findById(id);
+        Processador processador = processadorRepository.findById(id);
+
+        if(processador == null) {
+            throw new ValidationException("id", "Processador especificado não existe!");
+        }
+
+        return processador;
     }
 
     @Override
@@ -70,7 +76,7 @@ public class ProcessadorServiceImpl implements ProcessadorService {
         Processador processador = processadorRepository.findById(id);
 
         if(processador == null) {
-            throw new IllegalArgumentException("O processador especificado não existe!");
+            throw new ValidationException("id", "Processador especificado não existe!");
         }
 
         processador.setNome(dto.nome());
@@ -93,7 +99,7 @@ public class ProcessadorServiceImpl implements ProcessadorService {
         Processador p = processadorRepository.findById(id);
 
         if(p == null) {
-            throw new IllegalArgumentException("O processador especificado não existe!");
+            throw new ValidationException("id", "Processador especificado não existe!");
         }
 
         processadorRepository.deleteById(id);

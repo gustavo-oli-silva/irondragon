@@ -3,6 +3,7 @@ package br.unitins.tp1.irondragon.service.usuario;
 import br.unitins.tp1.irondragon.dto.request.usuario.EmailUpdateDTO;
 import br.unitins.tp1.irondragon.dto.request.usuario.SenhaUpdateDTO;
 import br.unitins.tp1.irondragon.dto.request.usuario.UsuarioRequestDTO;
+import br.unitins.tp1.irondragon.model.usuario.Cliente;
 import br.unitins.tp1.irondragon.model.usuario.Perfil;
 import br.unitins.tp1.irondragon.model.usuario.Usuario;
 import br.unitins.tp1.irondragon.repository.UsuarioRepository;
@@ -107,8 +108,22 @@ public class UsuarioServiceImpl implements UsuarioService {
         return usuario;
     }
 
+    @Transactional
     @Override
     public void delete(Long id) {
-        usuarioRepository.deleteById(id);
+        Usuario usuario = usuarioRepository.findById(id);
+
+        if(usuario == null) {
+            throw new ValidationException("id", "Usuário não encontrado!");
+        }
+
+        Cliente cliente = clienteService.findByUsername(usuario.getUsername());
+
+        if(cliente == null) {
+            throw new ValidationException("username", "Cliente não foi encontrado para esse username");
+        }
+
+        clienteService.delete(cliente.getId());
+        usuarioRepository.delete(usuario);
     }
 }
