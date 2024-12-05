@@ -29,8 +29,8 @@ class Processador {
 class PlacaIntegrada {
     - nome: String
     - directX: Float
-    - openGL: Float 
-    - vulkan: Float 
+    - openGL: Float
+    - vulkan: Float
 }
 
 class Usuario {
@@ -75,7 +75,7 @@ class EnderecoEntrega {
 }
 
 abstract class Pagamento {
-    - valor: Double 
+    - valor: Double
 }
 
 class Pix extends Pagamento {
@@ -84,7 +84,7 @@ class Pix extends Pagamento {
 }
 
 class Boleto extends Pagamento {
-    - codigoBarras: String 
+    - codigoBarras: String
     - dataValidade: LocalDate
 }
 
@@ -99,39 +99,34 @@ class Cartao {
 class CartaoPagamento extends Pagamento {
     - nomeTitular: String
     - numero: String
-    - cpf: String 
+    - cpf: String
     - validade: LocalDate
     - cvc: Integer
 }
 
 class Frequencia {
-    - clockBasico: Double 
-    - clockBoost: Double 
+    - clockBasico: Double
+    - clockBoost: Double
 }
 
 class Conectividade {
-    - pci: Float 
-    - tipoMemoria: String 
+    - pci: Float
+    - tipoMemoria: String
     - canaisMemoria: Integer
 }
 
 class MemoriaCache {
-    - cacheL2: Double 
-    - cacheL3: Double 
+    - cacheL2: Double
+    - cacheL3: Double
 }
 
 class ConsumoEnergetico {
-    - energiaBasica: Integer 
+    - energiaBasica: Integer
     - energiaMaxima: Integer
 }
 
-class TelefoneCliente {
-    - ddd: String 
-    - numero: String
-}
-
 class TelefoneFabricante {
-    - ddd: String 
+    - ddd: String
     - numero: String
 }
 
@@ -191,7 +186,6 @@ Lote "*" --> "1" Processador
 Lote "1" --> "1" Fornecedor
 
 Cliente "*" --> "*" Processador: listaDesejos
-Cliente "1" *--> "*" TelefoneCliente
 Cliente "1" --> "1" Usuario
 Cliente "1" --> "*" Cartao
 
