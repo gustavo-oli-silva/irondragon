@@ -52,7 +52,7 @@ public class EstadoResource {
     }
 
     @GET
-    @RolesAllowed({"Super", "Admin", "User"})
+    // @RolesAllowed({"Super", "Admin", "User"})
     public Response findAll() {
         LOGGER.info("Método findAll foi executado!");
 

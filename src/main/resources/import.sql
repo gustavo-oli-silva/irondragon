@@ -46,7 +46,11 @@ insert into Processador (nome, socket, threads, nucleos, desbloqueado, preco, id
 
 insert into Estado (nome, sigla) values
 ('Tocantins', 'TO'),
-('São Paulo', 'SP');
+('São Paulo', 'SP'),
+('Minas Gerais', 'MG'),
+('Maranhao', 'MA'),
+('Para', 'PA'),
+('Rio Grande do Sul', 'RS');
 
 insert into Cidade (nome, id_estado) values
 ('Palmas', 1);
