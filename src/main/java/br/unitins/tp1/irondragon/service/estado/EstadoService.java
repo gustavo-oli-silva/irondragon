@@ -8,9 +8,10 @@ import br.unitins.tp1.irondragon.model.Estado;
 public interface EstadoService {
     public Estado findById(Long id);
 
-    public List<Estado> findByNome(String nome);
+    public Long count();
+    public List<Estado> findByNome(String nome, Integer page, Integer pageSize);
 
-    public List<Estado> findAll();
+    public List<Estado> findAll(Integer page, Integer pageSize);
 
     public Estado create(EstadoRequestDTO dto);
 
