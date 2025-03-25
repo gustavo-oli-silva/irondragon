@@ -55,7 +55,7 @@ public class CidadeResource {
     }
 
     @POST
-    @RolesAllowed({"Super", "Admin"})
+    //@RolesAllowed({"Super", "Admin"})
     public Response create(@Valid CidadeRequestDTO cidade) {
         LOGGER.info("Método create foi executado, cidade: " + cidade);
 
@@ -77,7 +77,7 @@ public class CidadeResource {
 
     @DELETE
     @Path("/{id}")
-    @RolesAllowed({"Super", "Admin"})
+    //@RolesAllowed({"Super", "Admin"})
     public Response delete(@PathParam("id") Long id) {
         LOGGER.info("Método delete foi executado com o parametro " + id);
 

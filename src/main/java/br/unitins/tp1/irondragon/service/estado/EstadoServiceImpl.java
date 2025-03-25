@@ -28,9 +28,11 @@ public class EstadoServiceImpl implements EstadoService {
     }
 
     @Override
-    public List<Estado> findByNome(String nome) {
+    public List<Estado> findByNome(String nome, Integer page, Integer pageSize) {
         return estadoRepository
-                .findByNome(nome);
+                .findByNome(nome)
+                .page(page, pageSize)
+                .list();
     }
 
     @Transactional
@@ -71,10 +73,16 @@ public class EstadoServiceImpl implements EstadoService {
     }
 
     @Override
-    public List<Estado> findAll() {
+    public List<Estado> findAll(Integer page, Integer pageSize) {
         return estadoRepository
                 .findAll()
+                .page(page, pageSize)
                 .list();
+    }
+
+    @Override
+    public Long count() {
+       return estadoRepository.findAll().count();
     }
 
 }

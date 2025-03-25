@@ -21,7 +21,7 @@ public class LoteResource {
     public LoteService loteService;
 
     @GET
-    @RolesAllowed({"Super", "Admin"})
+    //@RolesAllowed({"Super", "Admin"})
     public Response findAll() {
         LOGGER.info("Execução do método findAll");
 
@@ -30,7 +30,7 @@ public class LoteResource {
 
     @GET
     @Path("/{id}")
-    @RolesAllowed({"Super", "Admin"})
+   // @RolesAllowed({"Super", "Admin"})
     public Response findById(@PathParam("id") Long id) {
         LOGGER.info("Execução do método findById. Id: " + id);
 
@@ -47,7 +47,7 @@ public class LoteResource {
     }
 
     @POST
-    @RolesAllowed({"Super", "Admin"})
+    //@RolesAllowed({"Super", "Admin"})
     public Response create(@Valid LoteRequestDTO dto) {
         LOGGER.info("Lote " + dto.codigo() + " com " + dto.estoque() + " unidades foi registrado!");
         return Response.status(Response.Status.CREATED).entity(LoteResponseDTO.valueOf(loteService.create(dto))).build();
@@ -55,7 +55,7 @@ public class LoteResource {
 
     @PUT
     @Path("/{id}")
-    @RolesAllowed({"Super", "Admin"})
+    //@RolesAllowed({"Super", "Admin"})
     public Response update(@PathParam("id") Long id, @Valid LoteRequestDTO dto) {
         LOGGER.info("Método update foi executado com o parametro " + id + ", lote: " + dto);
 
@@ -65,7 +65,7 @@ public class LoteResource {
 
     @DELETE
     @Path("/{id}")
-    @RolesAllowed({"Super", "Admin"})
+    //@RolesAllowed({"Super", "Admin"})
     public Response delete(@PathParam("id") Long id) {
         LOGGER.info("Método delete foi executado com o parametro " + id);
 

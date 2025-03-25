@@ -29,7 +29,7 @@ public class FornecedorResource {
     }
 
     @GET
-    @RolesAllowed({"Super", "Admin"})
+    //@RolesAllowed({"Super", "Admin"})
     public Response findAll() {
         LOGGER.info("Método findAll foi executado!");
         return Response
@@ -48,7 +48,7 @@ public class FornecedorResource {
     }
 
     @POST
-    @RolesAllowed({"Super", "Admin"})
+    //@RolesAllowed({"Super", "Admin"})
     public Response create(@Valid FornecedorRequestDTO dto) {
         LOGGER.info("Método create foi executado, fornecedor: " + dto);
 
@@ -69,7 +69,7 @@ public class FornecedorResource {
 
     @DELETE
     @Path("/{id}")
-    @RolesAllowed({"Super", "Admin"})
+    //@RolesAllowed({"Super", "Admin"})
     public Response delete(@PathParam("id") Long id) {
         LOGGER.info("Método delete foi executado com o parametro " + id);
         fornecedorService.delete(id);
