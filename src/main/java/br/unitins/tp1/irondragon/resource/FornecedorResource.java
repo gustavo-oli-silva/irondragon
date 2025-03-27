@@ -2,6 +2,7 @@ package br.unitins.tp1.irondragon.resource;
 
 import br.unitins.tp1.irondragon.dto.request.FornecedorRequestDTO;
 import br.unitins.tp1.irondragon.dto.response.FornecedorResponseDTO;
+import br.unitins.tp1.irondragon.dto.response.PageResponse;
 import br.unitins.tp1.irondragon.service.fornecedor.FornecedorService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -30,20 +31,32 @@ public class FornecedorResource {
 
     @GET
     //@RolesAllowed({"Super", "Admin"})
-    public Response findAll() {
+    public Response findAll(
+            @QueryParam("page") @DefaultValue("0") Integer page,
+            @QueryParam("page_size") @DefaultValue("10") Integer pageSize
+    ) {
         LOGGER.info("Método findAll foi executado!");
+
+        Long count = fornecedorService.count();
+
         return Response
-                .ok(fornecedorService.findAll().stream().map(FornecedorResponseDTO::valueOf).toList())
+                .ok(PageResponse.valueOf(page, pageSize, count, fornecedorService.findAll(page, pageSize).stream().map(FornecedorResponseDTO::valueOf).toList()))
                 .build();
     }
 
     @GET
     @Path("/search/{nome}")
-    public Response findByNome(@PathParam("nome") String nome) {
+    public Response findByNome(
+            @PathParam("nome") String nome,
+            @QueryParam("page") @DefaultValue("0") Integer page,
+            @QueryParam("page_size") @DefaultValue("10") Integer pageSize
+    ) {
         LOGGER.info("Método findByNome com o parametro [" + nome + "] foi executado!");
 
+        Long count = fornecedorService.count(nome);
+
         return Response
-                .ok(fornecedorService.findByNome(nome).stream().map(FornecedorResponseDTO::valueOf).toList())
+                .ok(PageResponse.valueOf(page, pageSize, count, fornecedorService.findByNome(nome, page, pageSize).stream().map(FornecedorResponseDTO::valueOf).toList()))
                 .build();
     }
 

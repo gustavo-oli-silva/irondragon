@@ -8,13 +8,19 @@ import java.util.List;
 public interface FornecedorService {
     public Fornecedor findById(Long id);
 
-    public List<Fornecedor> findByNome(String nome);
+    List<Fornecedor> findByNome(String nome, Integer page, Integer pageSize);
 
-    public List<Fornecedor> findAll();
+    List<Fornecedor> findAll();
+
+    List<Fornecedor> findAll(Integer page, Integer pageSize);
 
     public Fornecedor create(FornecedorRequestDTO fornecedor);
 
     public void update(Long id, FornecedorRequestDTO fornecedor);
 
     public void delete(Long id);
+
+    Long count();
+
+    Long count(String nome);
 }

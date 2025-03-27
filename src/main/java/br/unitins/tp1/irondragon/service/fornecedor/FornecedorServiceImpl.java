@@ -27,13 +27,21 @@ public class FornecedorServiceImpl implements FornecedorService {
     }
 
     @Override
-    public List<Fornecedor> findByNome(String nome) {
-        return fornecedorRepository.findByNome(nome);
+    public List<Fornecedor> findByNome(String nome, Integer page, Integer pageSize) {
+        return fornecedorRepository
+                .findByNome(nome)
+                .page(page, pageSize)
+                .list();
     }
 
     @Override
     public List<Fornecedor> findAll() {
         return fornecedorRepository.findAll().list();
+    }
+
+    @Override
+    public List<Fornecedor> findAll(Integer page, Integer pageSize) {
+        return fornecedorRepository.findAll().page(page, pageSize).list();
     }
 
     @Transactional
@@ -73,5 +81,15 @@ public class FornecedorServiceImpl implements FornecedorService {
         }
 
         fornecedorRepository.deleteById(id);
+    }
+
+    @Override
+    public Long count() {
+        return fornecedorRepository.count();
+    }
+
+    @Override
+    public Long count(String nome) {
+        return fornecedorRepository.findByNome(nome).count();
     }
 }
