@@ -18,4 +18,6 @@ public interface EstadoService {
     public void update(Long id, EstadoRequestDTO dto);
 
     public void delete(Long id);
+
+    Long count(String nome);
 }
