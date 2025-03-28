@@ -45,14 +45,17 @@ public class EstadoResource {
 
     @GET
     @Path("/search/{nome}")
-    @RolesAllowed({ "Super", "Admin", "User" })
+    //@RolesAllowed({ "Super", "Admin", "User" })
     public Response findByNome(@PathParam("nome") String nome,
             @QueryParam("page") @DefaultValue("0") Integer page,
             @QueryParam("page_size") @DefaultValue("10") Integer pageSize) {
         LOGGER.info("Método findById foi executado com o parametro [" + nome + "]!");
 
+        Long totalCount = estadoService.countByNome(nome);
+        PageResponse<EstadoResponseDTO> pageResponse = PageResponse.valueOf(page, pageSize, totalCount,
+                estadoService.findByNome(nome,page, pageSize).stream().map(EstadoResponseDTO::valueOf).toList());
         return Response
-                .ok(estadoService.findByNome(nome, page, pageSize).stream().map(EstadoResponseDTO::valueOf).toList())
+                .ok(pageResponse)
                 .build();
     }
 

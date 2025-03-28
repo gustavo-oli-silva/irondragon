@@ -85,4 +85,11 @@ public class EstadoServiceImpl implements EstadoService {
        return estadoRepository.findAll().count();
     }
 
+    @Override
+    public Long countByNome(String nome) {
+        return estadoRepository
+                .findByNome(nome)
+                .count();
+    }
+
 }
