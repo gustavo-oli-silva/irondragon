@@ -22,12 +22,28 @@ public class PlacaIntegradaServiceImpl implements PlacaIntegradaService {
 
     @Override
     public List<PlacaIntegrada> findByNome(String nome) {
-        return placaIntegradaRepository.findByNome(nome);
+        return placaIntegradaRepository.findByNome(nome).list();
+    }
+
+    @Override
+    public List<PlacaIntegrada> findByNome(String nome, Integer page, Integer pageSize) {
+        return placaIntegradaRepository
+                .findByNome(nome)
+                .page(page, pageSize)
+                .list();
     }
 
     @Override
     public List<PlacaIntegrada> findAll() {
         return placaIntegradaRepository.findAll().list();
+    }
+
+    @Override
+    public List<PlacaIntegrada> findAll(Integer page, Integer pageSize) {
+        return placaIntegradaRepository
+                .findAll()
+                .page(page, pageSize)
+                .list();
     }
 
     @Transactional
@@ -70,5 +86,15 @@ public class PlacaIntegradaServiceImpl implements PlacaIntegradaService {
         }
 
         placaIntegradaRepository.deleteById(id);
+    }
+
+    @Override
+    public Long count() {
+        return placaIntegradaRepository.count();
+    }
+
+    @Override
+    public Long count(String nome) {
+        return placaIntegradaRepository.findByNome(nome).count();
     }
 }

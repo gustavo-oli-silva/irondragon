@@ -10,11 +10,19 @@ public interface FabricanteService {
 
     public List<Fabricante> findByNome(String nome);
 
+    List<Fabricante> findByNome(String nome, Integer page, Integer pageSize);
+
     public List<Fabricante> findAll();
+
+    List<Fabricante> findAll(Integer page, Integer pageSize);
 
     public Fabricante create(FabricanteRequestDTO fabricante);
 
     public void update(Long id, FabricanteRequestDTO fabricante);
 
     public void delete(Long id);
+
+    Long count();
+
+    Long count(String nome);
 }

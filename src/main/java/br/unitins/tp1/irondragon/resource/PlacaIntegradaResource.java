@@ -1,6 +1,7 @@
 package br.unitins.tp1.irondragon.resource;
 
 import br.unitins.tp1.irondragon.dto.request.processador.PlacaIntegradaRequestDTO;
+import br.unitins.tp1.irondragon.dto.response.PageResponse;
 import br.unitins.tp1.irondragon.dto.response.processador.PlacaIntegradaResponseDTO;
 import br.unitins.tp1.irondragon.service.placaintegrada.PlacaIntegradaService;
 import jakarta.annotation.security.RolesAllowed;
@@ -20,9 +21,17 @@ public class PlacaIntegradaResource {
     public PlacaIntegradaService placaIntegradaService;
 
     @GET
-    public Response findAll() {
+    public Response findAll(
+            @QueryParam("page") @DefaultValue("0") Integer page,
+            @QueryParam("page_size") @DefaultValue("10") Integer pageSize
+    ) {
         LOGGER.info("Método findAll foi executado!");
-        return Response.ok(placaIntegradaService.findAll().stream().map(PlacaIntegradaResponseDTO::valueOf).toList()).build();
+
+        Long count = placaIntegradaService.count();
+
+        return Response.ok(
+                PageResponse.valueOf(page, pageSize, count, placaIntegradaService.findAll(page, pageSize).stream().map(PlacaIntegradaResponseDTO::valueOf).toList())
+        ).build();
     }
 
     @GET
@@ -35,11 +44,17 @@ public class PlacaIntegradaResource {
 
     @GET
     @Path("/search/{nome}")
-    public Response findByNome(@PathParam("nome") String nome) {
+    public Response findByNome(
+            @PathParam("nome") String nome,
+            @QueryParam("page") @DefaultValue("0") Integer page,
+            @QueryParam("page_size") @DefaultValue("10") Integer pageSize
+    ) {
         LOGGER.info("Método findByNome foi executado com o parametro " + nome);
 
+        Long count = placaIntegradaService.count(nome);
+
         return Response
-                .ok(placaIntegradaService.findByNome(nome).stream().map(PlacaIntegradaResponseDTO::valueOf).toList())
+                .ok(PageResponse.valueOf(page, pageSize, count, placaIntegradaService.findByNome(nome, page, pageSize).stream().map(PlacaIntegradaResponseDTO::valueOf).toList()))
                 .build();
     }
 

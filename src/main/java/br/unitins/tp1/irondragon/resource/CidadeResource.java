@@ -2,18 +2,12 @@ package br.unitins.tp1.irondragon.resource;
 
 import br.unitins.tp1.irondragon.dto.request.CidadeRequestDTO;
 import br.unitins.tp1.irondragon.dto.response.CidadeResponseDTO;
+import br.unitins.tp1.irondragon.dto.response.PageResponse;
 import br.unitins.tp1.irondragon.service.cidade.CidadeService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.DELETE;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.PUT;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
@@ -38,20 +32,34 @@ public class CidadeResource {
 
     @GET
     @Path("/search/{nome}")
-    public Response findByNome(@PathParam("nome") String nome) {
+    public Response findByNome(
+            @PathParam("nome") String nome,
+            @QueryParam("page") @DefaultValue("0") Integer page,
+            @QueryParam("page_size") @DefaultValue("10") Integer pageSize
+    ) {
         LOGGER.info("Método findByNome foi executado com o parametro [" + nome + "] !");
 
-        return Response
-                .ok(
-                cidadeService.findByNome(nome).stream().map(CidadeResponseDTO::valueOf).toList())
-                .build();
+        Long count = cidadeService.count(nome);
+
+        return Response.ok(
+                PageResponse.
+                        valueOf(page, pageSize, count, cidadeService.findByNome(nome, page, pageSize).stream().map(CidadeResponseDTO::valueOf).toList())
+        ).build();
     }
 
     @GET
-    public Response findAll() {
+    public Response findAll(
+            @QueryParam("page") @DefaultValue("0") Integer page,
+            @QueryParam("page_size") @DefaultValue("10") Integer pageSize
+    ) {
         LOGGER.info("Método findAll foi executado!");
 
-        return Response.ok(cidadeService.findAll()).build();
+        Long count = cidadeService.count();
+
+        return Response.ok(
+                PageResponse
+                        .valueOf(page, pageSize, count, cidadeService.findAll(page, pageSize).stream().map(CidadeResponseDTO::valueOf).toList())
+        ).build();
     }
 
     @POST

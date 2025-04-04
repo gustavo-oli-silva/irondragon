@@ -2,6 +2,7 @@ package br.unitins.tp1.irondragon.resource;
 
 import br.unitins.tp1.irondragon.dto.request.FabricanteRequestDTO;
 import br.unitins.tp1.irondragon.dto.response.FabricanteResponseDTO;
+import br.unitins.tp1.irondragon.dto.response.PageResponse;
 import br.unitins.tp1.irondragon.service.fabricante.FabricanteService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -34,22 +35,36 @@ public class FabricanteResource {
     @GET
     //@RolesAllowed({"Super", "Admin"})
     @Path("/search/{nome}")
-    public Response findByNome(@PathParam("nome") String nome) {
+    public Response findByNome(
+            @PathParam("nome") String nome,
+            @QueryParam("page") @DefaultValue("0") Integer page,
+            @QueryParam("page_size") @DefaultValue("10") Integer pageSize
+    ) {
         LOGGER.info("Método findById foi executado com o parametro " + nome);
+
+        Long count = fabricanteService.count(nome);
 
         return Response
                 .ok(
-                        fabricanteService.findByNome(nome).stream().map(FabricanteResponseDTO::valueOf).toList())
+                        PageResponse.valueOf(page, pageSize, count, fabricanteService.findByNome(nome, page, pageSize).stream().map(FabricanteResponseDTO::valueOf).toList())
+                )
                 .build();
     }
 
     @GET
    // @RolesAllowed({"Super", "Admin"})
-    public Response findAll() {
+    public Response findAll(
+            @QueryParam("page") @DefaultValue("0") Integer page,
+            @QueryParam("page_size") @DefaultValue("10") Integer pageSize
+    ) {
         LOGGER.info("Método findAll foi executado!");
 
+        Long count = fabricanteService.count();
+
         return Response
-                .ok(fabricanteService.findAll().stream().map(FabricanteResponseDTO::valueOf).toList())
+                .ok(
+                        PageResponse.valueOf(page, pageSize, count, fabricanteService.findAll(page, pageSize).stream().map(FabricanteResponseDTO::valueOf).toList())
+                )
                 .build();
     }
 
