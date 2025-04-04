@@ -6,7 +6,9 @@ import br.unitins.tp1.irondragon.model.pedido.Lote;
 import java.util.List;
 
 public interface LoteService {
-    List<Lote> findAll();
+    List<Lote> findAll(Integer page, Integer pageSize);
+
+    Long count();
 
     Lote findByCodigo(String codigo);
 

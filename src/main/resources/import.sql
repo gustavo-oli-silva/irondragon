@@ -7,22 +7,38 @@
 
 insert into TelefoneFabricante (codigoarea, numero) values
 ('63', '40028922'),
-('63', '40028922');
+('63', '40028922'),
+('11', '987654321'),  
+('21', '123456789'),
+('31', '40041234'),   
+('41', '998877665');
 
 insert into Fabricante (nome, email, id_telefone) values
 ('Intel', 'support@intel.com', 1),
-('AMD', 'support@amd.com', 2);
+('AMD', 'support@amd.com', 2),
+('Qualcomm', 'support@qualcomm.com', 3),
+('IBM', 'support@ibm.com', 4),
+('ARM', 'support@arm.com', 5),
+('Apple', 'support@apple.com', 6);
 
 insert into TelefoneFornecedor (codigoarea, numero) values
-('63', '40028922');
+('63', '40028922'),
+('63', '40093822'),
+('11', '987654321'),  
+('21', '123456789'),
+('31', '40041234');
 
 insert into TelefoneUsuario (codigoarea, numero) values
 ('63', '40028922'),
 ('63', '40093822'),
 ('SUPER', 'SUPER');
 
-insert into Fornecedor (nome, email, id_telefone) values
-('Terabyte', 'suporte@terabyte.com', 1);
+INSERT INTO Fornecedor (nome, email, id_telefone) VALUES
+('Terabyte', 'suporte@terabyte.com', 1),
+('Kabum', 'vendas@kabum.com.br', 2),
+('Pichau', 'contato@pichau.com.br', 3),
+('Amazon', 'fornecedores@amazon.com', 4),
+('Newegg', 'sales@newegg.com', 5);
 
 insert into MemoriaCache(cachel2, cachel3) values
 (12, 12),
@@ -44,16 +60,54 @@ insert into Processador (nome, socket, threads, nucleos, desbloqueado, preco, id
 ('I5 12700', 'LGA1155', 4, 4, true, 600.00, 1, 1, 1, 1, 1),
 ('I7 7700K', 'LGA777', 4, 4, true, 2400.00, 1, 2, 2, 2, 2);
 
-insert into Estado (nome, sigla) values
-('Tocantins', 'TO'),
-('São Paulo', 'SP'),
-('Minas Gerais', 'MG'),
-('Maranhao', 'MA'),
-('Para', 'PA'),
-('Rio Grande do Sul', 'RS');
 
-insert into Cidade (nome, id_estado) values
-('Palmas', 1);
+INSERT INTO Estado (nome, sigla) VALUES
+('Acre', 'AC'),
+('Alagoas', 'AL'),
+('Amapá', 'AP'),
+('Amazonas', 'AM'),
+('Bahia', 'BA'),
+('Ceará', 'CE'),
+('Distrito Federal', 'DF'),
+('Espírito Santo', 'ES'),
+('Goiás', 'GO'),
+('Maranhão', 'MA'),
+('Mato Grosso', 'MT'),
+('Mato Grosso do Sul', 'MS'),
+('Minas Gerais', 'MG'),
+('Pará', 'PA'),
+('Paraíba', 'PB'),
+('Paraná', 'PR'),
+('Pernambuco', 'PE'),
+('Piauí', 'PI'),
+('Rio de Janeiro', 'RJ'),
+('Rio Grande do Norte', 'RN'),
+('Rio Grande do Sul', 'RS'),
+('Rondônia', 'RO'),
+('Roraima', 'RR'),
+('Santa Catarina', 'SC'),
+('São Paulo', 'SP'),
+('Sergipe', 'SE'),
+('Tocantins', 'TO');
+
+
+INSERT INTO Cidade (nome, id_estado) VALUES
+('Palmas', 27),
+('São Paulo', 25),
+('Belo Horizonte', 13),
+('São Luís', 10),
+('Belém', 14),
+('Porto Alegre', 21),
+('Salvador', 5),
+('Recife', 17),
+('Fortaleza', 6),
+('Rio de Janeiro', 19),
+('Brasília', 7),
+('Curitiba', 16),
+('Florianópolis', 24),
+('Aracaju', 26),
+('Maceió', 2);
+
 
 insert into PlacaIntegrada (nome, directx, opengl, vulkan) values
 ('Vega 5', 1.0, 2.0, 3.0);
@@ -76,7 +130,10 @@ insert into Cliente(id_usuario) values
 (3);
 
 insert into Lote (codigo, estoque, data, id_processador, id_fornecedor) values
-('#ZXYD4343', 20, '2024-11-07', 1, 1),
-('#INTEL2024DFCG', 40, '2024-11-06', 2, 1);
+('#PROC1-TBY-20241107', 20, '2024-11-07', 1, 1),  
+('#PROC2-KBM-20241106', 40, '2024-11-06', 2, 2), 
+('#PROC1-PCH-20241105', 30, '2024-11-05', 1, 3),  
+('#PROC2-AMZ-20241105', 30, '2024-11-05', 2, 4),  
+('#PROC1-NWG-20241105', 30, '2024-11-05', 1, 5);   
 
 

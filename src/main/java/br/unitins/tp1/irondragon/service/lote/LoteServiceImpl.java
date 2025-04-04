@@ -24,8 +24,8 @@ public class LoteServiceImpl implements LoteService {
     public FornecedorService fornecedorService;
 
     @Override
-    public List<Lote> findAll() {
-        return loteRepository.findAll().list();
+    public List<Lote> findAll(Integer page, Integer pageSize) {
+        return loteRepository.findAll().page(page, pageSize).list();
     }
 
     @Override
@@ -116,5 +116,10 @@ public class LoteServiceImpl implements LoteService {
         if(verificacao != null) {
             throw new ValidationException("codigo", "Código fornecido já existente!");
         }
+    }
+
+    @Override
+    public Long count() {
+        return loteRepository.count();
     }
 }

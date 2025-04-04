@@ -27,15 +27,18 @@ public class FabricanteServiceImpl implements FabricanteService {
     }
 
     @Override
-    public List<Fabricante> findByNome(String nome) {
+    public List<Fabricante> findByNome(String nome, int page, int pageSize) {
         return fabricanteRepository
-                .findByNome(nome);
+                .findByNome(nome)
+                .page(page, pageSize)
+                .list();
     }
 
     @Override
-    public List<Fabricante> findAll() {
+    public List<Fabricante> findAll(int page, int pageSize) {
         return fabricanteRepository
                 .findAll()
+                .page(page, pageSize)
                 .list();
     }
 
@@ -76,5 +79,15 @@ public class FabricanteServiceImpl implements FabricanteService {
         }
 
         fabricanteRepository.deleteById(id);
+    }
+
+    @Override
+    public Long countByNome(String nome) {
+            return fabricanteRepository.findByNome(nome).count();
+    }
+
+    @Override
+    public Long count() {
+        return fabricanteRepository.findAll().count();
     }
 }

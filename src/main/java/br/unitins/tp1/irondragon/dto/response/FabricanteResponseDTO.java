@@ -1,7 +1,6 @@
 package br.unitins.tp1.irondragon.dto.response;
 
 import br.unitins.tp1.irondragon.model.Fabricante;
-import br.unitins.tp1.irondragon.model.TelefoneFabricante;
 
 public record FabricanteResponseDTO(
         Long id,

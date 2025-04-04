@@ -6,7 +6,6 @@ import br.unitins.tp1.irondragon.dto.request.EstadoRequestDTO;
 import br.unitins.tp1.irondragon.dto.response.EstadoResponseDTO;
 import br.unitins.tp1.irondragon.dto.response.PageResponse;
 import br.unitins.tp1.irondragon.service.estado.EstadoService;
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;

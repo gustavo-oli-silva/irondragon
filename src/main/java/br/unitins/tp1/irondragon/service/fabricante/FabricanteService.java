@@ -8,9 +8,13 @@ import java.util.List;
 public interface FabricanteService {
     public Fabricante findById(Long id);
 
-    public List<Fabricante> findByNome(String nome);
+    public List<Fabricante> findByNome(String nome, int page, int pageSize);
 
-    public List<Fabricante> findAll();
+    public Long countByNome(String nome);
+
+    public List<Fabricante> findAll(int page, int pageSize);
+
+    public Long count();
 
     public Fabricante create(FabricanteRequestDTO fabricante);
 
