@@ -28,7 +28,16 @@ public class CidadeServiceImpl implements CidadeService {
     @Override
     public List<Cidade> findByNome(String nome) {
         return cidadeRepository
-                .findByNome(nome);
+                .findByNome(nome)
+                .list();
+    }
+
+    @Override
+    public List<Cidade> findByNome(String nome, Integer page, Integer pageSize) {
+        return cidadeRepository
+                .findByNome(nome)
+                .page(page, pageSize)
+                .list();
     }
 
     @Override
@@ -41,6 +50,14 @@ public class CidadeServiceImpl implements CidadeService {
     public List<Cidade> findAll() {
         return cidadeRepository
                 .findAll()
+                .list();
+    }
+
+    @Override
+    public List<Cidade> findAll(Integer page, Integer pageSize) {
+        return cidadeRepository
+                .findAll()
+                .page(page, pageSize)
                 .list();
     }
 
@@ -78,5 +95,14 @@ public class CidadeServiceImpl implements CidadeService {
 
         cidadeRepository.deleteById(id);
     }
-    
+
+    @Override
+    public Long count() {
+        return cidadeRepository.count();
+    }
+
+    @Override
+    public Long count(String nome) {
+        return cidadeRepository.findByNome(nome).count();
+    }
 }

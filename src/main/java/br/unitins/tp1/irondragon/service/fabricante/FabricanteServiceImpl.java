@@ -29,11 +29,27 @@ public class FabricanteServiceImpl implements FabricanteService {
     @Override
     public List<Fabricante> findByNome(String nome) {
         return fabricanteRepository
-                .findByNome(nome);
+                .findByNome(nome)
+                .list();
+    }
+
+    @Override
+    public List<Fabricante> findByNome(String nome, Integer page, Integer pageSize) {
+        return fabricanteRepository
+                .findByNome(nome)
+                .page(page, pageSize)
+                .list();
     }
 
     @Override
     public List<Fabricante> findAll() {
+        return fabricanteRepository
+                .findAll()
+                .list();
+    }
+
+    @Override
+    public List<Fabricante> findAll(Integer page, Integer pageSize) {
         return fabricanteRepository
                 .findAll()
                 .list();
@@ -76,5 +92,15 @@ public class FabricanteServiceImpl implements FabricanteService {
         }
 
         fabricanteRepository.deleteById(id);
+    }
+
+    @Override
+    public Long count() {
+        return fabricanteRepository.count();
+    }
+
+    @Override
+    public Long count(String nome) {
+        return fabricanteRepository.findByNome(nome).count();
     }
 }
