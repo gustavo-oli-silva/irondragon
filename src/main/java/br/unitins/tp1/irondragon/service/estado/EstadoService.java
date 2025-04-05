@@ -9,6 +9,9 @@ public interface EstadoService {
     public Estado findById(Long id);
 
     public Long count();
+
+    public Long count(String nome);
+
     public List<Estado> findByNome(String nome, Integer page, Integer pageSize);
 
     public List<Estado> findAll(Integer page, Integer pageSize);
@@ -18,6 +21,4 @@ public interface EstadoService {
     public void update(Long id, EstadoRequestDTO dto);
 
     public void delete(Long id);
-
-    Long count(String nome);
 }

@@ -5,8 +5,6 @@ import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 
-import java.util.List;
-
 @ApplicationScoped
 public class FabricanteRepository implements PanacheRepository<Fabricante> {
     public PanacheQuery<Fabricante> findByNome(String nome) {

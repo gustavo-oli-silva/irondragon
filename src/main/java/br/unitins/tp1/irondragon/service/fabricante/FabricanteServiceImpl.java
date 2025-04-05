@@ -19,7 +19,7 @@ public class FabricanteServiceImpl implements FabricanteService {
     public Fabricante findById(Long id) {
         Fabricante fabricante = fabricanteRepository.findById(id);
 
-        if(fabricante == null) {
+        if (fabricante == null) {
             throw new ValidationException("id", "Fabricante informado não existe");
         }
 
@@ -27,14 +27,7 @@ public class FabricanteServiceImpl implements FabricanteService {
     }
 
     @Override
-    public List<Fabricante> findByNome(String nome) {
-        return fabricanteRepository
-                .findByNome(nome)
-                .list();
-    }
-
-    @Override
-    public List<Fabricante> findByNome(String nome, Integer page, Integer pageSize) {
+    public List<Fabricante> findByNome(String nome, int page, int pageSize) {
         return fabricanteRepository
                 .findByNome(nome)
                 .page(page, pageSize)
@@ -42,14 +35,15 @@ public class FabricanteServiceImpl implements FabricanteService {
     }
 
     @Override
-    public List<Fabricante> findAll() {
+    public List<Fabricante> findAll(int page, int pageSize) {
         return fabricanteRepository
                 .findAll()
+                .page(page, pageSize)
                 .list();
     }
 
     @Override
-    public List<Fabricante> findAll(Integer page, Integer pageSize) {
+    public List<Fabricante> findAll() {
         return fabricanteRepository
                 .findAll()
                 .list();
@@ -73,7 +67,7 @@ public class FabricanteServiceImpl implements FabricanteService {
     public void update(Long id, FabricanteRequestDTO dto) {
         Fabricante fabricante = fabricanteRepository.findById(id);
 
-        if(fabricante == null) {
+        if (fabricante == null) {
             throw new ValidationException("id", "Fabricante informado não existe");
         }
 
@@ -87,7 +81,7 @@ public class FabricanteServiceImpl implements FabricanteService {
     public void delete(Long id) {
         Fabricante fabricante = fabricanteRepository.findById(id);
 
-        if(fabricante == null) {
+        if (fabricante == null) {
             throw new ValidationException("id", "Fabricante informado não existe");
         }
 

@@ -8,13 +8,15 @@ import java.util.List;
 public interface FabricanteService {
     public Fabricante findById(Long id);
 
-    public List<Fabricante> findByNome(String nome);
+    public List<Fabricante> findByNome(String nome, int page, int pageSize);
 
-    List<Fabricante> findByNome(String nome, Integer page, Integer pageSize);
+    public Long count(String nome);
 
     public List<Fabricante> findAll();
 
-    List<Fabricante> findAll(Integer page, Integer pageSize);
+    public List<Fabricante> findAll(int page, int pageSize);
+
+    public Long count();
 
     public Fabricante create(FabricanteRequestDTO fabricante);
 
@@ -22,7 +24,6 @@ public interface FabricanteService {
 
     public void delete(Long id);
 
-    Long count();
 
-    Long count(String nome);
+  
 }

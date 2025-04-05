@@ -20,7 +20,7 @@ public class EstadoServiceImpl implements EstadoService {
     public Estado findById(Long id) {
         Estado estado = estadoRepository.findById(id);
 
-        if(estado == null) {
+        if (estado == null) {
             throw new ValidationException("id", "Estado não existente!");
         }
 
@@ -52,7 +52,7 @@ public class EstadoServiceImpl implements EstadoService {
     public void update(Long id, EstadoRequestDTO dto) {
         Estado estado = estadoRepository.findById(id);
 
-        if(estado == null) {
+        if (estado == null) {
             throw new ValidationException("id", "Fabricante informado não existe");
         }
 
@@ -65,7 +65,7 @@ public class EstadoServiceImpl implements EstadoService {
     public void delete(Long id) {
         Estado estado = estadoRepository.findById(id);
 
-        if(estado == null) {
+        if (estado == null) {
             throw new ValidationException("id", "Fabricante informado não existe");
         }
 
@@ -82,7 +82,7 @@ public class EstadoServiceImpl implements EstadoService {
 
     @Override
     public Long count() {
-       return estadoRepository.findAll().count();
+        return estadoRepository.findAll().count();
     }
 
     @Override

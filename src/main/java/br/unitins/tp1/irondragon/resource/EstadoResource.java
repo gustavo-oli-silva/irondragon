@@ -6,7 +6,6 @@ import br.unitins.tp1.irondragon.dto.request.EstadoRequestDTO;
 import br.unitins.tp1.irondragon.dto.response.EstadoResponseDTO;
 import br.unitins.tp1.irondragon.dto.response.PageResponse;
 import br.unitins.tp1.irondragon.service.estado.EstadoService;
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -45,14 +44,17 @@ public class EstadoResource {
 
     @GET
     @Path("/search/{nome}")
-    @RolesAllowed({ "Super", "Admin", "User" })
+    //@RolesAllowed({ "Super", "Admin", "User" })
     public Response findByNome(@PathParam("nome") String nome,
             @QueryParam("page") @DefaultValue("0") Integer page,
             @QueryParam("page_size") @DefaultValue("10") Integer pageSize) {
         LOGGER.info("Método findById foi executado com o parametro [" + nome + "]!");
 
+        Long totalCount = estadoService.count(nome);
+        PageResponse<EstadoResponseDTO> pageResponse = PageResponse.valueOf(page, pageSize, totalCount,
+                estadoService.findByNome(nome,page, pageSize).stream().map(EstadoResponseDTO::valueOf).toList());
         return Response
-                .ok(estadoService.findByNome(nome, page, pageSize).stream().map(EstadoResponseDTO::valueOf).toList())
+                .ok(pageResponse)
                 .build();
     }
 
