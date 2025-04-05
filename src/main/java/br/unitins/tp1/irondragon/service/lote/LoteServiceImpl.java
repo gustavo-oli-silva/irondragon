@@ -61,7 +61,7 @@ public class LoteServiceImpl implements LoteService {
     @Transactional
     @Override
     public Lote create(LoteRequestDTO dto) {
-        verificarCodigo(dto.codigo());
+        verificarCodigoNovo(dto.codigo());
 
         Lote lote = new Lote();
         lote.setProcessador(processadorService.findById(dto.idProcessador()));
@@ -83,7 +83,7 @@ public class LoteServiceImpl implements LoteService {
     @Transactional
     @Override
     public void update(Long id, LoteRequestDTO dto) {
-        verificarCodigo(dto.codigo());
+        verificarCodigoEdicao(dto.codigo(), id);
 
         Lote lote = loteRepository.findById(id);
 
@@ -91,7 +91,7 @@ public class LoteServiceImpl implements LoteService {
             throw new ValidationException("id", "Lote não existe!");
         }
 
-        lote.setProcessador(processadorService.findById(id));
+        lote.setProcessador(processadorService.findById(dto.idProcessador()));
         lote.setCodigo(dto.codigo());
         lote.setData(dto.data());
         lote.setEstoque(dto.estoque());
@@ -110,14 +110,21 @@ public class LoteServiceImpl implements LoteService {
         loteRepository.deleteById(id);
     }
 
-    public void verificarCodigo(String codigo) {
-        Lote verificacao = loteRepository.findByIdCodigo(codigo);
-
-        if(verificacao != null) {
+    public void verificarCodigoNovo(String codigo) {
+        Lote existente = loteRepository.findByIdCodigo(codigo);
+        if (existente != null) {
+            throw new ValidationException("codigo", "Código fornecido já existente!");
+        }
+    }
+    
+    public void verificarCodigoEdicao(String codigo, Long idLote) {
+        Lote existente = loteRepository.findByIdCodigo(codigo);
+        if (existente != null && !existente.getId().equals(idLote)) {
             throw new ValidationException("codigo", "Código fornecido já existente!");
         }
     }
 
+    
     @Override
     public Long count() {
         return loteRepository.count();
