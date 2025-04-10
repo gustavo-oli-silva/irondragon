@@ -59,7 +59,7 @@ public class LoteResource {
 
     @GET
     @Path("/search/{codigo}")
-    @RolesAllowed({ "Super", "Admin" })
+    //@RolesAllowed({ "Super", "Admin" })
     public Response findByCodigo(@PathParam("codigo") String codigo) {
         LOGGER.info("Método findByCodigo foi executado com o parametro " + codigo);
 

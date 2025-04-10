@@ -6,9 +6,9 @@ import br.unitins.tp1.irondragon.model.usuario.TelefoneUsuario;
 import jakarta.validation.constraints.NotBlank;
 
 public record TelefoneRequestDTO(
-        @NotBlank
+        @NotBlank(message = "O código de área não pode ser nulo!")
         String codigoArea,
-        @NotBlank
+        @NotBlank(message = "O número não pode ser nulo!")
         String numero
 ) {
     public TelefoneFornecedor toEntityTelefoneFornecedor() {
