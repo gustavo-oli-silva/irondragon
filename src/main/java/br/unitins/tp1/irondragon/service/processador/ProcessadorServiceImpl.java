@@ -3,7 +3,6 @@ package br.unitins.tp1.irondragon.service.processador;
 import java.util.List;
 
 import br.unitins.tp1.irondragon.dto.request.processador.ProcessadorRequestDTO;
-import br.unitins.tp1.irondragon.model.processador.Conectividade;
 import br.unitins.tp1.irondragon.model.processador.Processador;
 import br.unitins.tp1.irondragon.repository.ProcessadorRepository;
 import br.unitins.tp1.irondragon.service.fabricante.FabricanteService;
@@ -43,10 +42,27 @@ public class ProcessadorServiceImpl implements ProcessadorService {
     }
 
     @Override
+    public List<Processador> findAll(Integer page, Integer pageSize) {
+        return processadorRepository
+                .findAll()
+                .page(page, pageSize)
+                .list();
+    }
+
+    @Override
     public List<Processador> findByNome(String nome) {
         return processadorRepository
-            .findByNome(nome);
+            .findByNome(nome).list();
     }
+
+    @Override
+    public List<Processador> findByNome(String nome, Integer page, Integer pageSize) {
+        return processadorRepository
+                .findByNome(nome)
+                .page(page, pageSize)
+                .list();
+    }
+
 
     @Transactional
     @Override
@@ -117,4 +133,13 @@ public class ProcessadorServiceImpl implements ProcessadorService {
         return processador;
     }
 
+    @Override
+    public Long count() {
+        return processadorRepository.count();
+    }
+
+    @Override
+    public Long count(String nome) {
+        return processadorRepository.findByNome(nome).count();
+    }
 }

@@ -1,5 +1,6 @@
 package br.unitins.tp1.irondragon.resource;
 
+import br.unitins.tp1.irondragon.dto.response.PageResponse;
 import br.unitins.tp1.irondragon.dto.response.processador.ProcessadorResponseDTO;
 import br.unitins.tp1.irondragon.form.ProcessadorImageForm;
 import br.unitins.tp1.irondragon.model.processador.Processador;
@@ -31,21 +32,32 @@ public class ProcessadorResource {
     public ProcessadorFileServiceImpl processadorFileService;
 
     @GET
-    public Response findAll() {
+    public Response findAll(
+            @QueryParam("page") @DefaultValue("0") Integer page,
+            @QueryParam("page_size") @DefaultValue("10") Integer pageSize
+    ) {
         LOGGER.info("Método findAll foi executado!");
 
+        Long count = processadorService.count();
+
         return Response
-                .ok(processadorService.findAll().stream().map(ProcessadorResponseDTO::valueOf).toList())
+                .ok(PageResponse.valueOf(page, pageSize, count, processadorService.findAll(page, pageSize).stream().map(ProcessadorResponseDTO::valueOf).toList()))
                 .build();
     }
 
     @GET
     @Path("/search/{nome}")
-    public Response findByNome(@PathParam("nome") String nome) {
+    public Response findByNome(
+            @PathParam("nome") String nome,
+            @QueryParam("page") @DefaultValue("0") Integer page,
+            @QueryParam("page_size") @DefaultValue("10") Integer pageSize
+    ) {
         LOGGER.info("Método findByNome foi executado com o parametro " + nome);
 
+        Long count = processadorService.count(nome);
+
         return Response
-                .ok(processadorService.findByNome(nome).stream().map(ProcessadorResponseDTO::valueOf).toList())
+                .ok(PageResponse.valueOf(page, pageSize, count, processadorService.findByNome(nome, page, pageSize).stream().map(ProcessadorResponseDTO::valueOf).toList()))
                 .build();
     }
 
