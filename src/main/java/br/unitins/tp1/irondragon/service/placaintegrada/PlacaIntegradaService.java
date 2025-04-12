@@ -4,9 +4,10 @@ import br.unitins.tp1.irondragon.dto.request.processador.PlacaIntegradaRequestDT
 import br.unitins.tp1.irondragon.model.processador.PlacaIntegrada;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PlacaIntegradaService {
-    public PlacaIntegrada findById(Long id);
+    public Optional<PlacaIntegrada> findById(Long id);
 
     public List<PlacaIntegrada> findByNome(String nome);
 

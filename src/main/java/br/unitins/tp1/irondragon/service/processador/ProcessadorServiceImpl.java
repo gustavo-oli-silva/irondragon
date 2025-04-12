@@ -1,8 +1,10 @@
 package br.unitins.tp1.irondragon.service.processador;
 
 import java.util.List;
+import java.util.Optional;
 
 import br.unitins.tp1.irondragon.dto.request.processador.ProcessadorRequestDTO;
+import br.unitins.tp1.irondragon.model.processador.PlacaIntegrada;
 import br.unitins.tp1.irondragon.model.processador.Processador;
 import br.unitins.tp1.irondragon.repository.ProcessadorRepository;
 import br.unitins.tp1.irondragon.service.fabricante.FabricanteService;
@@ -68,6 +70,7 @@ public class ProcessadorServiceImpl implements ProcessadorService {
     @Override
     public Processador create(ProcessadorRequestDTO dto) {
         Processador processador = new Processador();
+          Optional<PlacaIntegrada> placaOpt = placaIntegradaService.findById(dto.placaIntegrada());
         processador.setNome(dto.nome());
         processador.setSocket(dto.socket());
         processador.setThreads(dto.threads());
@@ -75,7 +78,7 @@ public class ProcessadorServiceImpl implements ProcessadorService {
         processador.setDesbloqueado(dto.desbloqueado());
         processador.setPreco(dto.preco());
         processador.setFabricante(fabricanteService.findById(dto.fabricante()));
-        processador.setPlacaIntegrada(placaIntegradaService.findById(dto.placaIntegrada()));
+        processador.setPlacaIntegrada(placaOpt.orElse(null));
         processador.setConectividade(dto.conectividade().intoEntity());
         processador.setFrequencia(dto.frequencia().intoEntity());
         processador.setMemoriaCache(dto.memoriaCache().intoEntity());
@@ -101,7 +104,7 @@ public class ProcessadorServiceImpl implements ProcessadorService {
         processador.setThreads(dto.threads());
         processador.setDesbloqueado(dto.desbloqueado());
         processador.setSocket(dto.socket());
-        processador.setPlacaIntegrada(placaIntegradaService.findById(dto.placaIntegrada()));
+        processador.setPlacaIntegrada(placaIntegradaService.findById(dto.placaIntegrada()).orElse(null));
         processador.setFabricante(fabricanteService.findById(dto.fabricante()));
         processador.setConectividade(dto.conectividade().intoEntity());
         processador.setFrequencia(dto.frequencia().intoEntity());

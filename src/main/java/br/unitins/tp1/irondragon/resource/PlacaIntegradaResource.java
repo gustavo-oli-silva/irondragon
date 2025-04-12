@@ -39,7 +39,7 @@ public class PlacaIntegradaResource {
     public Response findById(@PathParam("id") Long id) {
         LOGGER.info("Método findById foi executado com o parametro " + id);
 
-        return Response.ok(PlacaIntegradaResponseDTO.valueOf(placaIntegradaService.findById(id))).build();
+        return Response.ok(PlacaIntegradaResponseDTO.valueOf(placaIntegradaService.findById(id).get())).build();
     }
 
     @GET

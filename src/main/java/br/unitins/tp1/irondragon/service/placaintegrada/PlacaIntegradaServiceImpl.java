@@ -9,6 +9,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @ApplicationScoped
 public class PlacaIntegradaServiceImpl implements PlacaIntegradaService {
@@ -16,9 +17,13 @@ public class PlacaIntegradaServiceImpl implements PlacaIntegradaService {
     public PlacaIntegradaRepository placaIntegradaRepository;
 
     @Override
-    public PlacaIntegrada findById(Long id) {
-        return placaIntegradaRepository.findById(id);
+    public Optional<PlacaIntegrada> findById(Long id) {
+        if (id == null) {
+            return Optional.empty(); 
+        }
+        return placaIntegradaRepository.findByIdOptional(id);
     }
+    
 
     @Override
     public List<PlacaIntegrada> findByNome(String nome) {

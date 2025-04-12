@@ -11,7 +11,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class CidadeRepository implements PanacheRepository<Cidade> {
     public PanacheQuery<Cidade> findByNome(String nome) {
-        return find("SELECT c FROM Cidade c where c.nome LIKE ?1", "%" + nome + "%");
+        return find("SELECT c FROM Cidade c where c.nome ILIKE ?1", "%" + nome + "%");
     }
 
     public List<Cidade> findByEstado(Estado estado) {

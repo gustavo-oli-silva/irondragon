@@ -10,6 +10,6 @@ import java.util.List;
 @ApplicationScoped
 public class FornecedorRepository implements PanacheRepository<Fornecedor> {
     public PanacheQuery<Fornecedor> findByNome(String nome) {
-        return find("SELECT f FROM Fornecedor f WHERE f.nome LIKE ?1", "%" + nome + "%");
+        return find("SELECT f FROM Fornecedor f WHERE f.nome ILIKE ?1", "%" + nome + "%");
     }
 }

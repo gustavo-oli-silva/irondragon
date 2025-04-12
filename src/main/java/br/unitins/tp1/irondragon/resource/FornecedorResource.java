@@ -72,7 +72,7 @@ public class FornecedorResource {
 
     @PUT
     @Path("/{id}")
-    @RolesAllowed({"Super", "Admin"})
+    //@RolesAllowed({"Super", "Admin"})
     public Response update(@PathParam("id") Long id, @Valid FornecedorRequestDTO dto) {
         LOGGER.info("Método update foi executado com o parametro " + id + ", fornecedor: " + dto);
 
