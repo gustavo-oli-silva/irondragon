@@ -59,7 +59,7 @@ public class PlacaIntegradaResource {
     }
 
     @POST
-    @RolesAllowed({"Super", "Admin"})
+    //@RolesAllowed({"Super", "Admin"})
     public Response create(PlacaIntegradaRequestDTO placaIntegrada) {
         LOGGER.info("Método create foi executado , Placa integrada: " + placaIntegrada);
 
@@ -68,7 +68,7 @@ public class PlacaIntegradaResource {
 
     @PUT
     @Path("/{id}")
-    @RolesAllowed({"Super", "Admin"})
+    //@RolesAllowed({"Super", "Admin"})
     public Response update(@PathParam("id") Long id, PlacaIntegradaRequestDTO placaIntegrada) {
         LOGGER.info("Método update foi executado com o parametro " + id + ", Placa integrada: " + placaIntegrada);
 
@@ -78,7 +78,7 @@ public class PlacaIntegradaResource {
 
     @DELETE
     @Path("/{id}")
-    @RolesAllowed({"Super", "Admin"})
+   // @RolesAllowed({"Super", "Admin"})
     public Response delete(@PathParam("id") Long id) {
         LOGGER.info("Método delete foi executado com o parametro " + id);
         placaIntegradaService.delete(id);

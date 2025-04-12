@@ -75,7 +75,7 @@ public class CidadeResource {
 
     @PUT
     @Path("/{id}")
-    @RolesAllowed({"Super", "Admin"})
+    //@RolesAllowed({"Super", "Admin"})
     public Response update(@PathParam("id") Long id, @Valid CidadeRequestDTO cidade) {
         LOGGER.info("Método update foi executado, cidade com id " + id + ": " + cidade);
 
