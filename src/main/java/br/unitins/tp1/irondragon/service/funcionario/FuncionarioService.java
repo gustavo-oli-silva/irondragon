@@ -15,7 +15,9 @@ public interface FuncionarioService {
 
     Funcionario findByIdUsuario(Long idUsuario);
 
-    List<Funcionario> findAll();
+    List<Funcionario> findAll(int page, int pageSize);
+
+    Long count();
 
     Funcionario create(Long idUsuario, FuncionarioRequestDTO dto);
 

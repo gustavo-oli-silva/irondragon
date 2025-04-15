@@ -33,8 +33,8 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     }
 
     @Override
-    public List<Funcionario> findAll() {
-        return funcionarioRepository.listAll();
+    public List<Funcionario> findAll(int page, int pageSize) {
+        return funcionarioRepository.findAll().page(page, pageSize).list();
     }
 
     @Transactional
@@ -117,5 +117,10 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         }
 
         funcionarioRepository.deleteById(id);
+    }
+
+    @Override
+    public Long count() {
+       return funcionarioRepository.findAll().count();
     }
 }

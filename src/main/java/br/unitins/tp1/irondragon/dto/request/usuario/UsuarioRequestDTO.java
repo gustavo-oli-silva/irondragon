@@ -11,6 +11,7 @@ import java.time.LocalDate;
 public record UsuarioRequestDTO(
         @NotBlank(message = "username deve ser informado")
         String username,
+        @NotBlank(message = "email deve ser informado")
         @Email
         String email,
         @NotBlank(message = "Uma senha deve ser fornecida")

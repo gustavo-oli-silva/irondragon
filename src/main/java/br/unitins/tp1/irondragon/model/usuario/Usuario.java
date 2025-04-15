@@ -16,9 +16,9 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 @Entity
 public class Usuario extends DefaultEntity {
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String username;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
     private String senha;
     @Column(unique = true, nullable = false)

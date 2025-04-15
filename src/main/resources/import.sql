@@ -28,10 +28,6 @@ insert into TelefoneFornecedor (codigoarea, numero) values
 ('21', '123456789'),
 ('31', '40041234');
 
-insert into TelefoneUsuario (codigoarea, numero) values
-('63', '40028922'),
-('63', '40093822'),
-('SUPER', 'SUPER');
 
 INSERT INTO Fornecedor (nome, email, id_telefone) VALUES
 ('Terabyte', 'suporte@terabyte.com', 1),
@@ -115,14 +111,25 @@ insert into PlacaIntegrada (nome, directx, opengl, vulkan) values
 -- insert into Cartao (nometitular, numero, cpf, validade, cvc, tipo) values
 -- ('Keanu Reeves', '40028922', '904.001.690-96', '2022-02-02', 123, 1);
 
-insert into Usuario (username, senha, perfil, cpf, id_telefone) values
-('Ahri', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 2, '123', 1),
-('SUPER', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 1, 'SUPER', 3),
-('Acabaxi', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 3, '321', 2);
+insert into TelefoneUsuario (codigoarea, numero) values
+('63', '40028922'),   -- 1 
+('63', '40093822'),   -- 2
+('SU', 'SUPER'),   -- 3
+('11', '40093833'),
+('23', '40090090');   
+
+insert into Usuario (username, senha, perfil, cpf, id_telefone, email) values
+('Ahri', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 2, '123', 1, 'ahri@email.com'),
+('Fernando', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 3, '321', 2, 'corno@gmail.com'),
+('GustavoOliveira', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 1, '444', 3, 'gustavoO@email.com'),
+('MatheusNardi', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 1, '555', 4, 'matheusN@email.com'),
+('AngelaAmaral', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 2, '101', 5, 'angelaA@email.com');
 
 insert into Funcionario(id_usuario, cargo, salario, datacontratacao) values
 (1, 'Administrador', 1200, '2024-12-03'),
-(2, 'SUPER', 0, '2004-07-29');
+(2, 'Gerente', 50000, '2024-07-29'),
+(4, 'Gerente', 50000, '2024-07-29'),
+(5, 'Vendedora', 3400, '2025-07-29');
 
 insert into Cliente(id_usuario) values
 (1),
@@ -135,5 +142,3 @@ insert into Lote (codigo, estoque, data, id_processador, id_fornecedor) values
 ('#PROC1-PCH-20241105', 30, '2024-11-05', 1, 3),  
 ('#PROC2-AMZ-20241105', 30, '2024-11-05', 2, 4),  
 ('#PROC1-NWG-20241105', 30, '2024-11-05', 1, 5);   
-
-
