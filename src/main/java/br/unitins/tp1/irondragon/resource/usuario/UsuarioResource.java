@@ -44,6 +44,23 @@ public class UsuarioResource {
         return Response.ok(usuarioService.findAll().stream().map(UsuarioResponseDTO::valueOf)).build();
     }
 
+
+    @GET
+    @Path("/search/{username}")
+    public Response findByUsername(@PathParam("username") String username) {
+        LOGGER.info("Método findByUsername foi executado com o parametro [ " + username + "] !");
+
+        return Response.ok(UsuarioResponseDTO.valueOf(usuarioService.findByUsername(username))).build();
+    }
+
+    @GET
+    @Path("/search/cpf/{cpf}")
+    public Response findByCpf(@PathParam("cpf") String cpf) {
+        LOGGER.info("Método findByUsername foi executado com o parametro [ " + cpf + "] !");
+
+        return Response.ok(UsuarioResponseDTO.valueOf(usuarioService.findByCpf(cpf))).build();
+    }
+
     @GET
     @Path("/{id}")
     @RolesAllowed({"Super", "Admin"})

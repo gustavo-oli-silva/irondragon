@@ -1,19 +1,20 @@
 package br.unitins.tp1.irondragon.service.usuario;
 
+import java.util.List;
+
 import br.unitins.tp1.irondragon.dto.request.usuario.EmailUpdateDTO;
 import br.unitins.tp1.irondragon.dto.request.usuario.SenhaUpdateDTO;
 import br.unitins.tp1.irondragon.dto.request.usuario.UsuarioRequestDTO;
-import br.unitins.tp1.irondragon.model.processador.Processador;
 import br.unitins.tp1.irondragon.model.usuario.Perfil;
 import br.unitins.tp1.irondragon.model.usuario.Usuario;
 import jakarta.transaction.Transactional;
-
-import java.util.List;
 
 public interface UsuarioService {
     Usuario findById(Long id);
 
     Usuario findByUsername(String username);
+
+    Usuario findByCpf(String cpf);
 
     Usuario findByUsernameAndSenha(String username, String senha);
 

@@ -126,4 +126,15 @@ public class UsuarioServiceImpl implements UsuarioService {
         clienteService.delete(cliente.getId());
         usuarioRepository.delete(usuario);
     }
+
+    @Override
+    public Usuario findByCpf(String cpf) {
+        Usuario usuario = usuarioRepository.findByCpf(cpf);
+        if(usuario == null){
+            throw new ValidationException("cpf", "O CPF informado é inválido");
+        }
+        System.out.println(usuario.getUsername());
+
+        return usuario;
+    }
 }
