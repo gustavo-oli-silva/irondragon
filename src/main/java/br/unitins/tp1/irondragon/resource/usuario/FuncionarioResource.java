@@ -34,7 +34,6 @@ public class FuncionarioResource {
 
     @GET
     //@RolesAllowed({"Super", "Admin"})
-   
     public Response findAll(
             @QueryParam("page") @DefaultValue("0") Integer page,
             @QueryParam("page_size") @DefaultValue("10") Integer pageSize) {
@@ -45,7 +44,16 @@ public class FuncionarioResource {
         return Response.ok(pageResponse).build();
     }
 
+    @GET
+    // @RolesAllowed({"Super", "Admin"})
+    @Path("/{id}")
+    public Response findById(@PathParam("id") Long id) {
+        LOGGER.info("Método findById foi executado!");
 
+        return Response
+                .ok(FuncionarioResponseDTO.valueOf(funcionarioService.findById(id)))
+                .build();
+    }
     @POST
     @Path("/{id}")
     //@RolesAllowed({"Super"})
