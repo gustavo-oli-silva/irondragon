@@ -117,7 +117,10 @@ insert into TelefoneUsuario (codigoarea, numero) values
 ('SU', 'SUPER'),   -- 3
 ('11', '40093833'),
 ('23', '40090090'),
-('24', '40081192');   
+('24', '40081192');  
+
+
+
 
 insert into Usuario (username, senha, perfil, cpf, id_telefone, email, dataCriacao) values
 ('Ahri', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 2, '123', 1, 'ahri@email.com', '2024-02-04'),
@@ -132,6 +135,24 @@ insert into Funcionario(id_usuario, cargo, salario, datacontratacao) values
 (2, 'Gerente', 50000, '2024-07-29'),
 (4, 'Gerente', 50000, '2024-07-29'),
 (5, 'Vendedora', 3400, '2025-07-29');
+
+INSERT INTO endereco (logradouro, cep, bairro, complemento, numero, id_cidade, id_usuario)
+VALUES 
+('Rua das Palmeiras', '77020-000', 'Centro', 'Apto 101', 123, 1,1),
+('Avenida Brasil', '77010-001', 'Jardim América', null, 456, 2,1),
+('Rua João XXIII', '77015-222', 'São José', 'Casa 2', 78, 3,2),
+('Travessa das Flores', '77030-987', 'Morada do Sol', null, 150, 4,3),
+('Rua do Comércio', '77040-456', 'Centro', 'Fundos', 89, 5,4),
+('Avenida Tocantins', '77050-321', 'Planalto', null, 321, 6,5),
+('Rua Projetada A', '77060-654', 'Vila Nova', null, 101, 7,6),
+('Rua das Acácias', '77070-789', 'Parque das Árvores', 'Bloco B', 222, 8, 2),
+('Alameda das Rosas', '77080-111', 'Flor do Cerrado', null, 65, 9,2),
+('Rua 12 de Outubro', '77090-222', 'Boa Vista', null, 333, 10,3),
+('Rua Amazonas', '77100-333', 'Industrial', 'Galpão 1', 500, 11,4),
+('Rua Maranhão', '77110-444', 'Bela Vista', null, 150, 12,3),
+('Rua Pará', '77120-555', 'Santa Maria', 'Casa térrea', 42, 13,5),
+('Rua Ceará', '77130-666', 'Setor Norte', null, 88, 14,6),
+('Rua Goiás', '77140-777', 'Vila Rica', 'Apto 202', 77, 15,5);
 
 insert into Cliente(id_usuario) values
 (1),

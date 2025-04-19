@@ -34,7 +34,7 @@ public class Usuario extends DefaultEntity {
     private TelefoneUsuario telefone;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_endereco")
+    @JoinColumn(name = "id_usuario")
     private List<Endereco> enderecos;
 
     private String nomeImagem;
