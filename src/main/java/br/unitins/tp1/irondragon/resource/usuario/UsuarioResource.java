@@ -1,25 +1,31 @@
 package br.unitins.tp1.irondragon.resource.usuario;
 
+import java.io.IOException;
+
+import org.eclipse.microprofile.jwt.JsonWebToken;
+import org.jboss.logging.Logger;
+import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
+
 import br.unitins.tp1.irondragon.dto.request.usuario.EmailUpdateDTO;
 import br.unitins.tp1.irondragon.dto.request.usuario.SenhaUpdateDTO;
 import br.unitins.tp1.irondragon.dto.request.usuario.UsuarioRequestDTO;
 import br.unitins.tp1.irondragon.dto.response.usuario.UsuarioResponseDTO;
 import br.unitins.tp1.irondragon.form.ProcessadorImageForm;
-import br.unitins.tp1.irondragon.model.usuario.Usuario;
 import br.unitins.tp1.irondragon.service.file.UsuarioFileServiceImpl;
 import br.unitins.tp1.irondragon.service.usuario.UsuarioService;
-import br.unitins.tp1.irondragon.validation.ValidationException;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
-import jakarta.ws.rs.*;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PATCH;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.eclipse.microprofile.jwt.JsonWebToken;
-import org.jboss.logging.Logger;
-import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
-
-import java.io.IOException;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -113,16 +119,16 @@ public class UsuarioResource {
     }
 
     @PATCH
-    @Path("/upload/imagem")
+    @Path("{id}/upload/imagem")
     @RolesAllowed({"Super", "Admin", "User"})
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response uploadImage(@MultipartForm ProcessadorImageForm form) {
+    public Response uploadImage(@PathParam("id") Long id, @MultipartForm ProcessadorImageForm form) {
         String username = jwt.getSubject();
 
         LOGGER.info("Método uploadImage foi executado");
 
         try {
-            String nomeImagem = usuarioFileService.save(form.getNomeImagem(), form.getImagem());
+            String nomeImagem = usuarioFileService.save(id,form.getNomeImagem(), form.getImagem());
             usuarioService.updateNomeImagem(username, nomeImagem);
         } catch (IOException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -132,12 +138,12 @@ public class UsuarioResource {
     }
 
     @GET
-    @Path("download/imagem/{nomeImagem}")
+    @Path("{id}/download/imagem/{nomeImagem}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response downloadImage(@PathParam("nomeImagem") String nomeImagem) {
+    public Response downloadImage(@PathParam("id") Long id, @PathParam("nomeImagem") String nomeImagem) {
         LOGGER.info("Método downloadImage foi executado");
 
-        Response.ResponseBuilder response = Response.ok(usuarioFileService.find(nomeImagem));
+        Response.ResponseBuilder response = Response.ok(usuarioFileService.find(id, nomeImagem));
         response.header("Content-Disposition", "attachment; filename=" + nomeImagem);
         return response.build();
     }

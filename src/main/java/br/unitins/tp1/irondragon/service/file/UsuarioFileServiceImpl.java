@@ -30,8 +30,8 @@ public class UsuarioFileServiceImpl implements FileService {
     private static final int MAX_FILE_SIZE = 1024 * 1024 * 10;
 
     @Override
-    public String save(String nomeArquivo, byte[] arquivo) throws IOException {
-        Path dir = Paths.get(PATH_PROCESSADOR);
+    public String save(Long idUsuario, String nomeArquivo, byte[] arquivo) throws IOException {
+        Path dir = Paths.get(PATH_PROCESSADOR, String.valueOf(idUsuario));
 
         Files.createDirectories(dir);
 
@@ -57,8 +57,8 @@ public class UsuarioFileServiceImpl implements FileService {
     }
 
     @Override
-    public File find(String nomeArquivo) {
-        File file = new File(PATH_PROCESSADOR + nomeArquivo);
+    public File find(Long idUsuario, String nomeArquivo) {
+        File file = new File(PATH_PROCESSADOR + idUsuario + "/" + nomeArquivo);
 
         if(file.exists()) {
             return file;

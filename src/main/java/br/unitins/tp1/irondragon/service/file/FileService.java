@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 public interface FileService {
-    String save(String nomeArquivo, byte[] arquivo) throws IOException;
+    String save(Long id, String nomeArquivo, byte[] arquivo) throws IOException;
 
-    File find(String nomeArquivo);
+    File find(Long id, String nomeArquivo);
 }

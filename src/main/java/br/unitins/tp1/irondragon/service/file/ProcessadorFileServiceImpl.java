@@ -24,15 +24,15 @@ public class ProcessadorFileServiceImpl implements FileService {
             List.of(
                     "image/jpeg",
                     "image/png",
-                    "image/jpeg"
+                    "image/jpg"
             );
 
     //10 mb
     private static final int MAX_FILE_SIZE = 1024 * 1024 * 10;
 
     @Override
-    public String save(String nomeArquivo, byte[] arquivo) throws IOException {
-        Path dir = Paths.get(PATH_PROCESSADOR);
+    public String save(Long idProcessador, String nomeArquivo, byte[] arquivo) throws IOException {
+        Path dir = Paths.get(PATH_PROCESSADOR,  String.valueOf(idProcessador));
         imageIsHigherThanLimit(arquivo);
 
         Files.createDirectories(dir);
@@ -58,9 +58,12 @@ public class ProcessadorFileServiceImpl implements FileService {
         return novoNomeArquivo;
     }
 
+    
+
     @Override
-    public File find(String nomeArquivo) {
-        File file = new File(PATH_PROCESSADOR + nomeArquivo);
+    public File find(Long idProcessador, String nomeArquivo) {
+        File file = new File(PATH_PROCESSADOR + idProcessador + "/" + nomeArquivo);
+
 
         if(file.exists()) {
             return file;
@@ -80,4 +83,8 @@ public class ProcessadorFileServiceImpl implements FileService {
             throw new IOException("Formato de arquivo não suportado!");
         }
     }
+
+    
+
+    
 }

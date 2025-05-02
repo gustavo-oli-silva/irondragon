@@ -103,13 +103,13 @@ public class ProcessadorResource {
 
     @PATCH
     @Path("{id}/upload/imagem")
-    @RolesAllowed({"Super", "Admin"})
+    // @RolesAllowed({"Super", "Admin"})
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response uploadImage(@PathParam("id") Long id, @MultipartForm ProcessadorImageForm form) {
         LOGGER.info("Método uploadImage foi executado com o parametro " + id);
 
         try {
-            String nomeImagem = processadorFileService.save(form.getNomeImagem(), form.getImagem());
+            String nomeImagem = processadorFileService.save(id, form.getNomeImagem(), form.getImagem());
             processadorService.updateNomeImagem(id, nomeImagem);
         } catch (IOException e) {
             return Response.status(Status.INTERNAL_SERVER_ERROR).build();
@@ -119,12 +119,12 @@ public class ProcessadorResource {
     }
 
     @GET
-    @Path("download/imagem/{nomeImagem}")
+    @Path("{id}/download/imagem/{nomeImagem}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response downloadImage(@PathParam("nomeImagem") String nomeImagem) {
+    public Response downloadImage(@PathParam("id") Long id, @PathParam("nomeImagem") String nomeImagem) {
         LOGGER.info("Método downloadImage foi executado");
 
-        Response.ResponseBuilder response = Response.ok(processadorFileService.find(nomeImagem));
+        Response.ResponseBuilder response = Response.ok(processadorFileService.find(id,nomeImagem));
         response.header("Content-Disposition", "attachment; filename=" + nomeImagem);
         return response.build();
     }
