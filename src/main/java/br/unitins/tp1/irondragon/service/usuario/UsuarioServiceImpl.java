@@ -71,18 +71,19 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         usuarioRepository.persist(usuario);
 
+        clienteService.create(usuario.getUsername());
+        createKeycloakUser(dto);
+
+        return usuario;
+    }
+
+    private void createKeycloakUser(UsuarioRequestDTO dto) {
         List<CredentialDTO> credentials = List.of(new CredentialDTO("password", dto.senha(), false));
         KeycloakUserRequestDTO keycloackUser = new KeycloakUserRequestDTO(dto.username(), dto.email(), true, credentials);
 
-        
-        
-        clienteService.create(usuario.getUsername());
         keycloakAdminService.createKeycloakUser(keycloackUser);
         String userId =  keycloakAdminService.getUserIdByUsername(dto.username());
         keycloakAdminService.assignRealmRoleToUser(userId, Perfil.USER.getLabel());
-
-
-        return usuario;
     }
 
     @Transactional
