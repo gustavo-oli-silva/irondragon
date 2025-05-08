@@ -1,5 +1,11 @@
 package br.unitins.tp1.irondragon.service.usuario;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import br.unitins.tp1.irondragon.dto.request.keycloak.CredentialDTO;
+import br.unitins.tp1.irondragon.dto.request.keycloak.KeycloakUserRequestDTO;
 import br.unitins.tp1.irondragon.dto.request.usuario.EmailUpdateDTO;
 import br.unitins.tp1.irondragon.dto.request.usuario.SenhaUpdateDTO;
 import br.unitins.tp1.irondragon.dto.request.usuario.UsuarioRequestDTO;
@@ -9,14 +15,11 @@ import br.unitins.tp1.irondragon.model.usuario.Usuario;
 import br.unitins.tp1.irondragon.repository.UsuarioRepository;
 import br.unitins.tp1.irondragon.service.cliente.ClienteService;
 import br.unitins.tp1.irondragon.service.hash.HashService;
+import br.unitins.tp1.irondragon.service.keycloak.KeycloakAdminService;
 import br.unitins.tp1.irondragon.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @ApplicationScoped
 public class UsuarioServiceImpl implements UsuarioService {
@@ -28,6 +31,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Inject
     public HashService hashService;
+
+    @Inject
+    public KeycloakAdminService keycloakAdminService;
 
     @Override
     public Usuario findById(Long id) {
@@ -65,7 +71,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         usuarioRepository.persist(usuario);
 
+        List<CredentialDTO> credentials = List.of(new CredentialDTO("password", dto.senha(), false));
+        KeycloakUserRequestDTO keycloackUser = new KeycloakUserRequestDTO(dto.username(), dto.email(), true, credentials);
+
+        
+        
         clienteService.create(usuario.getUsername());
+        keycloakAdminService.createKeycloakUser(keycloackUser);
+        String userId =  keycloakAdminService.getUserIdByUsername(dto.username());
+        keycloakAdminService.assignRealmRoleToUser(userId, Perfil.USER.getLabel());
+
 
         return usuario;
     }
