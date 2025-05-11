@@ -63,11 +63,12 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setEmail(dto.email());
         usuario.setDataCriacao(LocalDateTime.now());
         usuario.setCpf(dto.cpf());
-        usuario.setEnderecos(new ArrayList<>());
         usuario.setPerfil(Perfil.USER);
         usuario.setSenha(hashService.getHashSenha(dto.senha()));
-        usuario.setDataNascimento(dto.dataNascimento());
-        usuario.setTelefone(dto.telefone().toEntityTelefoneUsuario());
+        
+        // usuario.setEnderecos(new ArrayList<>());
+        // usuario.setDataNascimento(dto.dataNascimento());
+        // usuario.setTelefone(dto.telefone().toEntityTelefoneUsuario());
 
         usuarioRepository.persist(usuario);
 
