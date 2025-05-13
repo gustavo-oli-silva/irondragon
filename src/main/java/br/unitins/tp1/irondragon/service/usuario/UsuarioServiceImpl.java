@@ -59,7 +59,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public Usuario create(UsuarioRequestDTO dto) {
         Usuario usuario = new Usuario();
-        usuario.setUsername(dto.username());
+        usuario.setNome(dto.nome());
+        usuario.setUsername(dto.email());
         usuario.setEmail(dto.email());
         usuario.setDataCriacao(LocalDateTime.now());
         usuario.setCpf(dto.cpf());
@@ -80,10 +81,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     private void createKeycloakUser(UsuarioRequestDTO dto) {
         List<CredentialDTO> credentials = List.of(new CredentialDTO("password", dto.senha(), false));
-        KeycloakUserRequestDTO keycloackUser = new KeycloakUserRequestDTO(dto.username(), dto.email(), true, credentials);
+        KeycloakUserRequestDTO keycloackUser = new KeycloakUserRequestDTO(dto.email(), dto.email(), dto.nome(), true, credentials);
 
         keycloakAdminService.createKeycloakUser(keycloackUser);
-        String userId =  keycloakAdminService.getUserIdByUsername(dto.username());
+        String userId =  keycloakAdminService.getUserIdByUsername(dto.email());
         keycloakAdminService.assignRealmRoleToUser(userId, Perfil.USER.getLabel());
     }
 

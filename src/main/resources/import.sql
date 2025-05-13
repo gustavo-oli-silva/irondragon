@@ -159,13 +159,13 @@ insert into TelefoneUsuario (codigoarea, numero) values
 
 
 
-insert into Usuario (username, senha, perfil, cpf, id_telefone, email, dataCriacao) values
-('Ahri', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 2, '123', 1, 'ahri@email.com', '2024-02-04'),
-('Fernando', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 3, '321', 2, 'corno@gmail.com', '2024-12-05'),
-('GustavoOliveira', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 1, '444', 3, 'gustavoO@email.com', '2024-06-06'),
-('MatheusNardi', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 1, '555', 4, 'matheusN@email.com', '2024-12-02'),
-('AngelaAmaral', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 2, '101', 5, 'angelaA@email.com', '2024-12-08'),
-('NovoFuncionario', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 2, '404', 6, 'novo@email.com', '2024-12-02');
+insert into Usuario (nome, username, senha, perfil, cpf, id_telefone, email, dataCriacao) values
+('Ahri', 'ahri@gmail.com' , 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 2, '123', 1, 'ahri@email.com', '2024-02-04'),
+('Fernando', 'corno@gmail.com', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 3, '321', 2, 'corno@gmail.com', '2024-12-05'),
+('Gustavo liveira', 'gustavoO@email.com' , 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 1, '444', 3, 'gustavoO@email.com', '2024-06-06'),
+('Matheus Nardi', 'matheusN@email.com' , 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 1, '555', 4, 'matheusN@email.com', '2024-12-02'),
+('Angela Amaral', 'angelaA@mail.co,' ,'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 2, '101', 5, 'angelaA@email.com', '2024-12-08'),
+('Novo Funcionario', 'novo@email.com', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 2, '404', 6, 'novo@email.com', '2024-12-02');
 
 insert into Funcionario(id_usuario, cargo, salario, datacontratacao) values
 (1, 'Administrador', 1200, '2024-12-03'),
