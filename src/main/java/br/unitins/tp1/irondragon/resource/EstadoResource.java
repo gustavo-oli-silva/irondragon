@@ -6,6 +6,7 @@ import br.unitins.tp1.irondragon.dto.request.EstadoRequestDTO;
 import br.unitins.tp1.irondragon.dto.response.EstadoResponseDTO;
 import br.unitins.tp1.irondragon.dto.response.PageResponse;
 import br.unitins.tp1.irondragon.service.estado.EstadoService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -24,6 +25,7 @@ import jakarta.ws.rs.core.Response.Status;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@RolesAllowed({"Super", "Admin", "User"})
 @Path("/estados")
 public class EstadoResource {
     private static final Logger LOGGER = Logger.getLogger(EstadoResource.class);

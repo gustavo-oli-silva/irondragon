@@ -16,6 +16,10 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 @Entity
 public class Usuario extends DefaultEntity {
+
+    @Column(nullable = false)
+    private String nome;
+
     @Column(unique = true, nullable = false)
     private String username;
     @Column(unique = true, nullable = false)
