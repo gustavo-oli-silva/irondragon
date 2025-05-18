@@ -79,7 +79,7 @@ public class EnderecoServiceImpl implements EnderecoService {
         if(endereco == null) {
             throw new ValidationException("endereco", "Endereço informado não existe!");
         }
-
+        
         validarUsuarioEndereco(usuario, endereco);
 
         endereco.setNumero(dto.numero());

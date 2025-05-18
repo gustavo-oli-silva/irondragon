@@ -13,7 +13,7 @@ public interface CidadeService {
 
     List<Cidade> findByNome(String nome, Integer page, Integer pageSize);
 
-    public List<Cidade> findByEstado(Estado estado);
+    public List<Cidade> findByEstado(Long idEstado);
 
     public List<Cidade> findAll();
 

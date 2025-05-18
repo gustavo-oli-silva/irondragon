@@ -60,7 +60,8 @@ public class EnderecoResource {
     @Path("/{id}")
     @RolesAllowed({"User", "Admin"})
     public Response update(@PathParam("id") Long id, EnderecoRequestDTO dto) {
-        String username = jwt.getSubject();
+        String username = jwt.getClaim("preferred_username");
+        System.out.println(username);
 
         LOGGER.info("Cliente [" + username + "] modificou o endereço " + id + ": " + dto);
 

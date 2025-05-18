@@ -5,6 +5,7 @@ import java.util.List;
 import br.unitins.tp1.irondragon.dto.request.usuario.EmailUpdateDTO;
 import br.unitins.tp1.irondragon.dto.request.usuario.SenhaUpdateDTO;
 import br.unitins.tp1.irondragon.dto.request.usuario.UsuarioRequestDTO;
+import br.unitins.tp1.irondragon.dto.request.usuario.UsuarioUpdateBasicoDTO;
 import br.unitins.tp1.irondragon.model.usuario.Perfil;
 import br.unitins.tp1.irondragon.model.usuario.Usuario;
 import jakarta.transaction.Transactional;
@@ -21,6 +22,8 @@ public interface UsuarioService {
     List<Usuario> findAll();
 
     Usuario create(UsuarioRequestDTO dto);
+
+    void updateInfoBasicas(String username, UsuarioUpdateBasicoDTO dto);
 
     @Transactional
     void updateEmail(EmailUpdateDTO dto, String username);
