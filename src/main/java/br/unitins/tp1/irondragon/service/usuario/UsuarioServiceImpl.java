@@ -9,8 +9,10 @@ import br.unitins.tp1.irondragon.dto.request.keycloak.KeycloakUserRequestDTO;
 import br.unitins.tp1.irondragon.dto.request.usuario.EmailUpdateDTO;
 import br.unitins.tp1.irondragon.dto.request.usuario.SenhaUpdateDTO;
 import br.unitins.tp1.irondragon.dto.request.usuario.UsuarioRequestDTO;
+import br.unitins.tp1.irondragon.dto.request.usuario.UsuarioUpdateBasicoDTO;
 import br.unitins.tp1.irondragon.model.usuario.Cliente;
 import br.unitins.tp1.irondragon.model.usuario.Perfil;
+import br.unitins.tp1.irondragon.model.usuario.TelefoneUsuario;
 import br.unitins.tp1.irondragon.model.usuario.Usuario;
 import br.unitins.tp1.irondragon.repository.UsuarioRepository;
 import br.unitins.tp1.irondragon.service.cliente.ClienteService;
@@ -66,10 +68,10 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setCpf(dto.cpf());
         usuario.setPerfil(Perfil.USER);
         usuario.setSenha(hashService.getHashSenha(dto.senha()));
-        
-        // usuario.setEnderecos(new ArrayList<>());
-        // usuario.setDataNascimento(dto.dataNascimento());
-        // usuario.setTelefone(dto.telefone().toEntityTelefoneUsuario());
+
+        usuario.setEnderecos(new ArrayList<>());
+        usuario.setDataNascimento(dto.dataNascimento());
+        usuario.setTelefone(dto.telefone().toEntityTelefoneUsuario());
 
         usuarioRepository.persist(usuario);
 
@@ -81,10 +83,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     private void createKeycloakUser(UsuarioRequestDTO dto) {
         List<CredentialDTO> credentials = List.of(new CredentialDTO("password", dto.senha(), false));
-        KeycloakUserRequestDTO keycloackUser = new KeycloakUserRequestDTO(dto.email(), dto.email(), dto.nome(), true, credentials);
+        KeycloakUserRequestDTO keycloackUser = new KeycloakUserRequestDTO(dto.email(), dto.email(), dto.nome(), true,
+                credentials);
 
         keycloakAdminService.createKeycloakUser(keycloackUser);
-        String userId =  keycloakAdminService.getUserIdByUsername(dto.email());
+        String userId = keycloakAdminService.getUserIdByUsername(dto.email());
         keycloakAdminService.assignRealmRoleToUser(userId, Perfil.USER.getLabel());
     }
 
@@ -95,7 +98,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         Usuario email = usuarioRepository.findByEmail(dto.email());
 
-        if(email != null) {
+        if (email != null) {
             throw new ValidationException("email", "Email inválido!");
         }
 
@@ -131,13 +134,13 @@ public class UsuarioServiceImpl implements UsuarioService {
     public void delete(Long id) {
         Usuario usuario = usuarioRepository.findById(id);
 
-        if(usuario == null) {
+        if (usuario == null) {
             throw new ValidationException("id", "Usuário não encontrado!");
         }
 
         Cliente cliente = clienteService.findByUsername(usuario.getUsername());
 
-        if(cliente == null) {
+        if (cliente == null) {
             throw new ValidationException("username", "Cliente não foi encontrado para esse username");
         }
 
@@ -148,11 +151,39 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public Usuario findByCpf(String cpf) {
         Usuario usuario = usuarioRepository.findByCpf(cpf);
-        if(usuario == null){
+        if (usuario == null) {
             throw new ValidationException("cpf", "O CPF informado é inválido");
         }
         System.out.println(usuario.getUsername());
 
         return usuario;
+    }
+
+    @Override
+    @Transactional
+    public void updateInfoBasicas(String username, UsuarioUpdateBasicoDTO dto) {
+        Usuario usuario = usuarioRepository.findByUsername(username);
+        System.out.println(username);
+        if (usuario == null) {
+            throw new ValidationException(username, "Usuario não encontrado");
+        }
+
+        if (dto.nome() != null)
+            usuario.setNome(dto.nome());
+
+        if (dto.dataNascimento() != null)
+            usuario.setDataNascimento(dto.dataNascimento());
+
+        if (dto.telefone() != null) {
+            TelefoneUsuario telefone = usuario.getTelefone();
+            if (telefone == null) {
+                telefone = new TelefoneUsuario();
+            }
+            telefone.setCodigoArea(dto.telefone().codigoArea());
+            telefone.setNumero(dto.telefone().numero());
+            usuario.setTelefone(telefone);
+        }
+
+        keycloakAdminService.updateNameUser(keycloakAdminService.getUserIdByUsername(username), dto.nome());
     }
 }

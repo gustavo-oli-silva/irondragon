@@ -187,10 +187,10 @@ insert into TelefoneUsuario (codigoarea, numero) values
 
 
 insert into Usuario (nome, username, senha, perfil, cpf, id_telefone, email, dataCriacao) values
-('Ahri', 'ahri@gmail.com' , 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 2, '123', 1, 'ahri@email.com', '2024-02-04'),
+('Admin', 'admin@admin.com' , 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 2, '123', 1, 'admin@admin.com', '2024-02-04'),
 ('Fernando', 'corno@gmail.com', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 3, '321', 2, 'corno@gmail.com', '2024-12-05'),
 ('Gustavo liveira', 'gustavoO@email.com' , 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 1, '444', 3, 'gustavoO@email.com', '2024-06-06'),
-('Matheus Nardi', 'matheusN@email.com' , 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 1, '555', 4, 'matheusN@email.com', '2024-12-02'),
+('Matheus Nardi', 'matheus@email.com' , 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 1, '555', 4, 'matheus@email.com', '2024-12-02'),
 ('Angela Amaral', 'angelaA@mail.co,' ,'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 2, '101', 5, 'angelaA@email.com', '2024-12-08'),
 ('Novo Funcionario', 'novo@email.com', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 2, '404', 6, 'novo@email.com', '2024-12-02');
 
@@ -221,7 +221,7 @@ VALUES
 insert into Cliente(id_usuario) values
 (1),
 (2),
-(3);
+(4);
 
 insert into Lote (codigo, estoque, data, id_processador, id_fornecedor) values
 ('#PROC1-TBY-20241107', 20, '2024-11-07', 1, 1),  

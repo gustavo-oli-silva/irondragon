@@ -41,9 +41,9 @@ public class CidadeServiceImpl implements CidadeService {
     }
 
     @Override
-    public List<Cidade> findByEstado(Estado estado) {
+    public List<Cidade> findByEstado(Long idEstado) {
         return cidadeRepository
-                .findByEstado(estado);
+                .findByEstado(idEstado);
     }
 
     @Override

@@ -2,6 +2,7 @@ package br.unitins.tp1.irondragon.resource.usuario;
 
 import br.unitins.tp1.irondragon.dto.response.processador.ProcessadorResponseDTO;
 import br.unitins.tp1.irondragon.dto.response.usuario.ClienteResponseDTO;
+import br.unitins.tp1.irondragon.dto.response.usuario.UsuarioResponseDTO;
 import br.unitins.tp1.irondragon.resource.ProcessadorResource;
 import br.unitins.tp1.irondragon.service.cliente.ClienteService;
 import jakarta.annotation.security.RolesAllowed;
@@ -42,6 +43,16 @@ public class ClienteResource {
         clienteService.delete(id);
         return Response.noContent().build();
     }
+
+
+        @GET
+        @Path("/search/{username}")
+        public Response findByUsername(@PathParam("username") String username) {
+            LOGGER.info("Método findByUsername foi executado com o parametro [ " + username + "] !");
+
+            return Response.ok(ClienteResponseDTO.valueOf(clienteService.findByUsername(username))).build();
+        }
+
 
     @GET
     @Path("/search/desejos")

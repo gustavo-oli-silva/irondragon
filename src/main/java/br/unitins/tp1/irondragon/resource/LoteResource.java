@@ -32,7 +32,7 @@ public class LoteResource {
     public LoteService loteService;
 
     @GET
-    // @RolesAllowed({"Super", "Admin"})
+    @RolesAllowed({"Super", "Admin"})
     public Response findAll(
             @QueryParam("page") @DefaultValue("0") Integer page,
             @QueryParam("page_size") @DefaultValue("10") Integer pageSize) {
@@ -50,7 +50,7 @@ public class LoteResource {
 
     @GET
     @Path("/{id}")
-    // @RolesAllowed({"Super", "Admin"})
+    @RolesAllowed({"Super", "Admin"})
     public Response findById(@PathParam("id") Long id) {
         LOGGER.info("Execução do método findById. Id: " + id);
 
@@ -59,15 +59,15 @@ public class LoteResource {
 
     @GET
     @Path("/search/{codigo}")
-    //@RolesAllowed({ "Super", "Admin" })
+    @RolesAllowed({ "Super", "Admin" })
     public Response findByCodigo(@PathParam("codigo") String codigo) {
         LOGGER.info("Método findByCodigo foi executado com o parametro " + codigo);
 
         return Response.ok(LoteResponseDTO.valueOf(loteService.findByCodigo(codigo))).build();
-    }
+    }   
 
     @POST
-    // @RolesAllowed({"Super", "Admin"})
+    @RolesAllowed({"Super", "Admin"})
     public Response create(@Valid LoteRequestDTO dto) {
         LOGGER.info("Lote " + dto.codigo() + " com " + dto.estoque() + " unidades foi registrado!");
         return Response.status(Response.Status.CREATED).entity(LoteResponseDTO.valueOf(loteService.create(dto)))
@@ -76,7 +76,7 @@ public class LoteResource {
 
     @PUT
     @Path("/{id}")
-    // @RolesAllowed({"Super", "Admin"})
+    @RolesAllowed({"Super", "Admin"})
     public Response update(@PathParam("id") Long id, @Valid LoteRequestDTO dto) {
         LOGGER.info("Método update foi executado com o parametro " + id + ", lote: " + dto);
 
@@ -86,7 +86,7 @@ public class LoteResource {
 
     @DELETE
     @Path("/{id}")
-    // @RolesAllowed({"Super", "Admin"})
+    @RolesAllowed({"Super", "Admin"})
     public Response delete(@PathParam("id") Long id) {
         LOGGER.info("Método delete foi executado com o parametro " + id);
 

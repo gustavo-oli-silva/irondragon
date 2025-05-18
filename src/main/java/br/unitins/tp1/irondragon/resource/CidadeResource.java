@@ -1,17 +1,26 @@
 package br.unitins.tp1.irondragon.resource;
 
+import org.jboss.logging.Logger;
+
 import br.unitins.tp1.irondragon.dto.request.CidadeRequestDTO;
 import br.unitins.tp1.irondragon.dto.response.CidadeResponseDTO;
 import br.unitins.tp1.irondragon.dto.response.PageResponse;
 import br.unitins.tp1.irondragon.service.cidade.CidadeService;
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
-import jakarta.ws.rs.*;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.DefaultValue;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
-import org.jboss.logging.Logger;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -28,6 +37,14 @@ public class CidadeResource {
         LOGGER.info("Método findById foi executado com o parametro [" + id + "] !");
 
         return Response.ok(CidadeResponseDTO.valueOf(cidadeService.findById(id))).build();
+    }
+
+    @GET
+    @Path("/estado/{idEstado}")
+    public Response findByEstado(@PathParam("idEstado") Long idEstado) {
+        LOGGER.info("Método findByEstado foi executado com o parametro para o estado [" + idEstado + "] !");
+
+        return Response.ok((cidadeService.findByEstado(idEstado).stream().map(CidadeResponseDTO::valueOf).toList())).build();
     }
 
     @GET

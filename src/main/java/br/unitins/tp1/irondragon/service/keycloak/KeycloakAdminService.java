@@ -12,4 +12,6 @@ public interface KeycloakAdminService {
     String getUserIdByUsername(String username);
 
     void assignRealmRoleToUser(String userId, String roleName);
+
+    void updateNameUser(String userId, String name);
 }

@@ -32,8 +32,7 @@ public class KeycloakAdminServiceImpl implements KeycloakAdminService {
         String url = BASE_URL + "/realms/" + REALM + "/protocol/openid-connect/token";
         String form = String.format(
                 "username=%s&password=%s&grant_type=password&client_id=%s&client_secret=%s",
-                ADMIN_USERNAME, ADMIN_PASSWORD, CLIENT_ID, CLIENT_SECRET
-        );
+                ADMIN_USERNAME, ADMIN_PASSWORD, CLIENT_ID, CLIENT_SECRET);
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
@@ -161,4 +160,23 @@ public class KeycloakAdminServiceImpl implements KeycloakAdminService {
             throw new RuntimeException("Erro ao executar requisição HTTP", e);
         }
     }
+
+    @Override
+    public void updateNameUser(String userId, String name) {
+        String accessToken = getAdminAccessToken();
+        String url = BASE_URL + "/admin/realms/" + REALM + "/users/" + userId;
+
+    
+        String jsonBody = String.format("{\"firstName\": \"%s\"}", name);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .header("Authorization", "Bearer " + accessToken)
+                .header("Content-Type", "application/json")
+                .PUT(HttpRequest.BodyPublishers.ofString(jsonBody))
+                .build();
+
+        sendVoidRequest(request, 204); 
+    }
+
 }
