@@ -37,7 +37,7 @@ public class EnderecoResource {
     @Path("/usuarios")
     @RolesAllowed({"User", "Admin"})
     public Response listByUsername() {
-        String username = jwt.getSubject();
+        String username = jwt.getClaim("preferred_username");
 
         LOGGER.info("Cliente [" + username + "] pediu uma lista dos seus endereços!");
 
@@ -49,9 +49,9 @@ public class EnderecoResource {
     @POST
     @RolesAllowed({"User", "Admin"})
     public Response create(EnderecoRequestDTO dto) {
-        String username = jwt.getSubject();
+        String username = jwt.getClaim("preferred_username");
 
-        LOGGER.info("Cliente [" + username + "] cadastrou um endereço: " + dto);
+        LOGGER.info("Cliente [" + username + "] cadastrou um endereço: " + dto.toString());
 
         return Response.ok(EnderecoResponseDTO.valueOf(enderecoService.create(dto, username))).build();
     }
@@ -73,7 +73,7 @@ public class EnderecoResource {
     @Path("/{id}")
     @RolesAllowed({"User", "Admin"})
     public Response delete(@PathParam("id") Long id) {
-        String username = jwt.getSubject();
+        String username = jwt.getClaim("preferred_username");
 
         LOGGER.info("Cliente [" + username + "] deletou o endereço " + id);
 

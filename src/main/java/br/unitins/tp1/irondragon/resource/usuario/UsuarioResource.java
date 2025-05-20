@@ -90,7 +90,7 @@ import br.unitins.tp1.irondragon.dto.response.usuario.UsuarioResponseDTO;
         @Path("/email")
         @RolesAllowed({"Super", "Admin", "User"})
         public Response updateEmail(@Valid EmailUpdateDTO dto) {
-            String username = jwt.getSubject();
+            String username = jwt.getClaim("preferred_username");
 
             LOGGER.info("O cliente " + username + " pediu uma troca de email, email: " + dto.email());
 
@@ -102,7 +102,7 @@ import br.unitins.tp1.irondragon.dto.response.usuario.UsuarioResponseDTO;
         @Path("/senha")
         @RolesAllowed({"Super", "Admin", "User"})
         public Response updateSenha(@Valid SenhaUpdateDTO dto) {
-            String username = jwt.getSubject();
+            String username = jwt.getClaim("preferred_username");
 
             LOGGER.info("O cliente " + username + " pediu uma troca de email, email: " + dto.senha());
 
@@ -126,7 +126,7 @@ import br.unitins.tp1.irondragon.dto.response.usuario.UsuarioResponseDTO;
         @Path("/meu-perfil")
         @RolesAllowed({"User", "Admin"})
         public Response showProfile() {
-            String username = jwt.getSubject();
+            String username = jwt.getClaim("preferred_username");
 
             LOGGER.info("O Cliente " + username + " pediu os dados do seu perfil!");
 
@@ -138,7 +138,7 @@ import br.unitins.tp1.irondragon.dto.response.usuario.UsuarioResponseDTO;
         @RolesAllowed({"Super", "Admin", "User"})
         @Consumes(MediaType.MULTIPART_FORM_DATA)
         public Response uploadImage(@PathParam("id") Long id, @MultipartForm ProcessadorImageForm form) {
-            String username = jwt.getSubject();
+            String username = jwt.getClaim("preferred_username");
 
             LOGGER.info("Método uploadImage foi executado");
 

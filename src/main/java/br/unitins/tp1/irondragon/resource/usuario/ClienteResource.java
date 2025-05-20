@@ -58,7 +58,7 @@ public class ClienteResource {
     @Path("/search/desejos")
     @RolesAllowed({"User"})
     public Response findListaDeDesejos() {
-        String username = jwt.getSubject();
+        String username = jwt.getClaim("preferred_username");
 
         LOGGER.info("O cliente " + username + " pediu a sua lista de desejos!");
 
@@ -71,7 +71,7 @@ public class ClienteResource {
     @Path("/desejos/{processador}")
     @RolesAllowed({"User"})
     public Response addToListaDeDesejos(@PathParam("processador") Long id) {
-        String username = jwt.getSubject();
+        String username = jwt.getClaim("preferred_username");
 
         LOGGER.info("O cliente " + username + " adicionou o processador " + id + " a sua lista de desejos!");
 
@@ -85,7 +85,7 @@ public class ClienteResource {
     @Path("/desejos/{processador}")
     @RolesAllowed({"User"})
     public Response removeFromListaDeDesejos(@PathParam("processador") Long id) {
-        String username = jwt.getSubject();
+        String username = jwt.getClaim("preferred_username");
 
         LOGGER.info("O cliente " + username + " removeu o processador " + id + " da sua lista de desejos!");
 
