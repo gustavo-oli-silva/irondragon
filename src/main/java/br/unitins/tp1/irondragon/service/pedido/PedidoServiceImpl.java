@@ -9,6 +9,7 @@ import br.unitins.tp1.irondragon.repository.PedidoRepository;
 import br.unitins.tp1.irondragon.service.cliente.ClienteService;
 import br.unitins.tp1.irondragon.service.endereco.EnderecoService;
 import br.unitins.tp1.irondragon.service.lote.LoteService;
+import br.unitins.tp1.irondragon.service.pagamento.PagamentoService;
 import br.unitins.tp1.irondragon.service.processador.ProcessadorService;
 import br.unitins.tp1.irondragon.validation.ValidationException;
 import io.quarkus.scheduler.Scheduled;
@@ -30,6 +31,9 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Inject
     public EnderecoService enderecoService;
+
+    @Inject
+    public PagamentoService pagamentoService;
 
     @Inject
     public LoteService loteService;
@@ -57,6 +61,9 @@ public class PedidoServiceImpl implements PedidoService {
             throw new ValidationException("id", "Pedido inválido!");
         }
 
+        System.out.println(cliente.getUsuario().getNome());
+        System.out.println(pedido.getId());
+
         validarPedidoCliente(pedido, cliente);
 
         return pedido;
@@ -65,6 +72,13 @@ public class PedidoServiceImpl implements PedidoService {
     public List<Pedido> findAll() {
         return pedidoRepository.findAll().list();
     }
+
+    public Pedido findPedidoByIdPagamento(Long id) {
+        Pedido pedido = pedidoRepository.findById(id);
+
+        return pedido;
+    }
+
 
     @Transactional
     @Override
@@ -125,6 +139,12 @@ public class PedidoServiceImpl implements PedidoService {
 
         pedidoRepository.persist(pedido);
 
+        switch (dto.tipoPagamento()) {
+            case "pix" -> pagamentoService.generatePix(pedido.getId(), username);
+            case "boleto" -> pagamentoService.generateBoleto(pedido.getId(), username);
+            case "cartao" -> pagamentoService.cardPayment(pedido.getId(), dto.idCartao(), username);
+        }
+
         return pedido;
     }
 
@@ -158,17 +178,6 @@ public class PedidoServiceImpl implements PedidoService {
         } else {
             throw new ValidationException("statusPedido", "O pedido não pode ser cancelado");
         }
-    }
-
-    @Override
-    public Pedido findPedidoByIdPagamento(Long idPagamento) {
-        Pedido pedido = pedidoRepository.findPedidoByIdPagamento(idPagamento);
-
-        if(pedido == null) {
-            throw new ValidationException("id", "Pedido informado não existe!");
-        }
-
-        return pedido;
     }
 
     @Transactional

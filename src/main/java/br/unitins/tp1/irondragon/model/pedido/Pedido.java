@@ -18,7 +18,7 @@ import java.util.List;
 public class Pedido extends DefaultEntity {
     private LocalDateTime data;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 

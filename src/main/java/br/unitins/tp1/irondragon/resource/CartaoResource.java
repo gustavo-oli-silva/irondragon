@@ -44,7 +44,7 @@ public class CartaoResource {
     @POST
     @RolesAllowed({"User"})
     public Response create(@Valid CartaoRequestDTO cartao) {
-        String username = jwt.getSubject();
+        String username = jwt.getClaim("preferred_username");
 
         LOGGER.info("Cliente [" + username + "] cadastrou o cartao: " + cartao);
 
@@ -58,7 +58,7 @@ public class CartaoResource {
     @Path("/{id}")
     @RolesAllowed({"User"})
     public Response update(@PathParam("id") Long id, @Valid CartaoRequestDTO cartao) {
-        String username = jwt.getSubject();
+        String username = jwt.getClaim("preferred_username");
 
         LOGGER.info("Cliente [" + username + "] modificou o Cartão " + id + ": " + cartao);
 
@@ -70,7 +70,7 @@ public class CartaoResource {
     @Path("/{id}")
     @RolesAllowed({"User"})
     public Response delete(@PathParam("id") Long idCartao) {
-        String username = jwt.getSubject();
+        String username = jwt.getClaim("preferred_username");
 
         LOGGER.info("Cliente [" + username + "] deletou o cartão " + idCartao);
 
@@ -82,7 +82,7 @@ public class CartaoResource {
     @Path("/usuarios")
     @RolesAllowed({"User"})
     public Response listByUsername() {
-        String username = jwt.getSubject();
+        String username = jwt.getClaim("preferred_username");
 
         LOGGER.info("Cliente [" + username + "] pediu a lista dos cartões cadastrados");
 

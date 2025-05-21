@@ -26,7 +26,7 @@ public class PedidoResource {
     public JsonWebToken jwt;
 
     @GET
-    @RolesAllowed({"Super", "Admin"})
+    @RolesAllowed({ "Super", "Admin" })
     public Response findAll() {
         LOGGER.info("Método findAll foi executado");
 
@@ -35,10 +35,10 @@ public class PedidoResource {
 
     @GET
     @Path("/{id}")
-    @RolesAllowed({"User"})
+    @RolesAllowed({ "User" })
     public Response findByIdAndUsername(@PathParam("id") Long id) {
-        String username = jwt.getSubject();
-
+        String username = jwt.getClaim("preferred_username");
+        System.out.println(username);
         LOGGER.info("O cliente " + username + " foi executado com o parametro " + id);
 
         return Response.ok(PedidoResponseDTO.valueOf(pedidoService.findByUsername(id, username))).build();
@@ -46,19 +46,20 @@ public class PedidoResource {
 
     @GET
     @Path("/lista")
-    @RolesAllowed({"User"})
+    @RolesAllowed({ "User" })
     public Response listByUsername() {
-        String username = jwt.getSubject();
+        String username = jwt.getClaim("preferred_username");
 
         LOGGER.info("O Cliente " + username + "pediu uma lista de seus pedidos");
 
-        return Response.ok(pedidoService.listByUsername(username).stream().map(PedidoBasicResponseDTO::valueOf)).build();
+        return Response.ok(pedidoService.listByUsername(username).stream().map(PedidoBasicResponseDTO::valueOf))
+                .build();
     }
 
     @POST
-    @RolesAllowed({"User"})
+    @RolesAllowed({ "User" })
     public Response create(@Valid PedidoRequestDTO dto) {
-        String username = jwt.getSubject();
+        String username = jwt.getClaim("preferred_username");
 
         LOGGER.info("Método create foi executado, pedido: " + dto);
 
@@ -67,9 +68,9 @@ public class PedidoResource {
 
     @PATCH
     @Path("/cancelar/{pedido}")
-    @RolesAllowed({"User"})
+    @RolesAllowed({ "User" })
     public Response cancelPedido(@PathParam("pedido") Long id) {
-        String username = jwt.getSubject();
+        String username = jwt.getClaim("preferred_username");
 
         LOGGER.info("O pedido " + id + "foi cancelado pelo usuario " + username);
 

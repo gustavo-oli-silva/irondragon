@@ -29,53 +29,11 @@ public class PagamentoResource {
         return Response.ok(pagamentoService.findByIdPedido(id)).build();
     }
 
-    @POST
-    @Path("/pix/{pedido}")
-    @RolesAllowed({"User"})
-    public Response generatePix(@PathParam("pedido") Long pedido) {
-        String username = jwt.getSubject();
-
-        LOGGER.info("Método generatePix foi executado com o parametro " + pedido);
-
-        return Response
-                .status(Response.Status.CREATED)
-                .entity(pagamentoService.generatePix(pedido, username))
-                .build();
-    }
-
-    @POST
-    @Path("/boleto/{pedido}")
-    @RolesAllowed({"User"})
-    public Response generateBoleto(@PathParam("pedido") Long pedido) {
-        String username = jwt.getSubject();
-
-        LOGGER.info("Método generateBoleto foi executado com o parametro " + pedido);
-
-        return Response
-                .status(Response.Status.CREATED)
-                .entity(pagamentoService.generateBoleto(pedido, username))
-                .build();
-    }
-
-    @POST
-    @Path("/cartao/{cartao}/{pedido}")
-    @RolesAllowed({"User"})
-    public Response cardPayment(@PathParam("cartao") Long cartao, @PathParam("pedido") Long pedido) {
-        String username = jwt.getSubject();
-
-        LOGGER.info("Pagamento com o cartão " + cartao + "foi realizado para o pedido " + pedido);
-
-        return Response
-                .status(Response.Status.CREATED)
-                .entity(pagamentoService.cardPayment(pedido, cartao, username))
-                .build();
-    }
-
     @PATCH
     @Path("{pedido}/boleto/{boleto}")
     @RolesAllowed({"User"})
     public Response boletoPayment(@PathParam("boleto") Long boleto, @PathParam("pedido") Long pedido) {
-        String username = jwt.getSubject();
+        String username = jwt.getClaim("preferred_username");
 
         LOGGER.info("Pagamento com o cartão " + boleto + "foi realizado para o pedido " + pedido);
 
@@ -88,7 +46,7 @@ public class PagamentoResource {
     @Path("{pedido}/pix/{pix}")
     @RolesAllowed({"User"})
     public Response pixPayment(@PathParam("pix") Long pix, @PathParam("pedido") Long pedido) {
-        String username = jwt.getSubject();
+        String username = jwt.getClaim("preferred_username");
 
         LOGGER.info("Pagamento com o cartão " + pix + "foi realizado para o pedido " + pedido);
 

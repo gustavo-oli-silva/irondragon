@@ -13,8 +13,6 @@ public interface PedidoService {
 
     void cancelPedido(Long idPedido, String username);
 
-    public Pedido findPedidoByIdPagamento(Long idPagamento);
-
     Pedido findByUsername(Long id, String username);
 
     List<Pedido> findAll();
@@ -22,4 +20,6 @@ public interface PedidoService {
     void updateStatusPedido(Long idPedido, StatusPedido statusPedido);
 
     List<Pedido> listByUsername(String username);
+
+    Pedido findPedidoByIdPagamento(Long id);
 }
