@@ -9,7 +9,13 @@ import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class ProcessadorRepository implements PanacheRepository<Processador> {
+
+
     public PanacheQuery<Processador> findByNome(String nome) {
         return find("SELECT p FROM Processador p WHERE p.nome like ?1", "%" + nome + "%");
+    }
+
+    public PanacheQuery<Processador> findLancamentos(){
+        return find("");
     }
 }

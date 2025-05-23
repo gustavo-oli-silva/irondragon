@@ -58,6 +58,14 @@ public class LoteResource {
     }
 
     @GET
+    @Path("/recentes")
+    public Response findLastLotes() {
+        LOGGER.info("Execução do método findLastLotes");
+
+        return Response.ok(loteService.findLastLotesByProcessadorDistinctOn().stream().map(LoteResponseDTO::valueOf).toList()).build();
+    }
+
+    @GET
     @Path("/search/{codigo}")
     @RolesAllowed({ "Super", "Admin" })
     public Response findByCodigo(@PathParam("codigo") String codigo) {

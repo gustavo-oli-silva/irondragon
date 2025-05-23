@@ -8,6 +8,8 @@ import java.util.List;
 public interface LoteService {
     List<Lote> findAll(Integer page, Integer pageSize);
 
+    List<Lote> findLastLotesByProcessadorDistinctOn();
+
     Long count();
 
     Lote findByCodigo(String codigo);

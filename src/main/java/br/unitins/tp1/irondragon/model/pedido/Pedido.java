@@ -27,6 +27,7 @@ public class Pedido extends DefaultEntity {
     private EnderecoEntrega enderecoEntrega;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_pagamento")
     private Pagamento pagamento;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

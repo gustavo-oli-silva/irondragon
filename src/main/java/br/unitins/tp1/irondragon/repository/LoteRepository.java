@@ -1,5 +1,7 @@
 package br.unitins.tp1.irondragon.repository;
 
+import java.util.List;
+
 import br.unitins.tp1.irondragon.model.pedido.Lote;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -40,5 +42,20 @@ public class LoteRepository implements PanacheRepository<Lote> {
                 .map(Lote::getEstoque).reduce(Integer::sum)
                 .get();
     }
+    
+
+    @SuppressWarnings("unchecked")
+    public List<Lote> findLastLotesByProcessadorDistinctOn() {
+    StringBuilder sql = new StringBuilder();
+    sql.append("SELECT DISTINCT ON (lote.id_processador) * ");
+    sql.append("FROM public.lote ");
+    sql.append("ORDER BY lote.id_processador, lote.data DESC ");
+    sql.append("LIMIT 12");
+
+    return (List<Lote>) getEntityManager()
+            .createNativeQuery(sql.toString(), Lote.class)
+            .getResultList();
+}
+
 }
 

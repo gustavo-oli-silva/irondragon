@@ -1,5 +1,6 @@
 package br.unitins.tp1.irondragon.resource;
 
+import br.unitins.tp1.irondragon.dto.response.processador.ProcessadorResponseDTO;
 import br.unitins.tp1.irondragon.model.pedido.StatusPedido;
 import br.unitins.tp1.irondragon.model.usuario.Perfil;
 import br.unitins.tp1.irondragon.service.pedido.PedidoService;
@@ -27,5 +28,13 @@ public class PedidoAdminResource {
 
         pedidoService.updateStatusPedido(id, statusPedido);
         return Response.noContent().build();
+    }
+
+    @GET
+    @Path("/mais-vendidos")
+    public Response findProcessadoresMaisVendidos() {
+        LOGGER.info("Método findProcessadoresMaisVendidos foi executado");
+
+        return Response.ok(pedidoService.findProcessadoresMaisVendidos().stream().map(ProcessadorResponseDTO::valueOf).toList()).build();
     }
 }

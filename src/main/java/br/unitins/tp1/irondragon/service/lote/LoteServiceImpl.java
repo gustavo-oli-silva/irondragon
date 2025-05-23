@@ -129,4 +129,11 @@ public class LoteServiceImpl implements LoteService {
     public Long count() {
         return loteRepository.count();
     }
+
+    @Override
+    public List<Lote> findLastLotesByProcessadorDistinctOn() {
+       return loteRepository.findLastLotesByProcessadorDistinctOn();
+    }
+
+    
 }

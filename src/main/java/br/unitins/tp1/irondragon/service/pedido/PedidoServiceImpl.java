@@ -4,6 +4,7 @@ import br.unitins.tp1.irondragon.dto.request.ItemPedidoRequestDTO;
 import br.unitins.tp1.irondragon.dto.request.PedidoRequestDTO;
 import br.unitins.tp1.irondragon.model.Endereco;
 import br.unitins.tp1.irondragon.model.pedido.*;
+import br.unitins.tp1.irondragon.model.processador.Processador;
 import br.unitins.tp1.irondragon.model.usuario.Cliente;
 import br.unitins.tp1.irondragon.repository.PedidoRepository;
 import br.unitins.tp1.irondragon.service.cliente.ClienteService;
@@ -223,5 +224,10 @@ public class PedidoServiceImpl implements PedidoService {
         if(pedido.getCliente().equals(cliente)) return;
 
         throw new ValidationException("pedido", "Pedido inválido!");
+    }
+
+    @Override
+    public List<Processador> findProcessadoresMaisVendidos() {
+        return pedidoRepository.findProcessadoresMaisVendidos();
     }
 }
