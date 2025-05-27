@@ -1,4 +1,4 @@
--- This file allow to write SQL commands that will be emitted in test and dev.
+    -- This file allow to write SQL commands that will be emitted in test and dev.
 -- The commands are commented as their support depends of the database
 -- insert into myentity (id, field) values(1, 'field-1');
 -- insert into myentity (id, field) values(2, 'field-2');
@@ -276,17 +276,16 @@ INSERT INTO EnderecoEntrega (id, logradouro, cep, bairro, complemento, numero, i
 -- Adicionando Pagamentos
 -- (IDs 1, 2, 3 já criados, adicionando mais para os novos pedidos)
 INSERT INTO Pagamento (id, valor, pago) VALUES
-(1, 2000.00, false), -- Pedido 1
-(2, 1600.00, true),  -- Pedido 2
-(3, 800.00, true),   -- Pedido 3
-(4, 800.00, false),  -- Pedido 4
-(5, 1750.00, true),  -- Pedido 5
-(6, 3600.00, true),  -- Pedido 6
-(7, 2400.00, true),  -- Pedido 7
-(8, 1100.00, false), -- Pedido 8 (cancelado, não pago)
-(9, 2750.00, true),  -- Pedido 9 (devolvido, mas foi pago)
-(10, 2900.00, false); -- Pedido 10
--- ALTER SEQUENCE pagamento_seq RESTART WITH 11;
+(1, 2000.00, false),
+(2, 1600.00, true),
+(3, 800.00, true),
+(4, 800.00, false),
+(5, 1750.00, true),
+(6, 3600.00, true),
+(7, 2400.00, true),
+(8, 1100.00, false),
+(9, 2750.00, true),
+(10, 2900.00, false);
 
 
 -- Adicionando Pedidos (Total de 10)
@@ -346,3 +345,8 @@ INSERT INTO ItemPedido (id, id_lote, quantidade, preco, id_pedido) VALUES
 (15, 5, 5, 500.00, 10); -- Lote 5 (Proc ID 4: I3 10100)
 
 -- ALTER SEQUENCE itempedido_seq RESTART WITH 16;
+
+
+INSERT INTO cartao(id, nomeTitular, numero, cpf, validade, cvc, tipo, bandeira, id_cliente) values 
+(1, 'Matheus Bolado' , '5228 1576 6460 7887' , '63961082081', '2030-08-01', 832, 1, 2, 3),
+(2, 'Matheus Bolado' , '4485 8739 0651 0728' , '63961082081', '2030-08-01', 247, 1, 1, 3);

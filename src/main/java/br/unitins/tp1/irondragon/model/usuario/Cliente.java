@@ -24,6 +24,6 @@ public class Cliente extends DefaultEntity {
     private List<Processador> listaDeDesejos;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_cartao")
+    @JoinColumn(name = "id_cliente")
     List<Cartao> listaDeCartoes;
 }

@@ -18,4 +18,5 @@ public class Cartao extends DefaultEntity {
     private LocalDate validade;
     private Integer cvc;
     private TipoCartao tipo;
+    private BandeiraCartao bandeira;
 }

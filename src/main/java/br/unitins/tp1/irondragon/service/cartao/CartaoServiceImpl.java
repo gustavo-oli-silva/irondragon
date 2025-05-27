@@ -1,6 +1,7 @@
 package br.unitins.tp1.irondragon.service.cartao;
 
 import br.unitins.tp1.irondragon.dto.request.CartaoRequestDTO;
+import br.unitins.tp1.irondragon.model.BandeiraCartao;
 import br.unitins.tp1.irondragon.model.Cartao;
 import br.unitins.tp1.irondragon.model.TipoCartao;
 import br.unitins.tp1.irondragon.model.usuario.Cliente;
@@ -56,6 +57,7 @@ public class CartaoServiceImpl implements CartaoService {
         cartao.setCvc(dto.cvc());
         cartao.setValidade(dto.validade());
         cartao.setTipo(TipoCartao.valueOf(dto.tipoCartao()));
+        cartao.setBandeira(detectarBandeira(dto.numero()));
 
         cliente.getListaDeCartoes().add(cartao);
 
@@ -76,6 +78,8 @@ public class CartaoServiceImpl implements CartaoService {
         cartao.setCvc(dto.cvc());
         cartao.setValidade(dto.validade());
         cartao.setTipo(TipoCartao.valueOf(dto.tipoCartao()));
+        cartao.setBandeira(detectarBandeira(dto.numero()));
+        System.out.println(cartao.getBandeira());
     }
 
     public List<Cartao> listByUsername(String username) {
@@ -102,5 +106,22 @@ public class CartaoServiceImpl implements CartaoService {
         }
 
         throw new ValidationException("cartao", "O cartão informado é inválido!");
+    }
+
+
+    private  BandeiraCartao detectarBandeira(String numero) {
+        if (numero == null) return BandeiraCartao.DESCONHECIDA;
+
+        String sanitized = numero.replaceAll("\\s+", "");
+
+        if (sanitized.matches("^4[0-9]{12}(?:[0-9]{3})?$")) return BandeiraCartao.VISA;
+        if (sanitized.matches("^5[1-5][0-9]{14}$")) return BandeiraCartao.MASTERCARD;
+        if (sanitized.matches("^3[47][0-9]{13}$")) return BandeiraCartao.AMEX;
+        if (sanitized.matches("^3(?:0[0-5]|[68][0-9])[0-9]{11}$")) return BandeiraCartao.DINERS;
+        if (sanitized.matches("^6(?:011|5[0-9]{2})[0-9]{12}$")) return BandeiraCartao.DISCOVER;
+        if (sanitized.matches("^(4011|4312|4389|4514|4576|5041|5066|5090|6277|6362|6363)[0-9]*$")) return BandeiraCartao.ELO;
+        if (sanitized.matches("^(3841)[0-9]*$")) return BandeiraCartao.HIPERCARD;
+
+        return BandeiraCartao.DESCONHECIDA;
     }
 }
