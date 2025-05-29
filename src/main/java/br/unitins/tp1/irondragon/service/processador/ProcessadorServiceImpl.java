@@ -1,8 +1,11 @@
 package br.unitins.tp1.irondragon.service.processador;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import br.unitins.tp1.irondragon.dto.request.ProcessadorFilterRequest;
 import br.unitins.tp1.irondragon.dto.request.processador.ProcessadorRequestDTO;
 import br.unitins.tp1.irondragon.model.processador.PlacaIntegrada;
 import br.unitins.tp1.irondragon.model.processador.Processador;
@@ -10,6 +13,7 @@ import br.unitins.tp1.irondragon.repository.ProcessadorRepository;
 import br.unitins.tp1.irondragon.service.fabricante.FabricanteService;
 import br.unitins.tp1.irondragon.service.placaintegrada.PlacaIntegradaService;
 import br.unitins.tp1.irondragon.validation.ValidationException;
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -29,7 +33,7 @@ public class ProcessadorServiceImpl implements ProcessadorService {
     public Processador findById(Long id) {
         Processador processador = processadorRepository.findById(id);
 
-        if(processador == null) {
+        if (processador == null) {
             throw new ValidationException("id", "Processador especificado não existe!");
         }
 
@@ -54,7 +58,7 @@ public class ProcessadorServiceImpl implements ProcessadorService {
     @Override
     public List<Processador> findByNome(String nome) {
         return processadorRepository
-            .findByNome(nome).list();
+                .findByNome(nome).list();
     }
 
     @Override
@@ -65,12 +69,11 @@ public class ProcessadorServiceImpl implements ProcessadorService {
                 .list();
     }
 
-
     @Transactional
     @Override
     public Processador create(ProcessadorRequestDTO dto) {
         Processador processador = new Processador();
-          Optional<PlacaIntegrada> placaOpt = placaIntegradaService.findById(dto.placaIntegrada());
+        Optional<PlacaIntegrada> placaOpt = placaIntegradaService.findById(dto.placaIntegrada());
         processador.setNome(dto.nome());
         processador.setSocket(dto.socket());
         processador.setThreads(dto.threads());
@@ -94,7 +97,7 @@ public class ProcessadorServiceImpl implements ProcessadorService {
     public void update(Long id, ProcessadorRequestDTO dto) {
         Processador processador = processadorRepository.findById(id);
 
-        if(processador == null) {
+        if (processador == null) {
             throw new ValidationException("id", "Processador especificado não existe!");
         }
 
@@ -117,7 +120,7 @@ public class ProcessadorServiceImpl implements ProcessadorService {
     public void delete(Long id) {
         Processador p = processadorRepository.findById(id);
 
-        if(p == null) {
+        if (p == null) {
             throw new ValidationException("id", "Processador especificado não existe!");
         }
 
@@ -129,7 +132,8 @@ public class ProcessadorServiceImpl implements ProcessadorService {
     public Processador updateNomeImagem(Long id, String nomeImagem) {
         Processador processador = processadorRepository.findById(id);
 
-        if(processador == null) throw new ValidationException("id", "Processador não existe!");
+        if (processador == null)
+            throw new ValidationException("id", "Processador não existe!");
 
         processador.getImagens().add(nomeImagem);
 
@@ -144,5 +148,15 @@ public class ProcessadorServiceImpl implements ProcessadorService {
     @Override
     public Long count(String nome) {
         return processadorRepository.findByNome(nome).count();
+    }
+
+    @Override
+    public List<Processador> findByFiltros(Integer page, Integer pageSize,ProcessadorFilterRequest filtros) {
+       return processadorRepository.findByFiltros(filtros).page(page, pageSize).list();
+    }
+
+    @Override
+    public Long count(ProcessadorFilterRequest filtros) {
+        return processadorRepository.findByFiltros(filtros).count();
     }
 }
