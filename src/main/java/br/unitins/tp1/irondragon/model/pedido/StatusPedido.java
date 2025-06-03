@@ -12,7 +12,7 @@ public enum StatusPedido {
     PREPARANDO_PRODUTO (4, "Preparando produto"),
     PRODUTO_ENVIADO (5, "Produto enviado"),
     PRODUTO_ENTREGUE (6, "Produto entregue"),
-    PRODUTO_DEVOLVIDO(7, "Produto devolvido!");
+    PRODUTO_DEVOLVIDO(7, "Produto devolvido");
 
     private final Integer id;
     private final String label;

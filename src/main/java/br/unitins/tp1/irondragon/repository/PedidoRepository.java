@@ -3,6 +3,7 @@ package br.unitins.tp1.irondragon.repository;
 import br.unitins.tp1.irondragon.model.pedido.Pedido;
 import br.unitins.tp1.irondragon.model.pedido.StatusPedido;
 import br.unitins.tp1.irondragon.model.processador.Processador;
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.TypedQuery;
@@ -20,8 +21,8 @@ public class PedidoRepository implements PanacheRepository<Pedido> {
         return find("SELECT p FROM Pedido p WHERE p.pagamento.id = ?1", idPedido).firstResult();
     }
 
-    public List<Pedido> listPedidoByUsername(String username) {
-        return find("SELECT p FROM Pedido p WHERE p.cliente.usuario.username = ?1", username).list();
+    public PanacheQuery<Pedido> listPedidoByUsername(String username) {
+        return find("SELECT p FROM Pedido p WHERE p.cliente.usuario.username = ?1", username);
     }
 
      public List<Processador> findProcessadoresMaisVendidos() {

@@ -17,12 +17,13 @@ public interface PedidoService {
     void cancelPedido(Long idPedido, String username);
 
     Pedido findByUsername(Long id, String username);
-
+    
     List<Pedido> findAll();
-
+    
     void updateStatusPedido(Long idPedido, StatusPedido statusPedido);
-
-    List<Pedido> listByUsername(String username);
+    
+    List<Pedido> listByUsername(String username, Integer page, Integer pageSize);
+    Long countByUsername(String username);
 
     Pedido findPedidoByIdPagamento(Long id);
 }

@@ -1,6 +1,8 @@
 package br.unitins.tp1.irondragon.resource;
 
 import br.unitins.tp1.irondragon.dto.request.PedidoRequestDTO;
+import br.unitins.tp1.irondragon.dto.response.EstadoResponseDTO;
+import br.unitins.tp1.irondragon.dto.response.PageResponse;
 import br.unitins.tp1.irondragon.dto.response.pedido.PedidoBasicResponseDTO;
 import br.unitins.tp1.irondragon.dto.response.pedido.PedidoResponseDTO;
 import br.unitins.tp1.irondragon.service.pedido.PedidoService;
@@ -38,7 +40,6 @@ public class PedidoResource {
     @RolesAllowed({ "User" })
     public Response findByIdAndUsername(@PathParam("id") Long id) {
         String username = jwt.getClaim("preferred_username");
-        System.out.println(username);
         LOGGER.info("O cliente " + username + " foi executado com o parametro " + id);
 
         return Response.ok(PedidoResponseDTO.valueOf(pedidoService.findByUsername(id, username))).build();
@@ -47,12 +48,18 @@ public class PedidoResource {
     @GET
     @Path("/lista")
     @RolesAllowed({ "User" })
-    public Response listByUsername() {
+    public Response listByUsername(
+            @QueryParam("page") @DefaultValue("0") Integer page,
+            @QueryParam("page_size") @DefaultValue("10") Integer pageSize
+    ) {
         String username = jwt.getClaim("preferred_username");
 
         LOGGER.info("O Cliente " + username + "pediu uma lista de seus pedidos");
 
-        return Response.ok(pedidoService.listByUsername(username).stream().map(PedidoBasicResponseDTO::valueOf))
+         Long totalCount = pedidoService.countByUsername(username);
+        PageResponse<PedidoBasicResponseDTO> pageResponse = PageResponse.valueOf(page, pageSize, totalCount,
+                pedidoService.listByUsername(username,page, pageSize).stream().map(PedidoBasicResponseDTO::valueOf).toList());
+        return Response.ok(pageResponse)
                 .build();
     }
 

@@ -62,9 +62,6 @@ public class PedidoServiceImpl implements PedidoService {
             throw new ValidationException("id", "Pedido inválido!");
         }
 
-        System.out.println(cliente.getUsuario().getNome());
-        System.out.println(pedido.getId());
-
         validarPedidoCliente(pedido, cliente);
 
         return pedido;
@@ -194,8 +191,8 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     @Override
-    public List<Pedido> listByUsername(String username) {
-        return pedidoRepository.listPedidoByUsername(username);
+    public List<Pedido> listByUsername(String username, Integer page, Integer pageSize) {
+        return pedidoRepository.listPedidoByUsername(username).page(page, pageSize).list();
     }
 
     public void returnToLote(Pedido pedido) {
@@ -229,5 +226,10 @@ public class PedidoServiceImpl implements PedidoService {
     @Override
     public List<Processador> findProcessadoresMaisVendidos() {
         return pedidoRepository.findProcessadoresMaisVendidos();
+    }
+
+    @Override
+    public Long countByUsername(String username) {
+       return pedidoRepository.listPedidoByUsername(username).count();
     }
 }
