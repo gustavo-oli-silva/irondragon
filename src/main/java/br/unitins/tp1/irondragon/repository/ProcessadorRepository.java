@@ -26,7 +26,12 @@ public class ProcessadorRepository implements PanacheRepository<Processador> {
             return find("FROM Processador p ORDER BY p.preco ASC");
         }
 
-        // fabricante (string única, não lista)
+      
+        if( filtros.nome() != null && !filtros.nome().isBlank()) {
+            jpql.append("AND LOWER(p.nome) LIKE :nome ");
+            params.put("nome", "%" + filtros.nome().toLowerCase() + "%");
+        }
+
         if (filtros.fabricante() != null && !filtros.fabricante().isBlank()) {
             jpql.append("AND p.fabricante.nome = :fabricante ");
             params.put("fabricante", filtros.fabricante());

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public record ProcessadorFilterRequest(
+                String nome,
                 String fabricante,
                 Double precoMin,
                 Double precoMax,

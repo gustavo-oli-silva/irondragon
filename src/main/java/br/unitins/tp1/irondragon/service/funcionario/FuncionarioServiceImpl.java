@@ -1,11 +1,16 @@
 package br.unitins.tp1.irondragon.service.funcionario;
 
+import br.unitins.tp1.irondragon.dto.request.keycloak.CredentialDTO;
+import br.unitins.tp1.irondragon.dto.request.keycloak.KeycloakUserRequestDTO;
 import br.unitins.tp1.irondragon.dto.request.usuario.CargoUpdateDTO;
 import br.unitins.tp1.irondragon.dto.request.usuario.FuncionarioRequestDTO;
 import br.unitins.tp1.irondragon.dto.request.usuario.SalarioUpdateDTO;
+import br.unitins.tp1.irondragon.dto.request.usuario.UsuarioRequestDTO;
 import br.unitins.tp1.irondragon.model.usuario.Funcionario;
+import br.unitins.tp1.irondragon.model.usuario.Perfil;
 import br.unitins.tp1.irondragon.model.usuario.Usuario;
 import br.unitins.tp1.irondragon.repository.FuncionarioRepository;
+import br.unitins.tp1.irondragon.service.keycloak.KeycloakAdminService;
 import br.unitins.tp1.irondragon.service.usuario.UsuarioService;
 import br.unitins.tp1.irondragon.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -21,6 +26,9 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
     @Inject
     public UsuarioService usuarioService;
+
+    @Inject
+    public KeycloakAdminService keycloakAdminService;
 
     @Override
     public Funcionario findById(Long id) {
@@ -41,8 +49,8 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     @Override
     public Funcionario create(Long idUsuario, FuncionarioRequestDTO dto) {
         Usuario usuario = usuarioService.findById(idUsuario);
-
         if(usuario == null) throw new ValidationException("usuario", "Usuário não existe!");
+        String funcionarioEmail = usuario.getEmail().split("@")[0] + ".irondragon@" + usuario.getEmail().split("@")[1];
 
         Funcionario verificacao = funcionarioRepository.findFuncionarioByUsername(usuario.getUsername());
 
@@ -53,10 +61,23 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         funcionario.setCargo(dto.cargo());
         funcionario.setUsuario(usuario);
         funcionario.setSalario(dto.salario());
+        funcionario.getUsuario().setEmail(funcionarioEmail);
 
         funcionarioRepository.persist(funcionario);
 
+        createKeycloakFuncionario(usuario, dto);
         return funcionario;
+    }   
+
+
+     private void createKeycloakFuncionario(Usuario usuario, FuncionarioRequestDTO dto) {
+        List<CredentialDTO> credentials = List.of(new CredentialDTO("password", "funcionario", false));
+        KeycloakUserRequestDTO keycloackUser = new KeycloakUserRequestDTO(usuario.getEmail(), usuario.getEmail(), usuario.getNome(), true,
+                credentials);
+
+        keycloakAdminService.createKeycloakUser(keycloackUser);
+        String userId = keycloakAdminService.getUserIdByUsername(usuario.getCpf());
+        keycloakAdminService.assignRealmRoleToUser(userId, Perfil.ADMIN.getLabel());
     }
 
     @Transactional

@@ -49,8 +49,9 @@ public class ProcessadorResource {
     }
 
     @GET
-    @Path("/filtros")   
+    @Path("/filtros")
     public Response findByFiltros(
+            @QueryParam("nome") String nome,
             @QueryParam("fabricante") String fabricante,
             @QueryParam("precoMin") Double precoMin,
             @QueryParam("precoMax") Double precoMax,
@@ -59,14 +60,16 @@ public class ProcessadorResource {
             @QueryParam("sortBy") @DefaultValue("preco-asc") String sortBy,
             @QueryParam("page") @DefaultValue("0") Integer page,
             @QueryParam("page_size") @DefaultValue("10") Integer pageSize) {
-        
-            ProcessadorFilterRequest filtros = new ProcessadorFilterRequest(fabricante, precoMin, precoMax, sockets, graficosIntegrados, sortBy);
-            Long count = processadorService.count(filtros); 
-            return Response
+
+        ProcessadorFilterRequest filtros = new ProcessadorFilterRequest(nome, fabricante, precoMin, precoMax, sockets,
+                graficosIntegrados, sortBy);
+        Long count = processadorService.count(filtros);
+        return Response
                 .ok(PageResponse.valueOf(page, pageSize, count,
-                        processadorService.findByFiltros(page, pageSize, filtros).stream().map(ProcessadorResponseDTO::valueOf)
+                        processadorService.findByFiltros(page, pageSize, filtros).stream()
+                                .map(ProcessadorResponseDTO::valueOf)
                                 .toList()))
-                .build(); 
+                .build();
     }
 
     @GET
