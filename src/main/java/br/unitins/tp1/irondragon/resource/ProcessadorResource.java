@@ -100,7 +100,7 @@ public class ProcessadorResource {
     }
 
     @POST
-    // @RolesAllowed({"Super", "Admin"})
+    @RolesAllowed({"Super", "Admin"})
     public Response create(ProcessadorRequestDTO processador) {
         LOGGER.info("Método create foi executado, Processador: " + processador);
 
@@ -111,7 +111,7 @@ public class ProcessadorResource {
 
     @PUT
     @Path("/{id}")
-    // @RolesAllowed({"Super", "Admin"})
+    @RolesAllowed({"Super", "Admin"})
     public Response update(@PathParam("id") Long id, @Valid ProcessadorRequestDTO processador) {
         LOGGER.info("Método update foi executado com o parametro " + id + ", Processador: " + processador);
 
@@ -121,7 +121,7 @@ public class ProcessadorResource {
 
     @DELETE
     @Path("/{id}")
-    // @RolesAllowed({"Super", "Admin"})
+    @RolesAllowed({"Super", "Admin"})
     public Response delete(@PathParam("id") Long id) {
         LOGGER.info("Método delete foi executado com o parametro " + id);
 
@@ -131,7 +131,6 @@ public class ProcessadorResource {
 
     @PATCH
     @Path("{id}/upload/imagem")
-    // @RolesAllowed({"Super", "Admin"})
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response uploadImage(@PathParam("id") Long id, @MultipartForm ProcessadorImageForm form) {
         LOGGER.info("Método uploadImage foi executado com o parametro " + id);
