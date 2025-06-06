@@ -176,6 +176,7 @@ public class PagamentoServiceImpl implements PagamentoService {
         cartaoPagamento.setNomeTitular(cartao.getNomeTitular());
         cartaoPagamento.setValor(pedido.getValorTotal());
         cartaoPagamento.setTipo(cartao.getTipo());
+        cartaoPagamento.setBandeira(cartao.getBandeira());
         cartaoPagamento.setPago(true);
 
         pedido.setStatusPedido(StatusPedido.PREPARANDO_PRODUTO);

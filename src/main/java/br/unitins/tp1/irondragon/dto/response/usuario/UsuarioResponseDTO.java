@@ -12,6 +12,7 @@ import br.unitins.tp1.irondragon.model.usuario.Usuario;
 public record UsuarioResponseDTO(
         Long id,
         String nome,
+        String username,
         String email,
         String senha,
         String cpf,
@@ -26,6 +27,7 @@ public record UsuarioResponseDTO(
         return new UsuarioResponseDTO(
                 usuario.getId(),
                 usuario.getNome(),
+                usuario.getUsername(),
                 usuario.getEmail(),
                 usuario.getSenha(),
                 usuario.getCpf(),

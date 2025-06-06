@@ -67,8 +67,14 @@ public class PedidoServiceImpl implements PedidoService {
         return pedido;
     }
 
-    public List<Pedido> findAll() {
-        return pedidoRepository.findAll().list();
+    @Override
+    public List<Pedido> findAll(int page, int pageSize) {
+        return pedidoRepository.findAll().page(page, pageSize).list();
+    }
+
+    @Override
+    public Long count() {
+        return pedidoRepository.findAll().count();
     }
 
     public Pedido findPedidoByIdPagamento(Long id) {

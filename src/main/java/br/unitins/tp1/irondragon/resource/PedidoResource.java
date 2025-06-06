@@ -29,10 +29,17 @@ public class PedidoResource {
 
     @GET
     @RolesAllowed({ "Super", "Admin" })
-    public Response findAll() {
+    public Response findAll(@QueryParam("page") @DefaultValue("0") Integer page,
+            @QueryParam("page_size") @DefaultValue("10") Integer pageSize) {
         LOGGER.info("Método findAll foi executado");
 
-        return Response.ok(pedidoService.findAll().stream().map(PedidoResponseDTO::valueOf)).build();
+        Long count = pedidoService.count();
+        
+        PageResponse<PedidoResponseDTO> pageResponse = PageResponse.valueOf(page, pageSize, count,
+                pedidoService.findAll(page, pageSize).stream().map(PedidoResponseDTO::valueOf).toList());
+        return Response
+                .ok(pageResponse)
+                .build();
     }
 
     @GET
@@ -50,15 +57,15 @@ public class PedidoResource {
     @RolesAllowed({ "User" })
     public Response listByUsername(
             @QueryParam("page") @DefaultValue("0") Integer page,
-            @QueryParam("page_size") @DefaultValue("10") Integer pageSize
-    ) {
+            @QueryParam("page_size") @DefaultValue("10") Integer pageSize) {
         String username = jwt.getClaim("preferred_username");
 
         LOGGER.info("O Cliente " + username + "pediu uma lista de seus pedidos");
 
-         Long totalCount = pedidoService.countByUsername(username);
+        Long totalCount = pedidoService.countByUsername(username);
         PageResponse<PedidoBasicResponseDTO> pageResponse = PageResponse.valueOf(page, pageSize, totalCount,
-                pedidoService.listByUsername(username,page, pageSize).stream().map(PedidoBasicResponseDTO::valueOf).toList());
+                pedidoService.listByUsername(username, page, pageSize).stream().map(PedidoBasicResponseDTO::valueOf)
+                        .toList());
         return Response.ok(pageResponse)
                 .build();
     }

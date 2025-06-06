@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 public record BoletoResponseDTO(
         Long id,
+        Double valor,
         String tipoPagamento,
         String codigoBarras,
         LocalDate dataValidade
@@ -13,6 +14,7 @@ public record BoletoResponseDTO(
     public static BoletoResponseDTO valueOf(Boleto boleto) {
         return new BoletoResponseDTO(
                 boleto.getId(),
+                boleto.getValor(),
                 "Boleto",
                 boleto.getCodigoBarras(),
                 boleto.getDataValidade()

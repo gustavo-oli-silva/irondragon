@@ -1,4 +1,4 @@
-    -- This file allow to write SQL commands that will be emitted in test and dev.
+-- This file allow to write SQL commands that will be emitted in test and dev.
 -- The commands are commented as their support depends of the database
 -- insert into myentity (id, field) values(1, 'field-1');
 -- insert into myentity (id, field) values(2, 'field-2');
@@ -181,7 +181,11 @@ insert into TelefoneUsuario (codigoarea, numero) values
 ('SU', 'SUPER'),   -- 3
 ('11', '40093833'),
 ('23', '40090090'),
-('24', '40081192');  
+('24', '40081192'),
+('31', '40041234'),
+('41', '998877665'),
+('51', '123456789'),
+('61', '987654321');  
 
 
 
@@ -192,8 +196,8 @@ insert into Usuario (nome, username, senha, perfil, cpf, id_telefone, email, dat
 ('Gustavo liveira', 'gustavoO@email.com' , 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 1, '444', 3, 'gustavoO@email.com', '2024-06-06', null),
 ('Matheus Nardi', 'matheus@email.com' , 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 1, '555', 4, 'matheus@email.com', '2024-12-02' , 'goku.jpg'),
 ('Angela Amaral', 'angelaA@mail.co,' ,'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 2, '101', 5, 'angelaA@email.com', '2024-12-08' , null),
-('Novo Funcionario', 'novo@email.com', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 2, '404', 6, 'novo@email.com', '2024-12-02', null);
-
+('Novo Funcionario', 'novo@email.com', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 2, '404', 6, 'novo@email.com', '2024-12-02', null),
+('cliente', 'cliente@email.com', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 3, '777', 7, 'cliente@email.com', '2024-12-02', null);
 
 insert into Funcionario(id_usuario, cargo, salario, datacontratacao) values
 (1, 'Administrador', 1200, '2024-12-03'),
@@ -217,12 +221,13 @@ VALUES
 ('Rua Maranhão', '77110-444', 'Bela Vista', null, 150, 12,3),
 ('Rua Pará', '77120-555', 'Santa Maria', 'Casa térrea', 42, 13,5),
 ('Rua Ceará', '77130-666', 'Setor Norte', null, 88, 14,6),
-('Rua Goiás', '77140-777', 'Vila Rica', 'Apto 202', 77, 15,5);
+('Rua Goiás', '77140-777', 'Vila Rica', 'Apto 202', 77, 15,7);
 
 insert into Cliente(id_usuario) values
 (1),
 (2),
-(4);
+(4),
+(7);
 
 insert into Lote (codigo, estoque, data, id_processador, id_fornecedor) values
 ('#PROC1-TBY-20241107', 20, '2024-11-07', 1, 1),  
@@ -260,8 +265,6 @@ insert into Lote (codigo, estoque, data, id_processador, id_fornecedor) values
 -- CONTINUAÇÃO DO SEU IMPORT.SQL (APÓS OS LOTES)
 
 -- Adicionando Enderecos de Entrega
--- (IDs 1, 2, 3 já criados anteriormente, adicionando mais para os novos pedidos)
--- (Assumindo que os IDs de Cidade 1 = Palmas, 2 = São Paulo, 3 = Belo Horizonte já existem)
 INSERT INTO EnderecoEntrega (id, logradouro, cep, bairro, complemento, numero, id_cidade) VALUES
 (1, 'Quadra 104 Sul, Rua SE 03', '77020-014', 'Plano Diretor Sul', 'Casa Amarela', 10, 1),
 (2, 'Avenida Paulista', '01310-000', 'Bela Vista', 'Apto 505, Bloco A', 1500, 2),
@@ -276,35 +279,36 @@ INSERT INTO EnderecoEntrega (id, logradouro, cep, bairro, complemento, numero, i
 -- Adicionando Pagamentos
 -- (IDs 1, 2, 3 já criados, adicionando mais para os novos pedidos)
 INSERT INTO Pagamento (id, valor, pago) VALUES
-(1, 2000.00, false),
-(2, 1600.00, true),
-(3, 800.00, true),
-(4, 800.00, false),
-(5, 1750.00, true),
-(6, 3600.00, true),
-(7, 2400.00, true),
-(8, 1100.00, false),
-(9, 2750.00, true),
-(10, 2900.00, false);
+(1, 2000.00, false),   -- Pedido 1
+(2, 1600.00, true),    -- Pedido 2
+(3, 800.00, true),     -- Pedido 3
+(4, 800.00, false),    -- Pedido 4
+(5, 1750.00, true),    -- Pedido 5
+(6, 3600.00, true),    -- Pedido 6
+(7, 2400.00, true),    -- Pedido 7
+(8, 1100.00, false),   -- Pedido 8
+(9, 2750.00, true),    -- Pedido 9
+(10, 3300.00, false);  -- Pedido 10 (corrigido para bater com os itens)
+
+INSERT INTO Pix(id, chave, destinatario, dataValidade) VALUES 
+(3, '12345678909', 'Iron Dragon LTDA', '2025-12-31 10:30:00'),
+(6, '98765432100', 'Tech Solutions', '2025-12-31 10:30:00');
+
+INSERT INTO Boleto(id, codigoBarras, dataValidade ) VALUES 
+(9, '12345678901234567890123456789012345678901234', '2025-12-31 10:30:00');
 
 
--- Adicionando Pedidos (Total de 10)
--- (StatusPedido: 1=Expirado, 2=Cancelado, 3=Pendente, 4=Preparando, 5=Enviado, 6=Entregue, 7=Devolvido)
--- Clientes: 1 (usuário 1), 2 (usuário 2), 3 (usuário 4)
 INSERT INTO Pedido (id, data, id_cliente, id_enderecoentrega, id_pagamento, valorTotal, statusPedido) VALUES
--- Pedidos Anteriores (1 a 3)
-(1, '2024-07-20 10:00:00', 1, 1, 1, 2000.00, 3), -- Cliente 1, Endereco 1, Pagamento 1, Pendente
-(2, '2024-07-21 14:30:00', 2, 2, 2, 1600.00, 4), -- Cliente 2, Endereco 2, Pagamento 2, Preparando
-(3, '2024-07-15 09:15:00', 3, 3, 3, 800.00, 6),  -- Cliente 3, Endereco 3, Pagamento 3, Entregue
--- Novos Pedidos (4 a 10)
-(4, '2024-07-22 11:00:00', 1, 4, 4, 800.00, 3),  -- Cliente 1, Endereco 4 (Novo), Pagamento 4, Pendente
-(5, '2024-07-23 16:00:00', 2, 2, 5, 1750.00, 5), -- Cliente 2, Endereco 2 (Existente), Pagamento 5, Enviado
-(6, '2024-07-24 08:30:00', 3, 5, 6, 3600.00, 4), -- Cliente 3, Endereco 5 (Novo), Pagamento 6, Preparando
-(7, '2024-07-18 13:15:00', 1, 1, 7, 2400.00, 6), -- Cliente 1, Endereco 1 (Existente), Pagamento 7, Entregue
-(8, '2024-07-25 10:45:00', 2, 6, 8, 1100.00, 2), -- Cliente 2, Endereco 6 (Novo), Pagamento 8, Cancelado
-(9, '2024-07-10 17:00:00', 3, 3, 9, 2750.00, 7), -- Cliente 3, Endereco 3 (Existente), Pagamento 9, Devolvido
-(10, '2024-07-26 09:00:00', 1, 7, 10, 2900.00, 3); -- Cliente 1, Endereco 7 (Novo), Pagamento 10, Pendente
--- ALTER SEQUENCE pedido_seq RESTART WITH 11;
+(1, '2024-07-20 10:00:00', 1, 1, 1, 2000.00, 3), 
+(2, '2024-07-21 14:30:00', 2, 2, 2, 1600.00, 4), 
+(3, '2024-07-15 09:15:00', 3, 3, 3, 800.00, 6), 
+(4, '2024-07-22 11:00:00', 1, 4, 4, 800.00, 3),  
+(5, '2024-07-23 16:00:00', 2, 2, 5, 1750.00, 5), 
+(6, '2024-07-24 08:30:00', 3, 5, 6, 3600.00, 4), 
+(7, '2024-07-18 13:15:00', 1, 1, 7, 2400.00, 6), 
+(8, '2024-07-25 10:45:00', 2, 6, 8, 1100.00, 2), 
+(9, '2024-07-10 17:00:00', 3, 3, 9, 2750.00, 7), 
+(10, '2024-07-26 09:00:00', 1, 7, 10, 3300.00, 3); -- valor corrigido
 
 
 -- Adicionando Itens de Pedido

@@ -18,7 +18,9 @@ public interface PedidoService {
 
     Pedido findByUsername(Long id, String username);
     
-    List<Pedido> findAll();
+    List<Pedido> findAll(int page, int pageSize);
+
+    Long count();
     
     void updateStatusPedido(Long idPedido, StatusPedido statusPedido);
     

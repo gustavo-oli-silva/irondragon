@@ -5,6 +5,7 @@ import br.unitins.tp1.irondragon.dto.response.ItemPedidoResponseDTO;
 import br.unitins.tp1.irondragon.dto.response.pagamento.BoletoResponseDTO;
 import br.unitins.tp1.irondragon.dto.response.pagamento.CartaoPagamentoResponseDTO;
 import br.unitins.tp1.irondragon.dto.response.pagamento.PixResponseDTO;
+import br.unitins.tp1.irondragon.dto.response.usuario.ClienteBasicResponseDTO;
 import br.unitins.tp1.irondragon.model.pagamento.Boleto;
 import br.unitins.tp1.irondragon.model.pagamento.CartaoPagamento;
 import br.unitins.tp1.irondragon.model.pagamento.Pix;
@@ -16,17 +17,19 @@ import java.util.List;
 
 public record PedidoResponseDTO<FormaPagamento> (
         Long id,
+        ClienteBasicResponseDTO cliente,
         LocalDateTime data,
         Double valorTotal,
         StatusPedido statusPedido,
         FormaPagamento pagamento,
-        EnderecoResponseDTO endereco,
+        EnderecoResponseDTO enderecoEntrega,
         List<ItemPedidoResponseDTO> listaItemPedido
 ) {
     public static PedidoResponseDTO valueOf(Pedido pedido) {
         if(pedido.getPagamento() instanceof Pix) {
             return new PedidoResponseDTO(
                     pedido.getId(),
+                    ClienteBasicResponseDTO.valueOf(pedido.getCliente()),
                     pedido.getData(),
                     pedido.getValorTotal(),
                     pedido.getStatusPedido(),
@@ -37,6 +40,7 @@ public record PedidoResponseDTO<FormaPagamento> (
         } else if(pedido.getPagamento() instanceof Boleto) {
             return new PedidoResponseDTO(
                     pedido.getId(),
+                    ClienteBasicResponseDTO.valueOf(pedido.getCliente()),
                     pedido.getData(),
                     pedido.getValorTotal(),
                     pedido.getStatusPedido(),
@@ -47,6 +51,7 @@ public record PedidoResponseDTO<FormaPagamento> (
         } else if (pedido.getPagamento() instanceof CartaoPagamento) {
             return new PedidoResponseDTO(
                     pedido.getId(),
+                    ClienteBasicResponseDTO.valueOf(pedido.getCliente()),
                     pedido.getData(),
                     pedido.getValorTotal(),
                     pedido.getStatusPedido(),
@@ -57,6 +62,7 @@ public record PedidoResponseDTO<FormaPagamento> (
         } else {
             return new PedidoResponseDTO(
                     pedido.getId(),
+                    ClienteBasicResponseDTO.valueOf(pedido.getCliente()),
                     pedido.getData(),
                     pedido.getValorTotal(),
                     pedido.getStatusPedido(),

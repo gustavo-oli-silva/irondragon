@@ -1,5 +1,6 @@
 package br.unitins.tp1.irondragon.model.pagamento;
 
+import br.unitins.tp1.irondragon.model.BandeiraCartao;
 import br.unitins.tp1.irondragon.model.TipoCartao;
 import jakarta.persistence.Entity;
 import lombok.Getter;
@@ -17,4 +18,5 @@ public class CartaoPagamento extends Pagamento {
     private LocalDate validade;
     private Integer cvc;
     private TipoCartao tipo;
+    private BandeiraCartao bandeira;
 }

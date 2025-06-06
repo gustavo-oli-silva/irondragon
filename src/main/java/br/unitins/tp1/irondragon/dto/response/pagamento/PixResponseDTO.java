@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 public record PixResponseDTO(
         Long id,
+        Double valor,
         String tipoPagamento,
         String chave,
         String destinatario,
@@ -15,6 +16,7 @@ public record PixResponseDTO(
 
         return new PixResponseDTO(
                 pix.getId(),
+                pix.getValor(),
                 "Pix",
                 pix.getChave(),
                 pix.getDestinatario(),

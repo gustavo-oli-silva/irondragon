@@ -36,3 +36,4 @@ public enum StatusPedido {
         throw new IllegalStateException();
     }
 }
+    
