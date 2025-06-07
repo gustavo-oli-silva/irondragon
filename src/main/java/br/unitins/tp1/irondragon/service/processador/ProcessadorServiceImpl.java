@@ -1,5 +1,6 @@
 package br.unitins.tp1.irondragon.service.processador;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,8 @@ import java.util.Optional;
 
 import br.unitins.tp1.irondragon.dto.request.ProcessadorFilterRequest;
 import br.unitins.tp1.irondragon.dto.request.processador.ProcessadorRequestDTO;
+import br.unitins.tp1.irondragon.dto.response.processador.ImagemProcessadorResponseDTO;
+import br.unitins.tp1.irondragon.model.ImagemProcessador;
 import br.unitins.tp1.irondragon.model.processador.PlacaIntegrada;
 import br.unitins.tp1.irondragon.model.processador.Processador;
 import br.unitins.tp1.irondragon.repository.ProcessadorRepository;
@@ -74,6 +77,8 @@ public class ProcessadorServiceImpl implements ProcessadorService {
     public Processador create(ProcessadorRequestDTO dto) {
         Processador processador = new Processador();
         Optional<PlacaIntegrada> placaOpt = placaIntegradaService.findById(dto.placaIntegrada());
+
+
         processador.setNome(dto.nome());
         processador.setSocket(dto.socket());
         processador.setThreads(dto.threads());
@@ -86,6 +91,8 @@ public class ProcessadorServiceImpl implements ProcessadorService {
         processador.setFrequencia(dto.frequencia().intoEntity());
         processador.setMemoriaCache(dto.memoriaCache().intoEntity());
         processador.setConsumoEnergetico(dto.consumoEnergetico().intoEntity());
+
+        processador.setImagens(new ArrayList<>());
 
         processadorRepository.persist(processador);
 
@@ -129,14 +136,21 @@ public class ProcessadorServiceImpl implements ProcessadorService {
 
     @Transactional
     @Override
-    public Processador updateNomeImagem(Long id, String nomeImagem) {
+    public Processador updateNomeImagem(Long id, ImagemProcessador imagemProcessador) {
         Processador processador = processadorRepository.findById(id);
 
         if (processador == null)
             throw new ValidationException("id", "Processador não existe!");
 
-        processador.getImagens().add(nomeImagem);
+        if (imagemProcessador.isPrincipal()) {
+            for (ImagemProcessador img : processador.getImagens()) {
+                img.setPrincipal(false);
+            }
+        }
 
+        processador.getImagens().add(imagemProcessador);
+
+        processadorRepository.persist(processador);
         return processador;
     }
 
@@ -151,8 +165,8 @@ public class ProcessadorServiceImpl implements ProcessadorService {
     }
 
     @Override
-    public List<Processador> findByFiltros(Integer page, Integer pageSize,ProcessadorFilterRequest filtros) {
-       return processadorRepository.findByFiltros(filtros).page(page, pageSize).list();
+    public List<Processador> findByFiltros(Integer page, Integer pageSize, ProcessadorFilterRequest filtros) {
+        return processadorRepository.findByFiltros(filtros).page(page, pageSize).list();
     }
 
     @Override

@@ -2,6 +2,7 @@ package br.unitins.tp1.irondragon.model.processador;
 
 import br.unitins.tp1.irondragon.model.DefaultEntity;
 import br.unitins.tp1.irondragon.model.Fabricante;
+import br.unitins.tp1.irondragon.model.ImagemProcessador;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -21,10 +22,9 @@ public class Processador extends DefaultEntity {
     private Boolean desbloqueado;
     private Double preco;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "imagem_processador", joinColumns = @JoinColumn(name = "id_processador"))
-    @Column(name = "imagem")
-    private List<String> imagens;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "id_processador")
+    private List<ImagemProcessador> imagens;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_memoriacache")

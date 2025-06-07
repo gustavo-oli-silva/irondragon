@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.unitins.tp1.irondragon.dto.request.ProcessadorFilterRequest;
 import br.unitins.tp1.irondragon.dto.request.processador.ProcessadorRequestDTO;
+import br.unitins.tp1.irondragon.model.ImagemProcessador;
 import br.unitins.tp1.irondragon.model.processador.Processador;
 
 public interface ProcessadorService {
@@ -23,7 +24,7 @@ public interface ProcessadorService {
 
     public void delete(Long id);
 
-    public Processador updateNomeImagem(Long id, String nomeImagem);
+    public Processador updateNomeImagem(Long id, ImagemProcessador imagemProcessador);
 
     Long count();
 

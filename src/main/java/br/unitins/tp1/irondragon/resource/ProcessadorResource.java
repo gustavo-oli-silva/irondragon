@@ -3,6 +3,7 @@ package br.unitins.tp1.irondragon.resource;
 import br.unitins.tp1.irondragon.dto.response.PageResponse;
 import br.unitins.tp1.irondragon.dto.response.processador.ProcessadorResponseDTO;
 import br.unitins.tp1.irondragon.form.ProcessadorImageForm;
+import br.unitins.tp1.irondragon.model.ImagemProcessador;
 import br.unitins.tp1.irondragon.model.processador.Processador;
 import br.unitins.tp1.irondragon.service.file.ProcessadorFileServiceImpl;
 import jakarta.annotation.security.RolesAllowed;
@@ -136,8 +137,15 @@ public class ProcessadorResource {
         LOGGER.info("Método uploadImage foi executado com o parametro " + id);
 
         try {
-            String nomeImagem = processadorFileService.save(id, form.getNomeImagem(), form.getImagem());
-            processadorService.updateNomeImagem(id, nomeImagem);
+            String nomeArquivoSalvo = processadorFileService.save(id, form.getNomeImagem(), form.getImagem());
+
+            ImagemProcessador imagemProcessador = new ImagemProcessador();
+            imagemProcessador.setNomeImagem(form.getNomeImagem());
+            imagemProcessador.setImagem(nomeArquivoSalvo);
+            imagemProcessador.setPrincipal(form.isPrincipal());
+            imagemProcessador.setIndex(form.getIndex());
+
+            processadorService.updateNomeImagem(id, imagemProcessador);
         } catch (IOException e) {
             return Response.status(Status.INTERNAL_SERVER_ERROR).build();
         }

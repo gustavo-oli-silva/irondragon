@@ -14,4 +14,9 @@ public class GenericImageForm {
     @FormParam("imagem")
     @PartType("application/octet-stream")
     private byte[] imagem;
+
+    @FormParam("principal")
+    private boolean principal;
+    @FormParam("index")
+    private int index;
 }

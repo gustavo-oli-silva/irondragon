@@ -9,7 +9,7 @@ import java.util.Optional;
 public record ProcessadorResponseDTO(
         Long id,
         String nome,
-        List<String> imagens,
+        List<ImagemProcessadorResponseDTO> imagens,
         String socket,
         Integer threads,
         Integer nucleos,
@@ -26,7 +26,7 @@ public record ProcessadorResponseDTO(
             return new ProcessadorResponseDTO (
                     processador.getId(),
                     processador.getNome(),
-                    processador.getImagens(),
+                    processador.getImagens().stream().map(ImagemProcessadorResponseDTO::valueOf).toList(),
                     processador.getSocket(),
                     processador.getThreads(),
                     processador.getNucleos(),
