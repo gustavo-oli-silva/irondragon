@@ -9,7 +9,7 @@ public record EnderecoResponseDTO(
         String cep,
         String bairro,
         String complemento,
-        Integer numero,
+        String numero,
         CidadeResponseDTO cidade
 ) {
     public static EnderecoResponseDTO valueOf(Endereco endereco) {

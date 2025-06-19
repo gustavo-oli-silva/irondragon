@@ -193,8 +193,8 @@ insert into TelefoneUsuario (codigoarea, numero) values
 insert into Usuario (nome, username, senha, perfil, cpf, id_telefone, email, dataCriacao, nomeImagem) values
 ('Admin', 'admin@admin.com' , 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 2, '123', 1, 'admin@admin.com', '2024-02-04' , null),
 ('Fernando', 'corno@gmail.com', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 3, '321', 2, 'corno@gmail.com', '2024-12-05', null),
-('Gustavo liveira', 'gustavoO@email.com' , 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 1, '444', 3, 'gustavoO@email.com', '2024-06-06', null),
-('Matheus Nardi', 'matheus@email.com' , 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 1, '555', 4, 'matheus@email.com', '2024-12-02' , 'goku.jpg'),
+('Gustavo liveira', 'gustavo@rondragon.com' , 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 1, '444', 3, 'gustavo@irondragon.com', '2024-06-06', null),
+('Matheus Nardi', 'matheus@irondragon.com' , 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 1, '555', 4, 'matheus@irondragon.com', '2024-12-02' , 'goku.jpg'),
 ('Angela Amaral', 'angelaA@mail.co,' ,'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 2, '101', 5, 'angelaA@email.com', '2024-12-08' , null),
 ('Novo Funcionario', 'novo@email.com', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 2, '404', 6, 'novo@email.com', '2024-12-02', null),
 ('cliente', 'cliente@email.com', 'SbMcPs9kSbqdOa3VT0byJuyqkcYOXpaVEkSyKHLg5cXNJiEK+WCrMPIH/lmEgJDvyqipXMoquqN8rY53rRGjAQ==', 3, '777', 7, 'cliente@email.com', '2024-12-02', null);
@@ -229,128 +229,30 @@ insert into Cliente(id_usuario) values
 (4),
 (7);
 
-insert into Lote (codigo, estoque, data, id_processador, id_fornecedor) values
-('#PROC1-TBY-20241107', 20, '2024-11-07', 1, 1),  
-('#PROC2-KBM-20241106', 40, '2024-11-06', 2, 2), 
-('#PROC1-PCH-20241105', 30, '2024-11-05', 1, 3),  
-('#PROC2-AMZ-20241105', 30, '2024-11-05', 3, 4),  
-('#PROC1-NWG-20241105', 30, '2024-11-05', 4, 5),
- ('#PROC1-XYZ-20241108', 25, '2024-11-08', 5, 1),
-('#PROC1-ABC-20241104', 15, '2024-11-04', 6, 2),
 
-('#PROC2-DEF-20241107', 50, '2024-11-07', 6, 1),
-('#PROC2-GHI-20241103', 10, '2024-11-03', 7, 3),
-
- 
-('#PROC3-JKL-20241110', 5,  '2024-11-10', 10, 2),
-('#PROC3-MNO-20241030', 20, '2024-10-30', 3, 4),
-
-  
-('#PROC4-PQR-20241109', 30, '2024-11-09', 12, 1),
-('#PROC4-STU-20241025', 12, '2024-10-25', 3, 5),
-
- 
-('#PROC5-VWX-20241106', 40, '2024-11-06', 20, 3),
-('#PROC5-YZA-20241028', 18, '2024-10-28', 17, 4),
-
-  
-('#PROC6-BCD-20241105', 22, '2024-11-05', 15, 1),
-('#PROC6-EFG-20241020',  8, '2024-10-20', 18, 5),
-
-
-('#PROC7-HIJ-20241108', 16, '2024-11-08', 14, 2),
-('#PROC7-KLM-20241022', 14, '2024-10-22', 7, 3);
-
-
--- CONTINUAÇÃO DO SEU IMPORT.SQL (APÓS OS LOTES)
-
--- Adicionando Enderecos de Entrega
-INSERT INTO EnderecoEntrega (id, logradouro, cep, bairro, complemento, numero, id_cidade) VALUES
-(1, 'Quadra 104 Sul, Rua SE 03', '77020-014', 'Plano Diretor Sul', 'Casa Amarela', 10, 1),
-(2, 'Avenida Paulista', '01310-000', 'Bela Vista', 'Apto 505, Bloco A', 1500, 2),
-(3, 'Rua dos Aimorés', '30140-070', 'Funcionários', NULL, 200, 3),
-(4, 'Alameda dos Girassóis, Lote 5', '77015-020', 'Graciosa', 'Próximo ao Parque', 30, 1),          -- Novo para Pedido 4
-(5, 'Rua da Consolação', '01220-000', 'Consolação', 'Conjunto 32', 800, 2),                    -- Novo para Pedido 6 (SP)
-(6, 'Avenida Afonso Pena', '30130-001', 'Centro', 'Sala 1010', 120, 3),                        -- Novo para Pedido 8 (BH)
-(7, 'Quadra 208 Norte, Alameda 10', '77002-100', 'Plano Diretor Norte', 'Casa com portão azul', 77, 1); -- Novo para Pedido 10
--- ALTER SEQUENCE enderecoentrega_seq RESTART WITH 8;
-
-
--- Adicionando Pagamentos
--- (IDs 1, 2, 3 já criados, adicionando mais para os novos pedidos)
-INSERT INTO Pagamento (id, valor, pago) VALUES
-(1, 2000.00, false),   -- Pedido 1
-(2, 1600.00, true),    -- Pedido 2
-(3, 800.00, true),     -- Pedido 3
-(4, 800.00, false),    -- Pedido 4
-(5, 1750.00, true),    -- Pedido 5
-(6, 3600.00, true),    -- Pedido 6
-(7, 2400.00, true),    -- Pedido 7
-(8, 1100.00, false),   -- Pedido 8
-(9, 2750.00, true),    -- Pedido 9
-(10, 3300.00, false);  -- Pedido 10 (corrigido para bater com os itens)
-
-INSERT INTO Pix(id, chave, destinatario, dataValidade) VALUES 
-(3, '12345678909', 'Iron Dragon LTDA', '2025-12-31 10:30:00'),
-(6, '98765432100', 'Tech Solutions', '2025-12-31 10:30:00');
-
-INSERT INTO Boleto(id, codigoBarras, dataValidade ) VALUES 
-(9, '12345678901234567890123456789012345678901234', '2025-12-31 10:30:00');
-
-
-INSERT INTO Pedido (id, data, id_cliente, id_enderecoentrega, id_pagamento, valorTotal, statusPedido) VALUES
-(1, '2024-07-20 10:00:00', 1, 1, 1, 2000.00, 3), 
-(2, '2024-07-21 14:30:00', 2, 2, 2, 1600.00, 4), 
-(3, '2024-07-15 09:15:00', 3, 3, 3, 800.00, 6), 
-(4, '2024-07-22 11:00:00', 1, 4, 4, 800.00, 3),  
-(5, '2024-07-23 16:00:00', 2, 2, 5, 1750.00, 5), 
-(6, '2024-07-24 08:30:00', 3, 5, 6, 3600.00, 4), 
-(7, '2024-07-18 13:15:00', 1, 1, 7, 2400.00, 6), 
-(8, '2024-07-25 10:45:00', 2, 6, 8, 1100.00, 2), 
-(9, '2024-07-10 17:00:00', 3, 3, 9, 2750.00, 7), 
-(10, '2024-07-26 09:00:00', 1, 7, 10, 3300.00, 3); -- valor corrigido
-
-
--- Adicionando Itens de Pedido
-INSERT INTO ItemPedido (id, id_lote, quantidade, preco, id_pedido) VALUES
--- Itens para Pedido 1 (Valor Total: 800 + 1200 = 2000.00)
-(1, 1, 1, 800.00, 1),  -- Lote 1 (Proc ID 1: I5 11400F)
-(2, 2, 3, 1200.00, 1), -- Lote 2 (Proc ID 2: I7 11700K)
-
--- Itens para Pedido 2 (Valor Total: 2 * 800 = 1600.00)
-(3, 3, 2, 800.00, 2),  -- Lote 3 (Proc ID 1: I5 11400F) -> Repetição do I5 11400F
-
--- Itens para Pedido 3 (Valor Total: 1 * 800 = 800.00)
-(4, 1, 1, 800.00, 3),  -- Lote 1 (Proc ID 1: I5 11400F) -> Repetição do I5 11400F
-
--- Itens para Pedido 4 (Valor Total: 800.00)
-(5, 3, 1, 800.00, 4),  -- Lote 3 (Proc ID 1: I5 11400F) -> Repetição do I5 11400F
-
--- Itens para Pedido 5 (Valor Total: 800 + 950 = 1750.00)
-(6, 1, 1, 800.00, 5),  -- Lote 1 (Proc ID 1: I5 11400F) -> Repetição do I5 11400F
-(7, 12, 4, 950.00, 5), -- Lote 12 (Proc ID 12: Ryzen 5 5600X)
-
--- Itens para Pedido 6 (Valor Total: 2 * 1800 = 3600.00)
-(8, 7, 2, 1800.00, 6), -- Lote 7 (Proc ID 6: I7 12700K)
-
--- Itens para Pedido 7 (Valor Total: 800 + 1600 = 2400.00)
-(9, 3, 1, 800.00, 7),  -- Lote 3 (Proc ID 1: I5 11400F) -> Repetição do I5 11400F
-(10, 4, 2, 1600.00, 7),-- Lote 4 (Proc ID 3: I9 11900K)
-
--- Itens para Pedido 8 (Valor Total: 1100.00)
-(11, 10, 4, 1100.00, 8),-- Lote 10 (Proc ID 10: Ryzen 7 3700X)
-
--- Itens para Pedido 9 (Valor Total: 950 + 1800 = 2750.00)
-(12, 6, 1, 950.00, 9),  -- Lote 6 (Proc ID 5: I5 12400)
-(13, 8, 1, 1800.00, 9), -- Lote 8 (Proc ID 6: I7 12700K) -> Repetição do I7 12700K
-
--- Itens para Pedido 10 (Valor Total: (3*800) + 500 = 2400 + 500 = 2900.00)
-(14, 1, 1, 800.00, 10), -- Lote 1 (Proc ID 1: I5 11400F) -> Repetição do I5 11400F
-(15, 5, 5, 500.00, 10); -- Lote 5 (Proc ID 4: I3 10100)
-
--- ALTER SEQUENCE itempedido_seq RESTART WITH 16;
-
-
-INSERT INTO cartao(id, nomeTitular, numero, cpf, validade, cvc, tipo, bandeira, id_cliente) values 
-(1, 'Matheus Bolado' , '5228 1576 6460 7887' , '63961082081', '2030-08-01', 832, 1, 2, 3),
-(2, 'Matheus Bolado' , '4485 8739 0651 0728' , '63961082081', '2030-08-01', 247, 1, 1, 3);
+INSERT INTO Lote (codigo, estoque, data, id_processador, id_fornecedor) VALUES
+('#PROC1-TBY-20250619', 20, '2025-06-19', 1, 1),
+('#PROC2-KBM-20250619', 20, '2025-06-19', 2, 2),
+('#PROC3-PCH-20250619', 20, '2025-06-19', 3, 3),
+('#PROC4-AMZ-20250619', 20, '2025-06-19', 4, 4),
+('#PROC5-NWG-20250619', 20, '2025-06-19', 5, 5),
+('#PROC6-TBY-20250619', 20, '2025-06-19', 6, 1),
+('#PROC7-KBM-20250619', 20, '2025-06-19', 7, 2),
+('#PROC8-PCH-20250619', 20, '2025-06-19', 8, 3),
+('#PROC9-AMZ-20250619', 20, '2025-06-19', 9, 4),
+('#PROC10-NWG-20250619', 20, '2025-06-19', 10, 5),
+('#PROC11-TBY-20250619', 20, '2025-06-19', 11, 1),
+('#PROC12-KBM-20250619', 20, '2025-06-19', 12, 2),
+('#PROC13-PCH-20250619', 20, '2025-06-19', 13, 3),
+('#PROC14-AMZ-20250619', 20, '2025-06-19', 14, 4),
+('#PROC15-NWG-20250619', 20, '2025-06-19', 15, 5),
+('#PROC16-TBY-20250619', 20, '2025-06-19', 16, 1),
+('#PROC17-KBM-20250619', 20, '2025-06-19', 17, 2),
+('#PROC18-PCH-20250619', 20, '2025-06-19', 18, 3),
+('#PROC19-AMZ-20250619', 20, '2025-06-19', 19, 4),
+('#PROC20-NWG-20250619', 20, '2025-06-19', 20, 5),
+('#PROC21-TBY-20250619', 20, '2025-06-19', 21, 1),
+('#PROC22-KBM-20250619', 20, '2025-06-19', 22, 2),
+('#PROC23-PCH-20250619', 20, '2025-06-19', 23, 3),
+('#PROC24-AMZ-20250619', 20, '2025-06-19', 24, 4),
+('#PROC25-NWG-20250619', 20, '2025-06-19', 25, 5);

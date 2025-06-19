@@ -14,7 +14,8 @@ public record CartaoPagamentoResponseDTO(
         String cpf,
         LocalDate validade,
         Integer cvc,
-        TipoCartao tipo
+        TipoCartao tipo,
+        Boolean pago
 ) {
     public static CartaoPagamentoResponseDTO valueOf(CartaoPagamento cartao) {
         return new CartaoPagamentoResponseDTO(
@@ -25,7 +26,8 @@ public record CartaoPagamentoResponseDTO(
                 cartao.getCpf(),
                 cartao.getValidade(),
                 cartao.getCvc(),
-                cartao.getTipo()
+                cartao.getTipo(),
+                cartao.getPago()
         );
     }
 }

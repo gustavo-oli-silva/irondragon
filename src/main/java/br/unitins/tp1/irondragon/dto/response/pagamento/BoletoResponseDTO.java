@@ -9,7 +9,8 @@ public record BoletoResponseDTO(
         Double valor,
         String tipoPagamento,
         String codigoBarras,
-        LocalDate dataValidade
+        LocalDate dataValidade,
+        Boolean pago
 ) {
     public static BoletoResponseDTO valueOf(Boleto boleto) {
         return new BoletoResponseDTO(
@@ -17,7 +18,8 @@ public record BoletoResponseDTO(
                 boleto.getValor(),
                 "Boleto",
                 boleto.getCodigoBarras(),
-                boleto.getDataValidade()
+                boleto.getDataValidade(),
+                boleto.getPago()
         );
     }
 }

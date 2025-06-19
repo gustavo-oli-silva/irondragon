@@ -35,7 +35,7 @@ public class PagamentoResource {
     public Response boletoPayment(@PathParam("boleto") Long boleto, @PathParam("pedido") Long pedido) {
         String username = jwt.getClaim("preferred_username");
 
-        LOGGER.info("Pagamento com o cartão " + boleto + "foi realizado para o pedido " + pedido);
+        LOGGER.info("Pagamento com o boleto " + boleto + "foi realizado para o pedido " + pedido);
 
         pagamentoService.payment(pedido, boleto, username, "boleto");
 
@@ -48,7 +48,7 @@ public class PagamentoResource {
     public Response pixPayment(@PathParam("pix") Long pix, @PathParam("pedido") Long pedido) {
         String username = jwt.getClaim("preferred_username");
 
-        LOGGER.info("Pagamento com o cartão " + pix + "foi realizado para o pedido " + pedido);
+        LOGGER.info("Pagamento com o pix " + pix + "foi realizado para o pedido " + pedido);
 
         pagamentoService.payment(pedido, pix, username, "pix");
 

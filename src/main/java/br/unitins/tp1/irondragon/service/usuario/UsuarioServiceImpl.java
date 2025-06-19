@@ -57,9 +57,24 @@ public class UsuarioServiceImpl implements UsuarioService {
         return usuarioRepository.findAll().list();
     }
 
+    private void existingUser(String email, String cpf){
+        Usuario usuario = usuarioRepository.findByEmail(email);
+        if (usuario != null) {
+            throw new ValidationException("email", "Email já existente ou inválido!");
+        }
+
+        usuario = usuarioRepository.findByCpf(cpf);
+        if (usuario != null) {
+            throw new ValidationException("cpf", "CPF já existente ou inválido!");
+        }
+
+      
+    }
+
     @Transactional
     @Override
     public Usuario create(UsuarioRequestDTO dto) {
+        existingUser(dto.email(), dto.cpf());
         Usuario usuario = new Usuario();
         usuario.setNome(dto.nome());
         usuario.setUsername(dto.email());

@@ -10,7 +10,8 @@ public record PixResponseDTO(
         String tipoPagamento,
         String chave,
         String destinatario,
-        LocalDateTime dataValidade
+        LocalDateTime dataValidade,
+        Boolean pago
 ) {
     public static PixResponseDTO valueOf(Pix pix) {
 
@@ -20,7 +21,8 @@ public record PixResponseDTO(
                 "Pix",
                 pix.getChave(),
                 pix.getDestinatario(),
-                pix.getDataValidade()
+                pix.getDataValidade(),
+                pix.getPago()
         );
     }
 }

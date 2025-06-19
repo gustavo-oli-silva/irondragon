@@ -18,7 +18,7 @@ public class EnderecoEntrega extends DefaultEntity {
     private String cep;
     private String bairro;
     private String complemento;
-    private Integer numero;
+    private String numero;
 
     @ManyToOne
     @JoinColumn(name = "id_cidade")

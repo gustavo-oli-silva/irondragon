@@ -22,7 +22,7 @@ public class Processador extends DefaultEntity {
     private Boolean desbloqueado;
     private Double preco;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_processador")
     private List<ImagemProcessador> imagens;
 

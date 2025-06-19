@@ -13,8 +13,8 @@ public record EnderecoRequestDTO(
         @NotBlank(message = "bairro deve ser informado!")
         String bairro,
         String complemento,
-        @NotNull(message = "Número deve ser informado")
-        Integer numero,
+        @NotBlank(message = "Número deve ser informado")
+        String numero,
         @NotNull(message = "idCidade deve ser informado!")
         Long idCidade
 ) {

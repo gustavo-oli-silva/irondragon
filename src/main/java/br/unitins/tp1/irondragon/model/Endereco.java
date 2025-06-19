@@ -23,7 +23,7 @@ public class Endereco extends DefaultEntity {
     private String complemento;
 
     @Column(nullable = false)
-    private Integer numero;
+    private String numero;
 
     @ManyToOne
     @JoinColumn(name = "id_cidade")

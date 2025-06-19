@@ -9,7 +9,6 @@ import jakarta.validation.constraints.NotNull;
 public record UsuarioUpdateBasicoDTO(
       @NotBlank(message = "O nome  deve ser informado")
         String nome,
-        @NotNull(message = "dataNascimento deve ser informada!")
         LocalDate dataNascimento,
         TelefoneRequestDTO telefone
 ) {
