@@ -21,7 +21,7 @@ public class KeycloakAdminServiceImpl implements KeycloakAdminService {
     private static final String REALM = "quarkus";
     private static final String CLIENT_ID = "backend-service";
     private static final String CLIENT_SECRET = "secret";
-    private static final String ADMIN_USERNAME = "admin";
+    private static final String ADMIN_USERNAME = "admin@admin.com";
     private static final String ADMIN_PASSWORD = "admin";
 
     private final HttpClient httpClient = HttpClient.newHttpClient();
@@ -40,6 +40,8 @@ public class KeycloakAdminServiceImpl implements KeycloakAdminService {
                 .POST(HttpRequest.BodyPublishers.ofString(form))
                 .build();
 
+        
+
         return sendRequest(request, 200, "access_token");
     }
 
@@ -47,6 +49,7 @@ public class KeycloakAdminServiceImpl implements KeycloakAdminService {
     public void createKeycloakUser(KeycloakUserRequestDTO dto) {
         String url = BASE_URL + "/admin/realms/" + REALM + "/users";
         String accessToken = getAdminAccessToken();
+        System.out.println("Access Token: " + accessToken);
 
         try {
             String jsonBody = mapper.writeValueAsString(dto);
