@@ -15,6 +15,7 @@ public record ProcessadorResponseDTO(
         Integer nucleos,
         Boolean desbloqueado,
         Double preco,
+        Integer quantidade,
         Optional<PlacaIntegradaResponseDTO> placaIntegrada,
         MemoriaCacheResponseDTO memoriaCache,
         FrequenciaResponseDTO frequencia,
@@ -32,6 +33,7 @@ public record ProcessadorResponseDTO(
                     processador.getNucleos(),
                     processador.getDesbloqueado(),
                     processador.getPreco(),
+                    processador.getQuantidade(), 
                     Optional.ofNullable(processador.getPlacaIntegrada())
                             .map(PlacaIntegradaResponseDTO::valueOf),
                     MemoriaCacheResponseDTO.valueOf(processador.getMemoriaCache()),

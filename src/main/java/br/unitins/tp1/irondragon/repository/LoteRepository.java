@@ -40,7 +40,7 @@ public class LoteRepository implements PanacheRepository<Lote> {
         return find("SELECT l FROM Lote l WHERE l.processador.id = ?1", id)
                 .stream()
                 .map(Lote::getEstoque).reduce(Integer::sum)
-                .get();
+                .orElse(0);
     }
     
 
